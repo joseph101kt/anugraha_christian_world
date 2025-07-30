@@ -1,28 +1,82 @@
 @import "tailwindcss";
-
 @import "daisyui";
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:400');
 
+/* 🌐 Global Design Tokens */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* 🎨 Color Palette */
+  --color-text: rgb(5, 3, 21);
+  --color-background: rgb(251, 251, 254);
+  --color-primary: rgb(232, 254, 69);
+  --color-secondary: rgb(222, 220, 220);
+  --color-accent: rgb(226, 100, 222);
+
+  /* 📏 Perfect Fourth Type Scale */
+  --font-size--1: 0.75rem;    /* 12px - small text */
+  --font-size-0: 1rem;        /* 16px - base text */
+  --font-size-1: 1.333rem;    /* 21.28px - h5 */
+  --font-size-2: 1.777rem;    /* 28.48px - h4 */
+  --font-size-3: 2.369rem;    /* 37.92px - h3 */
+  --font-size-4: 3.158rem;    /* 50.56px - h2 */
+  --font-size-5: 4.210rem;    /* 67.36px - h1 */
+
+  /* ✍️ Fonts */
+  --font-body: 'Roboto', sans-serif;
+  --font-heading: 'Playfair Display', serif;
+  --font-mono: 'Geist Mono', monospace;
+
+  /* Layout & Type Settings */
+  --max-width: 72ch;
+  --line-height-base: 1.6;
+  --line-height-heading: 1.2;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* 🌓 Dark mode override */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --color-background: rgb(5, 3, 21);
+    --color-text: rgb(251, 251, 254);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* 🌐 Base styles */
+html {
+  font-size: 100%; /* 1rem = 16px */
 }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-0);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  line-height: var(--line-height-base);
+  margin: 0;
+  padding: 0;
+}
+
+/* 🧱 Typography scale for headings */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: var(--line-height-heading);
+  margin: 0 0 0.5em;
+}
+
+h1 { font-size: var(--font-size-5); }
+h2 { font-size: var(--font-size-4); }
+h3 { font-size: var(--font-size-3); }
+h4 { font-size: var(--font-size-2); }
+h5 { font-size: var(--font-size-1); }
+
+small {
+  font-size: var(--font-size--1);
+}
+
+/* 🎯 Utility Classes */
+.text-primary   { color: var(--color-primary); }
+.text-secondary { color: var(--color-secondary); }
+.text-accent    { color: var(--color-accent); }
+
+.bg-primary     { background-color: var(--color-primary); }
+.bg-secondary   { background-color: var(--color-secondary); }
+.bg-accent      { background-color: var(--color-accent); }

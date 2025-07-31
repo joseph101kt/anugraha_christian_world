@@ -5,11 +5,12 @@ import React from "react";
 
 const Navbar: React.FC = () => {
   return (
-    <div className="navbar bg-base-100 shadow-sm px-4">
-      {/* 🍔 Mobile Dropdown (Left) */}
+    <div className="sticky top-0 navbar glass-fade z-50  shadow-sm px-4">
       <div className="navbar-start">
+
+        {/* hamburger menu */}
         <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden" role="button">
+          <label tabIndex={0} className="btn btn-ghost md:hidden lg:hidden" role="button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -59,34 +60,36 @@ const Navbar: React.FC = () => {
         </Link>
       </div>
 
-      {/* 🖥️ Desktop Menu */}
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link href="/">Item 1</Link>
-          </li>
-          <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2 bg-base-100 rounded-box">
-                <li>
-                  <Link href="/">Submenu 1</Link>
-                </li>
-                <li>
-                  <Link href="/">Submenu 2</Link>
-                </li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <Link href="/">Item 3</Link>
-          </li>
-        </ul>
-      </div>
 
-      {/* 🎯 Action Button */}
+
+      
       <div className="navbar-end">
-        <Link href="/contact" className="btn btn-primary">
+        {/* 🖥️ Desktop Menu */}
+        <div className="hidden md:flex lg:flex">
+            <ul className="menu menu-horizontal px-1">
+            <li>
+                <Link href="/">Item 1</Link>
+            </li>
+            <li>
+                <details>
+                <summary>Parent</summary>
+                <ul className="p-2 bg-base-100 rounded-box">
+                    <li>
+                    <Link href="/">Submenu 1</Link>
+                    </li>
+                    <li>
+                    <Link href="/">Submenu 2</Link>
+                    </li>
+                </ul>
+                </details>
+            </li>
+            <li>
+                <Link href="/">Item 3</Link>
+            </li>
+            </ul>
+        </div>
+        {/* 🎯 Action Button */}
+        <Link href="/contact" className="btn btn-primary rounded-lg text-black font-black">
           Contact
         </Link>
       </div>

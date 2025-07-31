@@ -82,3 +82,13 @@ small {
 .bg-primary     { background-color: var(--color-primary); }
 .bg-secondary   { background-color: var(--color-secondary); }
 .bg-accent      { background-color: var(--color-accent); }
+
+
+.glass-fade {
+  @apply backdrop-blur-lg bg-white/10 border border-white/20;
+
+  /* Fade out from top to bottom */
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  mask-mode: match-source;
+}

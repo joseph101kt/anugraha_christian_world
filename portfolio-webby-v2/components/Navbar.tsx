@@ -89,7 +89,7 @@ const Navbar: React.FC = () => {
             </ul>
         </div>
         {/* 🎯 Action Button */}
-        <Link href="/contact" className="btn btn-primary rounded-lg text-black font-black">
+        <Link href="/contact" className="btn btn-accent rounded-lg text-black font-bold">
           Contact
         </Link>
       </div>

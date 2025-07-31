@@ -85,7 +85,7 @@ small {
 
 
 .glass-fade {
-  @apply backdrop-blur-lg bg-white/10 border border-white/20;
+  @apply backdrop-blur-xl bg-white/10 border border-white/20;
 
   /* Fade out from top to bottom */
   mask-image: linear-gradient(to bottom, black 70%, transparent 100%);

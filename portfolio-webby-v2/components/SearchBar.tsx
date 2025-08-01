@@ -26,7 +26,7 @@ export default function SearchBar() {
       <input
         type="text"
         placeholder="Search products..."
-        className="input input-bordered"
+        className="input input-bordered bg-base-100 text-base-content border-secondary focus:outline-none focus:border-accent"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

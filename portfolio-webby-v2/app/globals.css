@@ -34,16 +34,19 @@
 }
 
 /* 🌓 Dark mode override */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: rgb(5, 3, 21);
-    --color-text: rgb(251, 251, 254);
-  }
+.dark-theme {
+  /* 🎨 Color Palette (Dark) */
+  --color-background: rgb(5, 3, 21);
+  --color-text: rgb(251, 251, 254);
+  --color-primary: rgb(180, 200, 40); /* A darker shade of your primary */
+  --color-secondary: rgb(60, 60, 60); /* A dark gray */
+  --color-accent: rgb(180, 80, 178); /* A darker shade of your accent */
 }
 
 /* 🌐 Base styles */
 html {
   font-size: 100%; /* 1rem = 16px */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {

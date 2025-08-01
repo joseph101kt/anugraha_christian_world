@@ -1,8 +1,9 @@
-import fs from 'fs/promises'; // Use fs/promises for async operations
+// src/app/products/page.tsx
+import fs from 'fs/promises';
 import path from 'path';
-import ProductListClient from './ProductListClient'; // Import the client component
+import ProductListClient from './ProductListClient';
 
-// Define the shape of your product data (must match JSON structure)
+
 interface Product {
   id: string;
   name: string;
@@ -11,8 +12,14 @@ interface Product {
   image_url: string;
 }
 
-// This is a Server Component. Data fetching happens directly here.
-export default async function ProductsPage() {
+// Define the props for the Server Component, which will receive searchParams
+interface ProductsPageProps {
+  searchParams: {
+    query?: string;
+  };
+}
+
+export default async function ProductsPage({ searchParams }: ProductsPageProps) {
   const filePath = path.join(process.cwd(), 'data', 'products.json');
   let products: Product[] = [];
 
@@ -21,11 +28,13 @@ export default async function ProductsPage() {
     products = JSON.parse(jsonData);
   } catch (error) {
     console.error('Error reading products.json:', error);
-    // Handle error, e.g., show a message to the user or return empty array
   }
 
+  // Extract the query from searchParams
+  const searchTerm = searchParams.query || '';
+
   return (
-    // Pass the fetched products to the client component
-    <ProductListClient products={products} />
+    // Pass the fetched products AND the searchTerm to the client component
+    <ProductListClient products={products} searchTerm={searchTerm} />
   );
 }

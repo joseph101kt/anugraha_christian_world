@@ -1,7 +1,9 @@
+// src/app/products/ProductListClient.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import ProductCard from './ProductCard';
+import SearchBar from "@/components/SearchBar";
 
 interface Product {
   id: string;
@@ -13,39 +15,47 @@ interface Product {
 
 interface ProductListClientProps {
   products: Product[];
+  searchTerm: string; // The search term is now a prop
 }
 
-export default function ProductListClient({ products }: ProductListClientProps) {
-  // State for the visible product list
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
-  
-  // State for the tags selected inside the filter panel, now used for live filtering
+export default function ProductListClient({ products, searchTerm }: ProductListClientProps) {
+  // State for the tags selected inside the filter panel
   const [activeTags, setActiveTags] = useState<string[]>([]);
-  
   // State to control the visibility of the filter panel
   const [showFilterPanel, setShowFilterPanel] = useState<boolean>(false);
 
-  const allTags = Array.from(new Set(products.flatMap(product => product.tags)));
+  // Memoize the list of all available tags to prevent re-calculation on every render
+  const allTags = useMemo(() => Array.from(new Set(products.flatMap(product => product.tags))), [products]);
 
-  // This useEffect hook runs whenever the activeTags state changes.
-  // This is where the "live" filtering logic is now handled.
-  useEffect(() => {
-    if (activeTags.length === 0) {
-      setFilteredProducts(products); // If no tags are active, show all products
-    } else {
-      const newFiltered = products.filter(product => 
+  // Combined filtering logic using useMemo for performance
+  const filteredProducts = useMemo(() => {
+    let result = products;
+
+    // Prioritize search filtering if a search term exists
+    if (searchTerm) {
+      const lowercasedSearchTerm = searchTerm.toLowerCase();
+      result = result.filter(product =>
+        product.name.toLowerCase().includes(lowercasedSearchTerm) ||
+        product.tags.some(tag => tag.toLowerCase().includes(lowercasedSearchTerm)) ||
+        product.description.toLowerCase().includes(lowercasedSearchTerm)
+      );
+    } 
+    
+    // If no search term, apply tag filtering
+    else if (activeTags.length > 0) {
+      result = result.filter(product => 
         activeTags.some(tag => product.tags.includes(tag))
       );
-      setFilteredProducts(newFiltered); // Show products that match ANY of the active tags
     }
-  }, [activeTags, products]);
+    
+    return result;
+  }, [searchTerm, activeTags, products]);
 
   const handleOpenFilters = () => {
     setShowFilterPanel(true);
   };
 
   const handleTagClickInPanel = (tag: string) => {
-    // Toggle the tag in the activeTags array for live filtering and highlighting
     setActiveTags(prevTags => 
       prevTags.includes(tag)
         ? prevTags.filter(t => t !== tag) // If tag is active, remove it
@@ -59,67 +69,41 @@ export default function ProductListClient({ products }: ProductListClientProps) 
 
   const handleApplyFilters = () => {
     // Since filtering is live, this button's only job is to hide the panel.
-    setShowFilterPanel(false);  
+    setShowFilterPanel(false);  
   };
 
   const handleEnquireClick = (productName: string) => {
-    alert(`Enquiring about: ${productName}. You would typically open a contact form or navigate to a contact page here.`);
+    alert(`Enquiring about: ${productName}.`);
   };
 
   return (
-    <div className="product-list-container">
-      <h1 style={{ textAlign: 'center', marginBottom: '40px', fontSize: '2.5em', color: '#333' }}>Our Products</h1>
-
-      {/* Button to open the filter panel, aligned left */}
-      <div style={{ textAlign: 'left', marginBottom: '15px' }}>
+    <div className="container mx-auto p-4 md:p-8">
+      <h1 className="text-3xl md:text-4xl text-center font-bold text-gray-800 mb-8">Our Products</h1>
+      <div className="flex justify-between items-center mb-6">
+        {/* Search Bar (Right) */}
+        <div className="w-full max-w-sm">
+          <SearchBar />
+        </div>
+        
+        {/* Filter Button (Left) */}
         <button
           onClick={handleOpenFilters}
-          style={{
-            padding: '10px 20px',
-            backgroundColor: '#28a745',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '5px',
-            fontSize: '1em',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            transition: 'background-color 0.3s ease',
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#218838')}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#28a745')}
+          className="btn btn-success"
         >
           {activeTags.length > 0 ? `Filters (${activeTags.length})` : 'Filter'}
         </button>
+        
+
       </div>
-
-      {/* The inline, conditionally rendered filter panel */}
+      {/* The filter panel with DaisyUI classes */}
       {showFilterPanel && (
-        <div style={{ 
-          marginBottom: '30px', 
-          padding: '20px', 
-          border: '1px solid #ddd', 
-          borderRadius: '8px', 
-          backgroundColor: '#f9f9f9',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-        }}>
-          <h3 style={{ marginTop: '0', marginBottom: '15px', color: '#555' }}>
-            Choose Filters
-          </h3>
-
-          {/* All Products and Tag buttons */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+        <div className="bg-base-200 p-6 rounded-box shadow-xl mb-8">
+          <h3 className="text-xl font-semibold text-gray-700 mb-4">Choose Filters</h3>
+          <div className="flex flex-wrap gap-2">
             <button
               onClick={handleAllProductsClickInPanel}
-              style={{
-                padding: '10px 15px',
-                border: `1px solid ${activeTags.length === 0 ? '#0070f3' : '#ccc'}`,
-                borderRadius: '5px',
-                cursor: 'pointer',
-                backgroundColor: activeTags.length === 0 ? '#e0f2ff' : '#fff',
-                color: activeTags.length === 0 ? '#0070f3' : '#333',
-                fontWeight: activeTags.length === 0 ? 'bold' : 'normal',
-                transition: 'all 0.2s ease-in-out',
-              }}
+              className={`btn ${activeTags.length === 0 ? 'btn-primary' : 'btn-ghost'}`}
+              disabled={!!searchTerm}
             >
               All Products
             </button>
@@ -127,66 +111,35 @@ export default function ProductListClient({ products }: ProductListClientProps) 
               <button
                 key={tag}
                 onClick={() => handleTagClickInPanel(tag)}
-                style={{
-                  padding: '10px 15px',
-                  border: `1px solid ${activeTags.includes(tag) ? '#0070f3' : '#ccc'}`,
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                  backgroundColor: activeTags.includes(tag) ? '#e0f2ff' : '#fff',
-                  color: activeTags.includes(tag) ? '#0070f3' : '#333',
-                  fontWeight: activeTags.includes(tag) ? 'bold' : 'normal',
-                  transition: 'all 0.2s ease-in-out',
-                }}
+                className={`btn ${activeTags.includes(tag) ? 'btn-primary' : 'btn-ghost'}`}
+                disabled={!!searchTerm}
               >
                 {tag.charAt(0).toUpperCase() + tag.slice(1).replace(/-/g, ' ')}
               </button>
             ))}
           </div>
-
-          {/* Apply and Cancel buttons */}
-          <div style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
-            <button
-              onClick={handleApplyFilters}
-              style={{
-                backgroundColor: '#0070f3',
-                color: '#fff',
-                padding: '10px 20px',
-                border: 'none',
-                borderRadius: '5px',
-                fontWeight: 'bold',
-                cursor: 'pointer',
-                transition: 'background-color 0.3s ease',
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#005bb5')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0070f3')}
-            >
+          <div className="mt-6 flex justify-end gap-2">
+            <button onClick={handleApplyFilters} className="btn btn-primary">
               Apply Filters
             </button>
-            <button
-              onClick={() => setShowFilterPanel(false)}
-              style={{
-                backgroundColor: '#f0f0f0',
-                color: '#333',
-                padding: '10px 20px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-                fontWeight: 'bold',
-                cursor: 'pointer',
-                transition: 'background-color 0.3s ease',
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#e0e0e0')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#f0f0f0')}
-            >
+            <button onClick={() => setShowFilterPanel(false)} className="btn btn-ghost">
               Cancel
             </button>
           </div>
         </div>
       )}
 
+
+
       {/* Product Grid */}
-      <div className="product-grid">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredProducts.length === 0 ? (
-          <p style={{ gridColumn: '1 / -1', textAlign: 'center', fontSize: '1.2em', color: '#666' }}>No products found for the selected filter.</p>
+          <p className="col-span-full text-center text-lg text-gray-500">
+            {searchTerm 
+              ? `No products found matching your search: "${searchTerm}".`
+              : `No products found for the selected filters.`
+            }
+          </p>
         ) : (
           filteredProducts.map((product) => (
             <ProductCard
@@ -197,28 +150,6 @@ export default function ProductListClient({ products }: ProductListClientProps) 
           ))
         )}
       </div>
-      
-      {/* Add styled-jsx for mobile responsiveness */}
-      <style jsx>{`
-        .product-list-container {
-          padding: 20px;
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        .product-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-          gap: 30px;
-        }
-
-        @media (max-width: 768px) {
-          .product-grid {
-            grid-template-columns: 1fr; /* Stack cards on mobile */
-            gap: 20px;
-          }
-        }
-      `}</style>
     </div>
   );
 }

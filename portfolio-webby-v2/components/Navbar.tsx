@@ -3,6 +3,9 @@
 import Link from "next/link";
 import React from "react";
 
+import SearchBar from "@/components/SearchBar";
+
+
 const Navbar: React.FC = () => {
   return (
     <div className="sticky top-0 navbar z-50 px-4 ">
@@ -62,6 +65,11 @@ const Navbar: React.FC = () => {
       </div>
       
       <div className="navbar-end z-50">
+        
+        <div className="w-full max-w-sm mx-10">
+          <SearchBar />
+        </div>
+
         {/* 🖥️ Desktop Menu */}
         <div className="hidden md:flex lg:flex">
             <ul className="menu menu-horizontal px-1">

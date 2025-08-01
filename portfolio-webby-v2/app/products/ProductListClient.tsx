@@ -52,7 +52,7 @@ export default function ProductListClient({ products, searchTerm }: ProductListC
   }, [searchTerm, activeTags, products]);
 
   const handleOpenFilters = () => {
-    setShowFilterPanel(true);
+    setShowFilterPanel(prev => !prev);
   };
 
   const handleTagClickInPanel = (tag: string) => {
@@ -88,7 +88,7 @@ export default function ProductListClient({ products, searchTerm }: ProductListC
         {/* Filter Button (Left) */}
         <button
           onClick={handleOpenFilters}
-          className="btn btn-success"
+          className="btn btn-accent rounded-full"
         >
           {activeTags.length > 0 ? `Filters (${activeTags.length})` : 'Filter'}
         </button>
@@ -97,8 +97,8 @@ export default function ProductListClient({ products, searchTerm }: ProductListC
       </div>
       {/* The filter panel with DaisyUI classes */}
       {showFilterPanel && (
-        <div className="bg-base-200 p-6 rounded-box shadow-xl mb-8">
-          <h3 className="text-xl font-semibold text-gray-700 mb-4">Choose Filters</h3>
+        <div className="bg-accent p-6 rounded-box shadow-xl mb-8">
+          <h3 className="text-xl font-semibold  mb-4">Choose Filters</h3>
           <div className="flex flex-wrap gap-2">
             <button
               onClick={handleAllProductsClickInPanel}
@@ -134,7 +134,7 @@ export default function ProductListClient({ products, searchTerm }: ProductListC
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredProducts.length === 0 ? (
-          <p className="col-span-full text-center text-lg text-gray-500">
+          <p className="col-span-full text-center text-lg">
             {searchTerm 
               ? `No products found matching your search: "${searchTerm}".`
               : `No products found for the selected filters.`

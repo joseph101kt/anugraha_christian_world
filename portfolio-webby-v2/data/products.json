@@ -3,49 +3,95 @@
     "id": "eco-mug-001",
     "name": "Eco-Friendly Bamboo Mug",
     "description": "A stylish and sustainable mug made from natural bamboo fibers, perfect for your daily coffee or tea. Dishwasher safe and biodegradable.",
-    "tags": ["eco-friendly", "home-goods", "kitchenware", "sustainable"],
+    "tags": [
+      "eco-friendly",
+      "home-goods",
+      "kitchenware",
+      "sustainable"
+    ],
     "image_url": "https://picsum.photos/id/237/400/300"
   },
   {
     "id": "hand-knit-scarf-002",
     "name": "Artisan Hand-Knit Wool Scarf",
     "description": "Luxuriously soft scarf, meticulously hand-knitted from 100% merino wool. Keeps you warm and stylish during colder months.",
-    "tags": ["apparel", "handmade", "winter", "fashion"],
+    "tags": [
+      "apparel",
+      "handmade",
+      "winter",
+      "fashion"
+    ],
     "image_url": "https://picsum.photos/id/1025/400/300"
   },
   {
     "id": "organic-soap-bar-003",
     "name": "Lavender Bliss Organic Soap Bar",
     "description": "Indulge in the calming scent of lavender with this handcrafted soap bar, made from organic, nourishing ingredients. Gentle on all skin types.",
-    "tags": ["beauty", "organic", "skincare", "handmade", "lavender"],
+    "tags": [
+      "beauty",
+      "organic",
+      "skincare",
+      "handmade",
+      "lavender"
+    ],
     "image_url": "https://picsum.photos/id/250/400/300"
   },
   {
     "id": "smart-led-strip-004",
     "name": "Smart RGB LED Strip Lights",
     "description": "Transform your space with vibrant, customizable lighting. Control via app or voice assistant, perfect for ambient or accent lighting.",
-    "tags": ["electronics", "smart-home", "lighting", "gadget"],
+    "tags": [
+      "electronics",
+      "smart-home",
+      "lighting",
+      "gadget"
+    ],
     "image_url": "https://picsum.photos/id/257/400/300"
   },
   {
     "id": "gourmet-coffee-beans-005",
     "name": "Ethiopian Yirgacheffe Coffee Beans",
     "description": "Premium single-origin coffee beans, boasting a delightful citrusy aroma and floral notes. Freshly roasted for optimal flavor and freshness.",
-    "tags": ["food", "beverages", "coffee", "gourmet"],
+    "tags": [
+      "food",
+      "beverages",
+      "coffee",
+      "gourmet"
+    ],
     "image_url": "https://picsum.photos/id/1084/400/300"
   },
   {
     "id": "yoga-mat-006",
     "name": "Eco-Grip Yoga Mat",
     "description": "High-performance yoga mat offering superior grip and cushioning. Made from sustainable, non-toxic materials for your mindful practice.",
-    "tags": ["fitness", "eco-friendly", "wellness", "sports"],
+    "tags": [
+      "fitness",
+      "eco-friendly",
+      "wellness",
+      "sports"
+    ],
     "image_url": "https://picsum.photos/id/1060/400/300"
   },
   {
     "id": "ceramic-planter-007",
     "name": "Minimalist Ceramic Planter",
     "description": "Elegantly designed ceramic planter, perfect for bringing a touch of greenery indoors. Features a drainage hole and saucer.",
-    "tags": ["home-decor", "gardening", "minimalist", "ceramic"],
+    "tags": [
+      "home-decor",
+      "gardening",
+      "minimalist",
+      "ceramic"
+    ],
     "image_url": "https://picsum.photos/id/196/400/300"
+  },
+  {
+    "id": "1754027236432",
+    "name": "Seo pyramid",
+    "description": "dsaf",
+    "tags": [
+      "seo",
+      "pyramid"
+    ],
+    "image_url": "/products/1754027236429-seo-pyramid-and-all-seo-components-1200x675.png.webp"
   }
 ]

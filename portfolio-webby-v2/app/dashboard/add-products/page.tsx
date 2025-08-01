@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 // Replace 'your-secure-password' with a strong, secret password
-const ADMIN_PASSWORD = 'your-secure-password';
+const ADMIN_PASSWORD = 'password';//Change the password in app/api/route.tsx
 
 export default function AddProductPage() {
   const [password, setPassword] = useState('');

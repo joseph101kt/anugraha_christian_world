@@ -85,10 +85,15 @@ small {
 
 
 .glass-fade {
-  @apply backdrop-blur-md bg-white/10 border border-white/20;
+  @apply backdrop-blur-xl bg-white/10 ;
 
-  /* Fade out from top to bottom */
-  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  /* Smooth fade from top (solid) to bottom (transparent) */
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0) 100%);
   mask-mode: match-source;
+
+  /* Optional for better performance */
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
+

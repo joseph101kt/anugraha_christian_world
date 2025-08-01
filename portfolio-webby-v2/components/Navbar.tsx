@@ -5,8 +5,9 @@ import React from "react";
 
 const Navbar: React.FC = () => {
   return (
-    <div className="sticky top-0 navbar glass-fade z-50  shadow-sm px-4">
-      <div className="navbar-start">
+    <div className="sticky top-0 navbar z-50 px-4 ">
+      <div className="absolute inset-0 glass-fade z-40 pointer-events-none"></div>
+      <div className="navbar-start z-50">
 
         {/* hamburger menu */}
         <div className="dropdown">
@@ -59,11 +60,8 @@ const Navbar: React.FC = () => {
           MySite
         </Link>
       </div>
-
-
-
       
-      <div className="navbar-end">
+      <div className="navbar-end z-50">
         {/* 🖥️ Desktop Menu */}
         <div className="hidden md:flex lg:flex">
             <ul className="menu menu-horizontal px-1">

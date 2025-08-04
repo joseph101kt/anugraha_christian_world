@@ -6,7 +6,7 @@
     "query": "asd",
     "timestamp": "2025-08-02T13:31:14.682Z",
     "source_url": "http://localhost:3000/products?query=h",
-    "status": "Closed"
+    "status": "New"
   },
   {
     "id": "00294d54-5131-4e59-a858-4c904a4f415d",
@@ -45,12 +45,12 @@
     "status": "New"
   },
   {
-    "id": "f99554bf-b1f8-43ee-b4fc-3bd9975e46d1",
-    "name": "jack",
+    "id": "f22b4d45-7aef-44be-931d-f130d9b42341",
+    "name": "josep",
     "phone": "adf",
-    "query": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
-    "timestamp": "2025-08-03T18:11:50.045Z",
-    "source_url": "http://localhost:3000/dashboard",
+    "query": "aaaaaaaaaaaaaaaaaaaaaaaaaammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+    "timestamp": "2025-08-04T10:43:35.661Z",
+    "source_url": "http://localhost:3000/contact",
     "status": "New"
   }
 ]

@@ -24,18 +24,6 @@
     "image_url": "https://picsum.photos/id/257/400/300"
   },
   {
-    "id": "gourmet-coffee-beans-005",
-    "name": "Ethiopian Yirgacheffe Coffee Beans",
-    "description": "Premium single-origin coffee beans, boasting a delightful citrusy aroma and floral notes. Freshly roasted for optimal flavor and freshness.",
-    "tags": [
-      "food",
-      "beverages",
-      "coffee",
-      "gourmet"
-    ],
-    "image_url": "https://picsum.photos/id/1084/400/300"
-  },
-  {
     "id": "yoga-mat-006",
     "name": "Eco-Grip Yoga Mat",
     "description": "High-performance yoga mat offering superior grip and cushioning. Made from sustainable, non-toxic materials for your mindful practice.",

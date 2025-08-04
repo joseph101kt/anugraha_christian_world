@@ -1,47 +1,93 @@
+import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
 interface Product {
-  id: string;
-  name: string;
-  description: string;
-  tags: string[];
-  image_url: string;
+    id: string;
+    name: string;
+    description: string;
+    image_url: string;
+    tags: string[];
 }
 
-const ADMIN_PASSWORD = 'password';  //change the password in app/api/products/id/route.ts, app/api/products/route.ts, app/dashboard/page.tsx
+const ADMIN_PASSWORD = 'password';  //consider using process.env.ADMIN_PASSWORD for production
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
+/**
+ * Handles GET requests to retrieve a single product and its related products.
+ * The product ID is passed as a URL parameter.
+ * @param request - The incoming NextRequest.
+ * @param {params} - An object containing the productId from the URL.
+ */
+export async function GET(
+    request: Request,
+    { params }: { params: { id: string } }
 ) {
-  const password = req.nextUrl.searchParams.get('password');
+    const { id } = params;
 
-  if (password !== ADMIN_PASSWORD) {
-    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-  }
+    try {
+        const filePath = path.join(process.cwd(), 'data', 'products.json');
+        const jsonData = await fs.readFile(filePath, 'utf8');
+        const products: Product[] = JSON.parse(jsonData);
 
-  const { id } = params;
-  const filePath = path.join(process.cwd(), 'data', 'products.json');
+        // Find the main product
+        const mainProduct = products.find(p => p.id === id);
 
-  try {
-    const jsonData = await fs.readFile(filePath, 'utf8');
-    const products: Product[] = JSON.parse(jsonData);
+        if (!mainProduct) {
+            return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+        }
 
-    const productIndex = products.findIndex((p: Product) => p.id === id);
+        // Find suggested products with a similar tag, excluding the main product
+        const suggestedProducts = products
+            .filter(p => p.id !== mainProduct.id && mainProduct.tags.some(tag => p.tags.includes(tag)))
+            .slice(0, 4); // Limit to a maximum of 4 suggested products
 
-    if (productIndex === -1) {
-      return NextResponse.json({ message: 'Product not found' }, { status: 404 });
+        return NextResponse.json({
+            product: mainProduct,
+            suggested: suggestedProducts,
+        });
+    } catch (error) {
+        console.error('Error fetching product data:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    }
+}
+
+/**
+ * Handles DELETE requests to delete a single product.
+ * Requires a password for authorization.
+ * @param req - The incoming NextRequest.
+ * @param {params} - An object containing the product ID from the URL.
+ */
+export async function DELETE(
+    req: NextRequest,
+    { params }: { params: { id: string } }
+) {
+    const password = req.nextUrl.searchParams.get('password');
+
+    if (password !== ADMIN_PASSWORD) {
+        return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    products.splice(productIndex, 1);
+    const { id } = params;
+    const filePath = path.join(process.cwd(), 'data', 'products.json');
 
-    await fs.writeFile(filePath, JSON.stringify(products, null, 2));
+    try {
+        const jsonData = await fs.readFile(filePath, 'utf8');
+        const products: Product[] = JSON.parse(jsonData);
 
-    return NextResponse.json({ message: 'Product deleted successfully' });
-  } catch (error) {
-    console.error('Error deleting product:', error);
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
-  }
+        const productIndex = products.findIndex((p: Product) => p.id === id);
+
+        if (productIndex === -1) {
+            return NextResponse.json({ message: 'Product not found' }, { status: 404 });
+        }
+
+        products.splice(productIndex, 1);
+
+        await fs.writeFile(filePath, JSON.stringify(products, null, 2));
+
+        return NextResponse.json({ message: 'Product deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+    }
 }

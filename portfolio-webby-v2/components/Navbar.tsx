@@ -81,8 +81,8 @@ const Navbar: React.FC = () => {
           </Link>
         </div>
       </div>
-      <div className="h-18"></div>
-      <div className="absolute inset-0 glass-fade z-40 pointer-events-none"></div>
+      <div className="h-6"></div>
+      <div className="absolute inset-0 glass-fade z-40 "></div>
 
     </div>
   );

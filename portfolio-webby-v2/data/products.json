@@ -48,23 +48,33 @@
     "image_url": "https://picsum.photos/id/196/400/300"
   },
   {
-    "id": "1754027236432",
-    "name": "Seo pyramid",
-    "description": "dsaf",
+    "id": "bcecd106-313c-48da-9c90-60bf9acefb4c",
+    "name": "drawing",
+    "description": "d",
+    "image_url": "/images/2a3fb3e3-80a1-48d0-a5f5-3a3521019239-wire frame.jpg",
     "tags": [
       "seo",
       "pyramid"
-    ],
-    "image_url": "/products/1754027236429-seo-pyramid-and-all-seo-components-1200x675.png.webp"
+    ]
   },
   {
-    "id": "1754235809847",
-    "name": "wireframe",
-    "description": "adsfasdf",
+    "id": "965769a4-4556-414b-a017-bc533fe44630",
+    "name": "drawing",
+    "description": "a",
+    "image_url": "/images/982ff733-db2a-4863-aa66-69f9e8ebc641-wire frame.jpg",
     "tags": [
       "seo",
       "pyramid"
-    ],
-    "image_url": "/products/1754235809843-wire frame.jpg"
+    ]
+  },
+  {
+    "id": "135fcc15-8b93-4747-a611-ff3d3a27b139",
+    "name": "fish",
+    "description": "can roll",
+    "image_url": "/images/22c72f53-85dc-49f1-93e3-d5da20a4afb6-seo-pyramid-and-all-seo-components-1200x675.png.webp",
+    "tags": [
+      "seo",
+      "pyramid"
+    ]
   }
 ]

@@ -1,7 +1,10 @@
+// app/products/[productId]/page.tsx
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { headers } from 'next/headers'; // Import the headers function
+import fs from 'fs/promises';
+import path from 'path';
 
 // Define the interface for a Product
 interface Product {
@@ -19,6 +22,10 @@ interface ProductPageProps {
     };
 }
 
+// A simple in-memory cache for the entire list of products.
+// This variable is outside the component, so it is shared across requests on the server.
+let productsCache: Product[] | null = null;
+
 /**
  * Renders a single product's detail page, including related products.
  * This is a Server Component that fetches data directly.
@@ -27,36 +34,47 @@ interface ProductPageProps {
 export default async function ProductPage({ params }: ProductPageProps) {
     const { productId } = params;
 
-    const fetchProduct = async () => {
-        // --- CORRECTED LOGIC FOR URL (Dynamic and Host-Agnostic) ---
-        // Get the host from the request headers to construct a full URL.
-        const headersList = headers();
-        const host = headersList.get('host');
-        const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
-        const baseUrl = `${protocol}://${host}`;
+    const fetchProductData = async () => {
+        let allProducts: Product[];
 
-        const response = await fetch(`${baseUrl}/api/products/${productId}`);
-        
-        // Throw an error with the status text if the response is not okay
-        if (!response.ok) {
-            throw new Error(`API call failed with status: ${response.statusText}`);
+        // Check if the product list is already in the cache
+        if (productsCache) {
+            console.log('Using cached product list');
+            allProducts = productsCache;
+        } else {
+            console.log('Cache miss: Reading products.json from file system');
+            const filePath = path.join(process.cwd(), 'data', 'products.json');
+            
+            try {
+                const jsonData = await fs.readFile(filePath, 'utf8');
+                allProducts = JSON.parse(jsonData);
+                // Populate the cache with the full list of products
+                productsCache = allProducts;
+            } catch (error) {
+                console.error('Error reading products.json:', error);
+                throw new Error('Failed to read product data.');
+            }
         }
         
-        const data = await response.json();
+        // Find the specific product from the list (either cached or newly loaded)
+        const product = allProducts.find(p => p.id === productId);
 
-        // Check if the product data exists in the response
-        if (!data.product) {
-            throw new Error('Product not found in API response.');
+        if (!product) {
+            throw new Error('Product not found.');
         }
 
-        return data;
+        // Get suggested products (all other products for this example)
+        const suggested = allProducts.filter(p => p.id !== productId);
+        
+        // Return a consistent object structure
+        return { product, suggested };
     };
 
     let data;
     let errorMessage: string;
 
     try {
-        data = await fetchProduct();
+        data = await fetchProductData();
     } catch (err) {
         if (err instanceof Error) {
             errorMessage = err.message;
@@ -92,8 +110,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         <Image
                             src={product.image_url}
                             alt={product.name}
-                            layout="fill"
-                            objectFit="cover"
+                            fill
+                            style={{ objectFit: "cover" }}
                             className="rounded-lg"
                         />
                     </div>
@@ -124,8 +142,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                                             <Image
                                                 src={suggested.image_url}
                                                 alt={suggested.name}
-                                                layout="fill"
-                                                objectFit="cover"
+                                                fill
+                                                style={{ objectFit: "cover" }}
                                             />
                                         </div>
                                         <div className="p-4">

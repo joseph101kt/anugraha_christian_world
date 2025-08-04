@@ -27,7 +27,7 @@ export default function ProductCard({ product, onEnquire }: ProductCardProps) {
     return (
         <Link
             href={`/products/${product.id}`}
-            className='group block rounded-xl overflow-hidden shadow-md flex flex-col 
+            className='group  rounded-xl overflow-hidden shadow-md flex flex-col 
              transition-transform duration-200 ease-in-out hover:shadow-xl hover:-translate-y-2 bg-secondary h-[450px]'
         >
             <div className='relative w-full h-[200px]'>

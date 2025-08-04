@@ -1,111 +1,121 @@
-import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs/promises'; // Using the promises version
+import { NextResponse } from 'next/server';
+import fs from 'fs/promises';
 import path from 'path';
+import { revalidatePath } from 'next/cache';
+import { v4 as uuidv4 } from 'uuid'; // Don't forget to run 'npm install uuid'
 
-// Define the password and file paths
-const ADMIN_PASSWORD = 'password'; //change the password in app/api/products/id/route.ts, app/api/products/route.ts, app/dashboard/page.tsx
-const UPLOAD_DIR = path.join(process.cwd(), 'public', 'products');
-const PRODUCTS_JSON_PATH = path.join(process.cwd(), 'data', 'products.json');
+// Import your custom cache functions
+import { productsCache, invalidateProductsCache } from '@/lib/cache';
 
-// Define a type for the product data to ensure consistency
+// Define the interface for a Product, matching the schema of your JSON file.
+// The `price` field has been removed as it is not present in your data.
 interface Product {
-  id: string;
-  name: string;
-  description: string;
-  tags: string[];
-  image_url: string;
+    id: string;
+    name: string;
+    description: string;
+    image_url: string;
+    tags: string[];
 }
 
-// Custom type guard to check if an error is a Node.js file system error
-function isNodeError(error: unknown): error is NodeJS.ErrnoException {
-  return error instanceof Error && 'code' in error;
+// Ensure you have a secure way to manage this password, e.g., environment variables.
+const ADMIN_PASSWORD = 'password';
+
+/**
+ * Handles GET requests to retrieve the list of all products.
+ * Uses a server-side cache for performance. This is the endpoint that
+ * client components (like the DeleteProductList) should fetch from
+ * to get the current list of products.
+ */
+export async function GET() {
+    let allProducts: Product[];
+
+    // Check if the product list is already in the cache
+    if (productsCache.length > 0) {
+        console.log('API GET request: Using cached product list');
+        allProducts = productsCache;
+    } else {
+        // If no cache, read from the file system and populate the cache
+        console.log('API GET request: Cache miss. Reading products.json');
+        try {
+            const filePath = path.join(process.cwd(), 'data', 'products.json');
+            const jsonData = await fs.readFile(filePath, 'utf8');
+            allProducts = JSON.parse(jsonData);
+            // Populate the cache
+            productsCache.push(...allProducts);
+        } catch (error) {
+            console.error('Error fetching product data:', error);
+            return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        }
+    }
+
+    return NextResponse.json(allProducts);
 }
 
-// Async function to ensure a directory exists, safely.
-async function ensureDirectoryExists(dirPath: string) {
-  try {
-    await fs.mkdir(dirPath, { recursive: true });
-  } catch (error) {
-    if (isNodeError(error) && error.code !== 'EEXIST') {
-      console.error(`Error creating directory at ${dirPath}:`, error);
-      throw error;
-    }
-  }
-}
-
-export async function GET(req: NextRequest) {
-  try {
-    const fileContents = await fs.readFile(PRODUCTS_JSON_PATH, 'utf-8');
-    const products: Product[] = JSON.parse(fileContents);
-    return NextResponse.json(products);
-  } catch (error) {
-    if (isNodeError(error) && error.code === 'ENOENT') {
-      return NextResponse.json([]);
-    }
-    console.error('Error fetching products:', error);
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
-  }
-}
-
-export async function POST(req: NextRequest) {
-  // Ensure the directories exist before proceeding.
-  // This is a robust, one-time check when the API route is called.
-  await ensureDirectoryExists(UPLOAD_DIR);
-  await ensureDirectoryExists(path.dirname(PRODUCTS_JSON_PATH));
-
-  try {
-    const formData = await req.formData();
-    const submittedPassword = formData.get('password') as string;
-
-    if (submittedPassword !== ADMIN_PASSWORD) {
-      return NextResponse.json({ message: 'Unauthorized: Incorrect password' }, { status: 401 });
-    }
-
-    const name = formData.get('name') as string;
-    const description = formData.get('description') as string;
-    const tags = (formData.get('tags') as string)?.split(',').map(tag => tag.trim()) || [];
-    const imageFile = formData.get('image') as File;
-
-    if (!name || !description || !imageFile) {
-      return NextResponse.json({ message: 'Missing required fields.' }, { status: 400 });
-    }
-
-    // 1. Save the image to the public folder
-    const fileName = `${Date.now()}-${imageFile.name}`;
-    const filePath = path.join(UPLOAD_DIR, fileName);
-    const buffer = Buffer.from(await imageFile.arrayBuffer());
-    await fs.writeFile(filePath, buffer);
-    const imageUrl = `/products/${fileName}`;
-
-    // 2. Create the new product object
-    const newProduct: Product = {
-      id: Date.now().toString(),
-      name,
-      description,
-      tags,
-      image_url: imageUrl,
-    };
-
-    // 3. Read existing products from the JSON file
-    let productsData: Product[] = [];
+/**
+ * Handles POST requests to add a new product.
+ * Requires a password for authorization and invalidates the cache after a successful add.
+ * This function is updated to correctly handle multipart/form-data, including file uploads.
+ */
+export async function POST(req: Request) {
     try {
-      const fileContents = await fs.readFile(PRODUCTS_JSON_PATH, 'utf-8');
-      productsData = JSON.parse(fileContents);
-    } catch (readError) {
-      if (isNodeError(readError) && readError.code !== 'ENOENT') {
-        console.error('Error reading products.json:', readError);
-      }
+        // Correctly parse multipart/form-data
+        const formData = await req.formData();
+        const password = formData.get('password');
+        const name = formData.get('name') as string;
+        const description = formData.get('description') as string;
+        const tagsString = formData.get('tags') as string;
+        const imageFile = formData.get('image') as File;
+
+        if (password !== ADMIN_PASSWORD) {
+            console.error('POST request failed: Incorrect password');
+            return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+        }
+
+        if (!name || !description || !imageFile) {
+            console.error('POST request failed: Missing required fields');
+            return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
+        }
+
+        // --- NEW CODE ADDED: Ensure public/images directory exists ---
+        const publicImagesPath = path.join(process.cwd(), 'public', 'images');
+        await fs.mkdir(publicImagesPath, { recursive: true }); // `recursive: true` prevents an error if the directory already exists
+        // --- END OF NEW CODE ---
+
+        // Handle image upload
+        const imageFileName = `${uuidv4()}-${imageFile.name}`;
+        const imagePath = path.join(publicImagesPath, imageFileName);
+        const image_url = `/images/${imageFileName}`;
+        
+        const fileBuffer = Buffer.from(await imageFile.arrayBuffer());
+        await fs.writeFile(imagePath, fileBuffer);
+
+        // Process tags
+        const tags = tagsString ? tagsString.split(',').map(tag => tag.trim().toLowerCase()) : [];
+
+        // Read and update the products JSON file
+        const filePath = path.join(process.cwd(), 'data', 'products.json');
+        const jsonData = await fs.readFile(filePath, 'utf8');
+        const products: Product[] = JSON.parse(jsonData);
+
+        const newProduct = {
+            id: uuidv4(),
+            name,
+            description,
+            image_url,
+            tags,
+        };
+
+        products.push(newProduct);
+
+        await fs.writeFile(filePath, JSON.stringify(products, null, 2));
+
+        // Invalidate the in-memory cache and revalidate the Next.js path
+        invalidateProductsCache();
+        revalidatePath('/products');
+
+        return NextResponse.json({ message: 'Product added successfully!', product: newProduct });
+    } catch (error) {
+        console.error('Error adding product:', error);
+        return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
     }
-
-    // 4. Add the new product to the data
-    productsData.push(newProduct);
-
-    // 5. Write the updated data back to the JSON file
-    await fs.writeFile(PRODUCTS_JSON_PATH, JSON.stringify(productsData, null, 2), 'utf-8');
-
-    return NextResponse.json(newProduct, { status: 201 });
-  } catch (error) {
-    console.error('API Error:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
-  }
 }

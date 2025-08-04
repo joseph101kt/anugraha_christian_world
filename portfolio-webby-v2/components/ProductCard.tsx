@@ -20,8 +20,8 @@ export default function ProductCard({ product, onEnquire }: ProductCardProps) {
   return (
     <div
       key={product.id}
-      className='border border-gray-300 rounded-xl overflow-hidden shadow-md flex flex-col 
-      transition-transform duration-200 ease-in-out bg-accent h-[450px]'
+      className=' rounded-xl overflow-hidden shadow-md flex flex-col 
+      transition-transform duration-200 ease-in-out bg-secondary h-[450px]'
       
       onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-5px)')}
       onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
@@ -37,9 +37,9 @@ export default function ProductCard({ product, onEnquire }: ProductCardProps) {
         />
       </div>
       <div style={{ padding: '20px', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-        <h2 style={{ fontSize: '1.4em', marginBottom: '8px', color: '#333' }}>{product.name}</h2>
+        <h2 style={{ fontSize: '1.4em', marginBottom: '8px', }}>{product.name}</h2>
         <p
-          className='text-sm text-gray-600 leading-tight mb-4 flex-grow overflow-hidden text-ellipsis line-clamp-3'
+          className='text-sm leading-tight mb-4 flex-grow overflow-hidden text-ellipsis line-clamp-3'
         >
           {product.description}
         </p>
@@ -47,7 +47,7 @@ export default function ProductCard({ product, onEnquire }: ProductCardProps) {
           {product.tags.map((tag, index) => (
             <span
               key={index}
-              className='inline-block bg-secondary text-gray-700 text-xs px-2.5 py-1.5 rounded-full mr-2'
+              className='inline-block bg-secondary  text-xs px-2.5 py-1.5 rounded-full mr-2'
             >
               {tag.replace(/-/g, ' ')}
             </span>
@@ -55,7 +55,7 @@ export default function ProductCard({ product, onEnquire }: ProductCardProps) {
         </div>
         <button
           onClick={() => onEnquire(product.name)}
-          className='bg-primary text-white py-3 px-5 border-none rounded-lg text-base font-bold   w-full '        >
+          className='bg-accent  py-3 px-5 border-none rounded-lg text-base font-bold   w-full '        >
           Enquire Now
         </button>
       </div>

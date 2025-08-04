@@ -75,13 +75,13 @@ const Navbar: React.FC = () => {
           {/* 🎯 Action Button */}
           <Link
             href="/contact"
-            className="inline-block px-4 py-2 bg-primary font-bold rounded-lg shadow hover:bg-primary/90 transition duration-200"
+            className="inline-block px-4 py-2 bg-primary font-black rounded-lg shadow"
           >
             Contact
           </Link>
         </div>
       </div>
-      <div className="h-20"></div>
+      <div className="h-18"></div>
       <div className="absolute inset-0 glass-fade z-40 pointer-events-none"></div>
 
     </div>

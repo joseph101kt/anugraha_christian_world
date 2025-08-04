@@ -1,0 +1,56 @@
+[
+  {
+    "id": "c138664d-3e86-4249-87ab-b0907538c5e6",
+    "name": "asd",
+    "phone": "asd",
+    "query": "asd",
+    "timestamp": "2025-08-02T13:31:14.682Z",
+    "source_url": "http://localhost:3000/products?query=h",
+    "status": "Closed"
+  },
+  {
+    "id": "00294d54-5131-4e59-a858-4c904a4f415d",
+    "name": "hi",
+    "phone": "no",
+    "query": "adfasdfsd",
+    "timestamp": "2025-08-03T17:52:39.121Z",
+    "source_url": "http://localhost:3000/dashboard",
+    "status": "New"
+  },
+  {
+    "id": "e0ba22fa-76e7-41ca-9091-0643ab95b0ba",
+    "name": "asd",
+    "phone": "asd",
+    "query": "adfsdf",
+    "timestamp": "2025-08-03T17:54:20.713Z",
+    "source_url": "http://localhost:3000/dashboard",
+    "status": "New"
+  },
+  {
+    "id": "4babda47-7cdc-4b95-bc16-3d70db7513c5",
+    "name": "asdfs",
+    "phone": "adf",
+    "query": "asdfad",
+    "timestamp": "2025-08-03T18:09:39.409Z",
+    "source_url": "http://localhost:3000/dashboard",
+    "status": "New"
+  },
+  {
+    "id": "7d71fcb0-64d4-434a-be3f-df9c5494ddd4",
+    "name": "jjjjj",
+    "phone": "adf",
+    "query": "adf",
+    "timestamp": "2025-08-03T18:09:53.515Z",
+    "source_url": "http://localhost:3000/dashboard",
+    "status": "New"
+  },
+  {
+    "id": "f99554bf-b1f8-43ee-b4fc-3bd9975e46d1",
+    "name": "jack",
+    "phone": "adf",
+    "query": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "timestamp": "2025-08-03T18:11:50.045Z",
+    "source_url": "http://localhost:3000/dashboard",
+    "status": "New"
+  }
+]

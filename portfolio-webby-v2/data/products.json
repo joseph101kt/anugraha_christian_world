@@ -12,31 +12,6 @@
     "image_url": "https://picsum.photos/id/237/400/300"
   },
   {
-    "id": "hand-knit-scarf-002",
-    "name": "Artisan Hand-Knit Wool Scarf",
-    "description": "Luxuriously soft scarf, meticulously hand-knitted from 100% merino wool. Keeps you warm and stylish during colder months.",
-    "tags": [
-      "apparel",
-      "handmade",
-      "winter",
-      "fashion"
-    ],
-    "image_url": "https://picsum.photos/id/1025/400/300"
-  },
-  {
-    "id": "organic-soap-bar-003",
-    "name": "Lavender Bliss Organic Soap Bar",
-    "description": "Indulge in the calming scent of lavender with this handcrafted soap bar, made from organic, nourishing ingredients. Gentle on all skin types.",
-    "tags": [
-      "beauty",
-      "organic",
-      "skincare",
-      "handmade",
-      "lavender"
-    ],
-    "image_url": "https://picsum.photos/id/250/400/300"
-  },
-  {
     "id": "smart-led-strip-004",
     "name": "Smart RGB LED Strip Lights",
     "description": "Transform your space with vibrant, customizable lighting. Control via app or voice assistant, perfect for ambient or accent lighting.",
@@ -93,5 +68,15 @@
       "pyramid"
     ],
     "image_url": "/products/1754027236429-seo-pyramid-and-all-seo-components-1200x675.png.webp"
+  },
+  {
+    "id": "1754235809847",
+    "name": "wireframe",
+    "description": "adsfasdf",
+    "tags": [
+      "seo",
+      "pyramid"
+    ],
+    "image_url": "/products/1754235809843-wire frame.jpg"
   }
 ]

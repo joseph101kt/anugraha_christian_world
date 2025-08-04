@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import WhatsAppFAB from "@/components/WhatsAppFAB";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-base-100 text-base-content">
         <Navbar />
         <ThemeToggle />
+        <WhatsAppFAB />
         {children}
         
       </body>

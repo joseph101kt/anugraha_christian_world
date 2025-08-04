@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
+import fs from 'fs/promises'; // Using the promises version
 import path from 'path';
 
 // Define the password and file paths
-const ADMIN_PASSWORD = 'password'; //Change the password in add-products/page.tsx
+const ADMIN_PASSWORD = 'password'; //change the password in app/api/products/id/route.ts, app/api/products/route.ts, app/dashboard/page.tsx
 const UPLOAD_DIR = path.join(process.cwd(), 'public', 'products');
 const PRODUCTS_JSON_PATH = path.join(process.cwd(), 'data', 'products.json');
 
@@ -21,15 +21,38 @@ function isNodeError(error: unknown): error is NodeJS.ErrnoException {
   return error instanceof Error && 'code' in error;
 }
 
-// Create directories if they don't exist
-if (!fs.existsSync(UPLOAD_DIR)) {
-  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+// Async function to ensure a directory exists, safely.
+async function ensureDirectoryExists(dirPath: string) {
+  try {
+    await fs.mkdir(dirPath, { recursive: true });
+  } catch (error) {
+    if (isNodeError(error) && error.code !== 'EEXIST') {
+      console.error(`Error creating directory at ${dirPath}:`, error);
+      throw error;
+    }
+  }
 }
-if (!fs.existsSync(path.dirname(PRODUCTS_JSON_PATH))) {
-  fs.mkdirSync(path.dirname(PRODUCTS_JSON_PATH), { recursive: true });
+
+export async function GET(req: NextRequest) {
+  try {
+    const fileContents = await fs.readFile(PRODUCTS_JSON_PATH, 'utf-8');
+    const products: Product[] = JSON.parse(fileContents);
+    return NextResponse.json(products);
+  } catch (error) {
+    if (isNodeError(error) && error.code === 'ENOENT') {
+      return NextResponse.json([]);
+    }
+    console.error('Error fetching products:', error);
+    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+  }
 }
 
 export async function POST(req: NextRequest) {
+  // Ensure the directories exist before proceeding.
+  // This is a robust, one-time check when the API route is called.
+  await ensureDirectoryExists(UPLOAD_DIR);
+  await ensureDirectoryExists(path.dirname(PRODUCTS_JSON_PATH));
+
   try {
     const formData = await req.formData();
     const submittedPassword = formData.get('password') as string;
@@ -51,7 +74,7 @@ export async function POST(req: NextRequest) {
     const fileName = `${Date.now()}-${imageFile.name}`;
     const filePath = path.join(UPLOAD_DIR, fileName);
     const buffer = Buffer.from(await imageFile.arrayBuffer());
-    await fs.promises.writeFile(filePath, buffer);
+    await fs.writeFile(filePath, buffer);
     const imageUrl = `/products/${fileName}`;
 
     // 2. Create the new product object
@@ -66,10 +89,9 @@ export async function POST(req: NextRequest) {
     // 3. Read existing products from the JSON file
     let productsData: Product[] = [];
     try {
-      const fileContents = await fs.promises.readFile(PRODUCTS_JSON_PATH, 'utf-8');
+      const fileContents = await fs.readFile(PRODUCTS_JSON_PATH, 'utf-8');
       productsData = JSON.parse(fileContents);
     } catch (readError) {
-      // Use the type guard to handle the file not found error safely
       if (isNodeError(readError) && readError.code !== 'ENOENT') {
         console.error('Error reading products.json:', readError);
       }
@@ -79,7 +101,7 @@ export async function POST(req: NextRequest) {
     productsData.push(newProduct);
 
     // 5. Write the updated data back to the JSON file
-    await fs.promises.writeFile(PRODUCTS_JSON_PATH, JSON.stringify(productsData, null, 2), 'utf-8');
+    await fs.writeFile(PRODUCTS_JSON_PATH, JSON.stringify(productsData, null, 2), 'utf-8');
 
     return NextResponse.json(newProduct, { status: 201 });
   } catch (error) {

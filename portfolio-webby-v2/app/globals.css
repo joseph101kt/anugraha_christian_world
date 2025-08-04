@@ -8,10 +8,10 @@
 :root {
   /* 🎨 Color Palette */
   --color-text: rgb(37, 5, 4);
-  --color-background: rgb(252, 228, 227);
-  --color-primary: rgb(244, 195, 47);
-  --color-secondary: rgb(254, 124, 124);
-  --color-accent: rgb(249, 218, 174);
+  --color-background: rgb(255, 255, 240);
+  --color-primary: rgb(255, 217, 102);
+  --color-secondary: rgb(210, 254, 253);
+  --color-accent: rgb(113, 224, 222);
 
   /* 📏 Perfect Fourth Type Scale */
   --font-size--1: 0.75rem;    /* 12px - small text */
@@ -37,11 +37,11 @@
 /* 🌓 Dark mode override */
 .dark-theme {
   /* 🎨 Color Palette (Dark) */
-  --color-background: rgb(28, 4, 3);
-  --color-text: rgb(251, 219, 218);
-  --color-primary: rgb(208, 159, 11); 
-  --color-secondary: rgb(131, 1, 1); 
-  --color-accent: rgb(81, 50, 6);
+  --color-background: rgb(50, 50, 45);
+  --color-text: rgb(255, 240, 230);
+  --color-primary: rgb(237, 173, 25); 
+  --color-secondary: rgb(50, 90, 90); 
+  --color-accent: rgb(80, 200, 198);
 }
 
 /* 🌐 Base styles */
@@ -89,7 +89,7 @@ small {
 
 
 .glass-fade {
-  @apply backdrop-blur-md bg-white/10 ;
+  @apply backdrop-blur-md bg-[var(--color-background)]/10;
 
   /* Smooth fade from top (solid) to bottom (transparent) */
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0.5) 85%, rgba(0, 0, 0, 0) 100%);

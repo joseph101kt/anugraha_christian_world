@@ -52,5 +52,23 @@
     "timestamp": "2025-08-04T10:43:35.661Z",
     "source_url": "http://localhost:3000/contact",
     "status": "New"
+  },
+  {
+    "id": "16de1504-64cd-43bc-be88-c91501198a7e",
+    "name": "CandyKid",
+    "phone": "a",
+    "query": "asd",
+    "timestamp": "2025-08-05T06:15:40.932Z",
+    "source_url": "http://localhost:3000/contact",
+    "status": "New"
+  },
+  {
+    "id": "472da700-8396-4223-aad0-b4ca28c658d1",
+    "name": "namae",
+    "phone": "number",
+    "query": "qusetion",
+    "timestamp": "2025-08-05T06:16:22.715Z",
+    "source_url": "http://localhost:3000/contact",
+    "status": "New"
   }
 ]

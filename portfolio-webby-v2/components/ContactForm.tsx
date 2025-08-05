@@ -1,18 +1,45 @@
 'use client';
 
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { saveLead } from '@/components/saveLead';
 
 /**
  * A self-contained contact form component that includes its own styling and layout.
+ * It now accepts an optional 'initialQuery' prop to pre-fill the query field.
+ * It also saves the user's name and phone number to local storage to pre-fill the form on subsequent visits.
+ * @param {object} props - The component props.
+ * @param {string} [props.initialQuery] - An optional initial value for the query field.
  */
-export default function ContactForm() {
+export default function ContactForm({ initialQuery = '' }) {
     // State variables to hold form data and submission status
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState(initialQuery);
     const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+    // Effect hook to handle localStorage for name and phone
+    useEffect(() => {
+        // Retrieve saved name and phone from localStorage on component mount
+        const savedName = localStorage.getItem('contactFormName');
+        const savedPhone = localStorage.getItem('contactFormPhone');
+
+        if (savedName) {
+            setName(savedName);
+        }
+        if (savedPhone) {
+            setPhone(savedPhone);
+        }
+    }, []); // Empty dependency array ensures this runs only once on mount
+
+    // Another effect to save name and phone to localStorage whenever they change
+    useEffect(() => {
+        localStorage.setItem('contactFormName', name);
+    }, [name]);
+
+    useEffect(() => {
+        localStorage.setItem('contactFormPhone', phone);
+    }, [phone]);
 
     /**
      * Handles the form submission logic.
@@ -21,7 +48,7 @@ export default function ContactForm() {
      */
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        
+
         // Basic validation: ensure all required fields are filled
         if (!name || !phone || !query) {
             setStatus('error');
@@ -43,17 +70,15 @@ export default function ContactForm() {
         // Create the pre-filled message for WhatsApp
         const message = `Hello, my name is ${name}. My phone number is: ${phone}. I have a question: ${query}`;
         const encodedMessage = encodeURIComponent(message);
-        
+
         // Construct the WhatsApp URL with the pre-filled message
         const whatsappUrl = `https://wa.me/919346851977?text=${encodedMessage}`;
-        
+
         // Open the WhatsApp chat in a new tab
         window.open(whatsappUrl, '_blank');
         
-        // Reset the form fields after successful submission
-        setName('');
-        setPhone('');
-        setQuery('');
+        // No need to reset name and phone as we want them to persist
+        // setQuery(''); // You might still want to clear the query after submission
     };
 
     return (

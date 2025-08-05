@@ -114,7 +114,8 @@ export default function AddProductForm({ password }: AddProductFormProps) {
                         id="name"
                         value={productName}
                         onChange={(e) => setProductName(e.target.value)}
-                        className="input input-bordered bg-secondary border-2 border-accent text-text w-full"
+                        placeholder="Name, Usecase ex: Mary statue, Christian home decor"
+                        className="input input-bordered bg-secondary border-2 border-accent text-text  w-full"
                         required
                     />
                 </div>

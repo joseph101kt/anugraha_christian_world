@@ -14,18 +14,20 @@ interface Lead {
     status: 'New' | 'Contacted' | 'Closed';
 }
 
-interface LeadsListProps {
-    password: string;
-}
 
-export default function LeadsList({ password }: LeadsListProps) {
+
+export default function LeadsList() {
     const [leads, setLeads] = useState<Lead[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [modalQuery, setModalQuery] = useState<string | null>(null);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [leadToDelete, setLeadToDelete] = useState<string | null>(null);
     const [statusMessage, setStatusMessage] = useState<string | null>(null);
-
+    
+    const password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
+    if (!password) {
+        throw new Error('Admin password is not set in environment variables.');
+    }
     // Function to show a message in a custom modal
     const showStatusModal = (message: string) => {
         setStatusMessage(message);
@@ -74,6 +76,10 @@ export default function LeadsList({ password }: LeadsListProps) {
         async function fetchLeads() {
             setLoading(true);
             try {
+                const password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
+                if (!password) {
+                    throw new Error('Admin password is not set in environment variables.');
+                }
                 const response = await fetch(`/api/leads?password=${encodeURIComponent(password)}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch leads');

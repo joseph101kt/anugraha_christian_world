@@ -6,13 +6,9 @@ import ProductListClient from './ProductListClient';
 import SearchBar from '@/components/SearchBar';
 import ProductFilter from '@/components/ProductFilter';
 
-interface Product {
-    id: string;
-    name: string;
-    description: string;
-    tags: string[];
-    image_url: string;
-}
+import { Product, Review } from '@/lib/types'; 
+
+
 
 interface ProductsPageProps {
     searchParams: {

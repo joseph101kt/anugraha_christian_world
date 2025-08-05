@@ -6,7 +6,7 @@ import AddProductForm from '@/components/AddProductForm';
 import DeleteProductList from '@/components/DeleteProductList';
 import LeadsList from '@/components/LeadsList';
 
-const ADMIN_PASSWORD = 'password'; //change the password in app/api/products/id/route.ts, app/api/products/route.ts, app/dashboard/page.tsx
+const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD; //change the password in app/api/products/id/route.ts, app/api/products/route.ts, app/dashboard/page.tsx
 
 type DashboardView = 'add' | 'delete' | 'leads';
 
@@ -29,11 +29,12 @@ export default function DashboardPage() {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="card w-96 shadow-xl p-8">
+
           <h2 className="text-2xl font-bold text-center mb-4">Staff Login</h2>
           <form onSubmit={handlePasswordSubmit} className="space-y-4">
             <input
               type="password"
-              placeholder="Enter Password"
+              placeholder="Enter Password "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="input input-bordered bg-secondary border-accent border-2 w-full"
@@ -50,12 +51,12 @@ export default function DashboardPage() {
 	const renderContent = () => {
 	switch (currentView) {
 			case 'add':
-			return <AddProductForm password={password} />;
+			return <AddProductForm />;
 			case 'delete':
 			// Pass the password prop here
-			return <DeleteProductList password={password} />; 
+			return <DeleteProductList />; 
 			case 'leads':
-			return <LeadsList password={password} />;
+			return <LeadsList />;
 			default:
 			return <p>Select a dashboard view.</p>;
 	}

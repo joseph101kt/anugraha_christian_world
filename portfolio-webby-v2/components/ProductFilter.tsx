@@ -1,4 +1,4 @@
-// src/components/ProductFilter.tsx
+// /components/ProductFilter.tsx
 'use client';
 
 import React, { useState } from 'react';
@@ -42,7 +42,7 @@ export default function ProductFilter({
       {/* The button has a fixed width to prevent resizing */}
       <button
         onClick={() => setShowFilterPanel(!showFilterPanel)}
-        className="btn btn-accent rounded-full w-40"
+        className="btn btn-accent font-black rounded-full w-40"
       >
         {activeTags.length > 0 ? `Filters (${activeTags.length})` : 'Filter'}
       </button>

@@ -6,13 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-interface Product {
-    id: string;
-    name: string;
-    description: string;
-    tags: string[];
-    image_url: string;
-}
+import { Product, Review } from '@/lib/types'; 
 
 interface ProductCardProps {
     product: Product;
@@ -51,7 +45,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </Link>
             <Link href={`/products/${product.id}`} className='relative w-full h-[200px]'>
                 <Image
-                    src={product.image_url}
+                    src={product.main_image}
                     alt={product.name}
                     fill
                     style={{ objectFit: 'cover' }}

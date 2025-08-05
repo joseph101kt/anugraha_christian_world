@@ -4,13 +4,7 @@
 import React from 'react';
 import ProductCard from "@/components/ProductCard";
 
-interface Product {
-    id: string;
-    name: string;
-    description: string;
-    tags: string[];
-    image_url: string;
-}
+import { Product, Review } from '@/lib/types'; 
 
 interface ProductGridProps {
     products: Product[];

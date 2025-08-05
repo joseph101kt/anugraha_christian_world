@@ -1,18 +1,13 @@
+// app/components/DeleteProductList.tsx
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import ProductFilter from "@/components/ProductFilter";
 import { FaSpinner, FaTrashAlt, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import Image from 'next/image';
 
-interface Product {
-    id: string;
-    name: string;
-    description: string;
-    tags: string[];
-    image_url: string;
-}
+import { Product, Review } from '@/lib/types'; 
 
 interface DeleteProductCardProps {
     product: Product;
@@ -20,7 +15,6 @@ interface DeleteProductCardProps {
     deleting: boolean;
 }
 
-// This is the self-contained DeleteProductCard component with the corrected styling.
 const DeleteProductCard: React.FC<DeleteProductCardProps> = ({ product, onDelete, deleting }) => {
     return (
         <div
@@ -31,7 +25,7 @@ const DeleteProductCard: React.FC<DeleteProductCardProps> = ({ product, onDelete
         >
             <div className='relative w-full h-[200px]'>
                 <Image
-                    src={product.image_url}
+                    src={product.main_image}
                     alt={product.name}
                     fill
                     style={{ objectFit: 'cover' }}
@@ -71,18 +65,13 @@ const DeleteProductCard: React.FC<DeleteProductCardProps> = ({ product, onDelete
 };
 
 
-interface DeleteProductListProps {
-    password: string;
-}
-
-export default function DeleteProductList({ password }: DeleteProductListProps) {
+export default function DeleteProductList() {
     const [allProducts, setAllProducts] = useState<Product[]>([]);
-    const [activeTags, setActiveTags] = useState<string[]>([]);
-    const [showFilterPanel, setShowFilterPanel] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
-    const [searchTerm, setSearchTerm] = useState('');
     const [statusMessage, setStatusMessage] = useState({ type: '', message: '' });
     const router = useRouter();
+    // NEW: Use useSearchParams to read filter state from the URL
+    const searchParams = useSearchParams();
 
     const [deletingProductId, setDeletingProductId] = useState<string | null>(null);
 
@@ -108,15 +97,18 @@ export default function DeleteProductList({ password }: DeleteProductListProps) 
     }, [router]);
 
     const allTags = useMemo(() => Array.from(new Set(allProducts.flatMap(product => product.tags))), [allProducts]);
-
+    
     const filteredProducts = useMemo(() => {
         let result = allProducts;
+        // NEW: Get search and tags directly from the URL
+        const searchTerm = searchParams.get('search')?.toLowerCase() || '';
+        const activeTags = searchParams.getAll('tags');
+
         if (searchTerm) {
-            const lowercasedSearchTerm = searchTerm.toLowerCase();
             result = result.filter(product =>
-                product.name.toLowerCase().includes(lowercasedSearchTerm) ||
-                product.tags.some(tag => tag.toLowerCase().includes(lowercasedSearchTerm)) ||
-                product.description.toLowerCase().includes(lowercasedSearchTerm)
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
+                product.description.toLowerCase().includes(searchTerm)
             );
         } else if (activeTags.length > 0) {
             result = result.filter(product =>
@@ -124,7 +116,7 @@ export default function DeleteProductList({ password }: DeleteProductListProps) 
             );
         }
         return result;
-    }, [searchTerm, activeTags, allProducts]);
+    }, [allProducts, searchParams]);
 
     const handleDelete = async (productId: string, productName: string) => {
         if (!window.confirm(`Are you sure you want to delete the product: "${productName}"?`)) {
@@ -135,6 +127,12 @@ export default function DeleteProductList({ password }: DeleteProductListProps) 
         setStatusMessage({ type: '', message: '' });
 
         try {
+            const password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
+
+            if (!password) {
+                throw new Error('Admin password is not set in environment variables.');
+            }
+
             const response = await fetch(`/api/products/${productId}?password=${encodeURIComponent(password)}`, {
                 method: 'DELETE',
             });
@@ -158,69 +156,31 @@ export default function DeleteProductList({ password }: DeleteProductListProps) 
         }
     };
 
-    const handleOpenFilters = () => setShowFilterPanel(prev => !prev);
-    const handleTagClickInPanel = (tag: string) => setActiveTags(prevTags => prevTags.includes(tag) ? prevTags.filter(t => t !== tag) : [...prevTags, tag]);
-    const handleAllProductsClickInPanel = () => setActiveTags([]);
-    const handleApplyFilters = () => setShowFilterPanel(false);
-    const handleCancelFilters = () => setShowFilterPanel(false);
-
     return (
         <div className="container mx-auto p-4 md:p-8">
             <h1 className="text-3xl md:text-4xl text-center font-bold mb-8">Delete Products</h1>
             <div className="flex justify-between items-center mb-6">
                 <div className="w-full max-w-sm">
+                    {/* The search input now updates the URL, which triggers the filter */}
                     <input
                         type="text"
                         placeholder="Search products..."
                         className="input input-bordered bg-secondary border-accent border-2 text-text w-full"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        value={searchParams.get('search') || ''}
+                        onChange={(e) => {
+                            const newSearchParams = new URLSearchParams(searchParams.toString());
+                            if (e.target.value) {
+                                newSearchParams.set('search', e.target.value);
+                            } else {
+                                newSearchParams.delete('search');
+                            }
+                            router.push(`?${newSearchParams.toString()}`);
+                        }}
                     />
                 </div>
-                <ProductFilter
-                    allTags={allTags}
-                    activeTags={activeTags}
-                    searchTerm={searchTerm}
-                    showFilterPanel={showFilterPanel}
-                    onOpenFilters={handleOpenFilters}
-                    onTagClick={handleTagClickInPanel}
-                    onAllProductsClick={handleAllProductsClickInPanel}
-                    onApplyFilters={handleApplyFilters}
-                    onCancelFilters={handleCancelFilters}
-                />
+                {/* ProductFilter now only needs the allTags prop */}
+                <ProductFilter allTags={allTags} />
             </div>
-            {showFilterPanel && (
-                <div className="bg-accent p-6 rounded-box shadow-xl mb-8">
-                    <h3 className="text-xl font-semibold mb-4">Choose Filters</h3>
-                    <div className="flex flex-wrap gap-2">
-                        <button
-                            onClick={handleAllProductsClickInPanel}
-                            className={`btn ${activeTags.length === 0 ? 'btn-primary' : 'btn-ghost'}`}
-                            disabled={!!searchTerm}
-                        >
-                            All Products
-                        </button>
-                        {allTags.map(tag => (
-                            <button
-                                key={tag}
-                                onClick={() => handleTagClickInPanel(tag)}
-                                className={`btn ${activeTags.includes(tag) ? 'btn-primary' : 'btn-ghost'}`}
-                                disabled={!!searchTerm}
-                            >
-                                {tag.charAt(0).toUpperCase() + tag.slice(1).replace(/-/g, ' ')}
-                            </button>
-                        ))}
-                    </div>
-                    <div className="mt-6 flex justify-end gap-2">
-                        <button onClick={handleApplyFilters} className="btn btn-primary">
-                            Apply Filters
-                        </button>
-                        <button onClick={handleCancelFilters} className="btn btn-ghost">
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            )}
             {statusMessage.message && (
                 <div className={`my-4 p-3 rounded-md flex items-center ${
                     statusMessage.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
@@ -235,8 +195,8 @@ export default function DeleteProductList({ password }: DeleteProductListProps) 
                 </div>
             ) : filteredProducts.length === 0 ? (
                 <p className="col-span-full text-center text-lg">
-                    {searchTerm
-                        ? `No products found matching your search: "${searchTerm}".`
+                    {searchParams.get('search')
+                        ? `No products found matching your search: "${searchParams.get('search')}".`
                         : `No products found for the selected filters.`
                     }
                 </p>

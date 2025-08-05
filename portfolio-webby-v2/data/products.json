@@ -9,7 +9,23 @@
       "kitchenware",
       "sustainable"
     ],
-    "image_url": "https://picsum.photos/id/237/400/300"
+    "main_image": "https://picsum.photos/id/237/400/300",
+    "secondary_images": [
+      "https://picsum.photos/id/257/400/300",
+      "https://picsum.photos/id/1060/400/300"
+    ],
+    "size": "350ml",
+    "quantity": 50,
+    "price": 12.99,
+    "reviews": [
+      {
+        "customer_name": "Sarah P.",
+        "rating": 5,
+        "comment": "Love this mug! It's lightweight and looks great."
+      }
+    ],
+    "material": "Bamboo Fiber",
+    "additional_info": "Care: Hand wash recommended"
   },
   {
     "id": "smart-led-strip-004",
@@ -21,7 +37,23 @@
       "lighting",
       "gadget"
     ],
-    "image_url": "https://picsum.photos/id/257/400/300"
+    "main_image": "https://picsum.photos/id/257/400/300",
+    "secondary_images": [
+      "https://picsum.photos/id/237/400/300",
+      "https://picsum.photos/id/196/400/300"
+    ],
+    "size": "5m",
+    "quantity": 120,
+    "price": 29.99,
+    "reviews": [
+      {
+        "customer_name": "Tom H.",
+        "rating": 4,
+        "comment": "Easy to install and the colors are amazing."
+      }
+    ],
+    "material": "Plastic",
+    "additional_info": "Features: 16 million colors,Wi-Fi enabled"
   },
   {
     "id": "yoga-mat-006",
@@ -33,7 +65,23 @@
       "wellness",
       "sports"
     ],
-    "image_url": "https://picsum.photos/id/1060/400/300"
+    "main_image": "https://picsum.photos/id/1060/400/300",
+    "secondary_images": [
+      "https://picsum.photos/id/196/400/300",
+      "https://picsum.photos/id/237/400/300"
+    ],
+    "size": "183cm x 61cm",
+    "quantity": 75,
+    "price": 39.5,
+    "reviews": [
+      {
+        "customer_name": "Lisa M.",
+        "rating": 5,
+        "comment": "The grip is fantastic, I feel very stable during my poses."
+      }
+    ],
+    "material": "Natural Rubber",
+    "additional_info": "Thickness: 6mm,Color: Forest Green"
   },
   {
     "id": "ceramic-planter-007",
@@ -45,36 +93,165 @@
       "minimalist",
       "ceramic"
     ],
-    "image_url": "https://picsum.photos/id/196/400/300"
+    "main_image": "https://picsum.photos/id/196/400/300",
+    "secondary_images": [
+      "https://picsum.photos/id/1060/400/300",
+      "https://picsum.photos/id/257/400/300"
+    ],
+    "size": "20cm diameter",
+    "quantity": 30,
+    "price": 22,
+    "reviews": [
+      {
+        "customer_name": "Mark D.",
+        "rating": 4,
+        "comment": "Looks great on my windowsill. The quality is solid."
+      }
+    ],
+    "material": "Ceramic",
+    "additional_info": "Finish: Matte White,Includes: Drainage saucer"
   },
   {
     "id": "bcecd106-313c-48da-9c90-60bf9acefb4c",
     "name": "drawing",
     "description": "d",
-    "image_url": "/images/2a3fb3e3-80a1-48d0-a5f5-3a3521019239-wire frame.jpg",
     "tags": [
       "seo",
       "pyramid"
-    ]
-  },
-  {
-    "id": "965769a4-4556-414b-a017-bc533fe44630",
-    "name": "drawing",
-    "description": "a",
-    "image_url": "/images/982ff733-db2a-4863-aa66-69f9e8ebc641-wire frame.jpg",
-    "tags": [
-      "seo",
-      "pyramid"
-    ]
+    ],
+    "main_image": "/images/2a3fb3e3-80a1-48d0-a5f5-3a3521019239-wire frame.jpg",
+    "secondary_images": [
+      "https://picsum.photos/id/237/400/300",
+      "https://picsum.photos/id/257/400/300"
+    ],
+    "size": "A4",
+    "quantity": 10,
+    "price": 15,
+    "reviews": [],
+    "material": "Paper",
+    "additional_info": "Style: Sketch,Artist: Local Artist"
   },
   {
     "id": "135fcc15-8b93-4747-a611-ff3d3a27b139",
     "name": "fish",
     "description": "can roll",
-    "image_url": "/images/22c72f53-85dc-49f1-93e3-d5da20a4afb6-seo-pyramid-and-all-seo-components-1200x675.png.webp",
     "tags": [
       "seo",
       "pyramid"
-    ]
+    ],
+    "main_image": "/images/22c72f53-85dc-49f1-93e3-d5da20a4afb6-seo-pyramid-and-all-seo-components-1200x675.png.webp",
+    "secondary_images": [
+      "https://picsum.photos/id/257/400/300",
+      "https://picsum.photos/id/237/400/300"
+    ],
+    "size": "Small",
+    "quantity": 5,
+    "price": 5,
+    "reviews": [
+      {
+        "customer_name": "Patty D.",
+        "rating": 5,
+        "comment": "My cat loves this toy!"
+      }
+    ],
+    "material": "Wool",
+    "additional_info": "Handmade: Yes,Color: Blue"
+  },
+  {
+    "id": "test-1fb36379",
+    "name": "Test",
+    "description": "test",
+    "main_image": "/images/c49115cd-8d44-47f6-8abd-ce641f0da6d1-seo-pyramid-and-all-seo-components-1200x675.png.webp",
+    "secondary_images": [
+      "/images/75f854fc-b859-4b6e-8b66-8bfffb5bca2a-seo-pyramid-and-all-seo-components-1200x675.png.webp",
+      "/images/61524d8b-e066-4b55-88d4-9d6cff6fa932-wire frame.jpg"
+    ],
+    "tags": [
+      "seo",
+      "pyramid"
+    ],
+    "price": 999,
+    "size": "xxl",
+    "quantity": 1,
+    "reviews": [],
+    "material": "data",
+    "additional_info": "title-test : desc-test"
+  },
+  {
+    "id": "test-2-wireframe-c0979fb3",
+    "name": "test-2 wireframe",
+    "description": "no",
+    "main_image": "/images/620c54d5-106e-4ef9-98da-450666dacb9b-wire frame.jpg",
+    "secondary_images": [
+      "/images/a4ed4534-674e-4196-a2ed-5ea6b9857bee-seo-pyramid-and-all-seo-components-1200x675.png.webp",
+      "/images/1f2978eb-5922-410f-96e8-966cd2b0b63f-wire frame.jpg"
+    ],
+    "tags": [
+      "seo",
+      "pyramid"
+    ],
+    "price": 0,
+    "size": "9999 inches",
+    "quantity": 0,
+    "reviews": [],
+    "material": "paper",
+    "additional_info": "title-wireframe-on-paper: desc-wireframe-for the website"
+  },
+  {
+    "id": "anime-9d6a2696",
+    "name": "Anime",
+    "description": "adsf",
+    "main_image": "/images/8b7c3c9c-8f77-4b17-a02e-dbe84f80f24e-seo-pyramid-and-all-seo-components-1200x675.png.webp",
+    "secondary_images": [
+      "/images/c5db181d-0789-4fb1-819f-eed4c62a29b3-seo-pyramid-and-all-seo-components-1200x675.png.webp",
+      "/images/c9f690ab-b69b-41bf-8409-6eb98694e589-wire frame.jpg"
+    ],
+    "tags": [
+      "seo",
+      "pyramid"
+    ],
+    "price": 1,
+    "size": "1",
+    "quantity": 0,
+    "reviews": [],
+    "material": "1",
+    "additional_info": "1:2"
+  },
+  {
+    "id": "aa-7eff67f3",
+    "name": "aa",
+    "description": "aa",
+    "main_image": "/images/b70d8e53-7624-4202-b22c-e2c56ddc1495-wire frame.jpg",
+    "secondary_images": [
+      "/images/78620c78-beb5-4c1d-ab60-6d8a2c490ddd-seo-pyramid-and-all-seo-components-1200x675.png.webp",
+      "/images/4d10d911-37b5-47a3-b8e8-a9dab539525d-wire frame.jpg"
+    ],
+    "tags": [
+      "seo",
+      "pyramid"
+    ],
+    "price": 1,
+    "size": "xl",
+    "quantity": 999,
+    "reviews": [],
+    "material": "sd",
+    "additional_info": "ad:ada"
+  },
+  {
+    "id": "1-82070f88",
+    "name": "1",
+    "description": "dsa",
+    "main_image": "/images/9cd7541c-dce3-4a36-a3df-2c9864079058-seo-pyramid-and-all-seo-components-1200x675.png.webp",
+    "secondary_images": [],
+    "tags": [
+      "seo",
+      "pyramid"
+    ],
+    "price": 1.01,
+    "size": "adf",
+    "quantity": 81,
+    "reviews": [],
+    "material": "asdf",
+    "additional_info": "asdf:adfsd"
   }
 ]

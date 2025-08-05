@@ -1,20 +1,33 @@
-interface Product {
-    id: string;
-    name: string;
-    description: string;
-    image_url: string;
-    tags: string[];
+// lib/cache.ts
+
+// Import the shared Product interface
+import { Product } from './types';
+
+// The cache variable is now internal to this file
+let productsCache: Product[] | null = null;
+
+/**
+ * Retrieves the current products cache.
+ * @returns {Product[] | null} The cached products or null if the cache is empty.
+ */
+export function getProductsCache(): Product[] | null {
+    return productsCache;
 }
 
-// A simple in-memory cache for the entire list of products.
-// It is initialized as an empty array and will be populated on the first read.
-export let productsCache: Product[] = [];
+/**
+ * Sets the products cache to a new list of products.
+ * @param {Product[]} products The new list of products to cache.
+ */
+export function setProductsCache(products: Product[]): void {
+    productsCache = products;
+    console.log('Product cache has been populated.');
+}
 
 /**
  * Resets the products cache to an empty array.
- * This should be called whenever product data is modified (e.g., added, deleted, or updated).
+ * This should be called whenever product data is modified.
  */
-export function invalidateProductsCache() {
-    productsCache = [];
+export function invalidateProductsCache(): void {
+    productsCache = null;
     console.log('Product cache has been invalidated.');
 }

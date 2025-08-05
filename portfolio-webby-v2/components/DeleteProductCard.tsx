@@ -1,16 +1,10 @@
-// app/dashboard/components/DeleteProductCard.tsx
+// /components/DeleteProductCard.tsx
 'use client'; 
 
 import React from 'react';
 import Image from 'next/image';
 
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  tags: string[];
-  image_url: string;
-}
+import { Product, Review } from '@/lib/types'; 
 
 interface DeleteProductCardProps {
   product: Product;
@@ -27,7 +21,7 @@ export default function DeleteProductCard({ product, onDelete }: DeleteProductCa
     >
       <div className='relative w-full h-[200px]'>
         <Image
-          src={product.image_url}
+          src={product.main_image} // Updated to use the new field
           alt={product.name}
           fill
           style={{ objectFit: 'cover' }}
@@ -40,6 +34,11 @@ export default function DeleteProductCard({ product, onDelete }: DeleteProductCa
         <p className='text-sm leading-tight mb-4 flex-grow overflow-hidden text-ellipsis line-clamp-3'>
           {product.description}
         </p>
+        {/* NEW: Display price and material for better context */}
+        <div className="flex justify-between items-center mb-4">
+            <span className="font-bold text-lg text-primary">${product.price.toFixed(2)}</span>
+            <span className="text-sm text-gray-600">{product.material}</span>
+        </div>
         <div style={{ marginBottom: '15px', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
           {product.tags.map((tag, index) => (
             <span key={index} className='inline-block bg-accent text-xs px-2.5 py-1.5 rounded-full mr-2'>

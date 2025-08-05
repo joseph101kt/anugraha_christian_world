@@ -4,14 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import ProductCard from './ProductCard';
 
-// Define the interface for a Product
-interface Product {
-    id: string;
-    name: string;
-    description: string;
-    image_url: string;
-    tags: string[];
-}
+import { Product, Review } from '@/lib/types'; 
 
 interface SuggestedProductsProps {
     suggested: Product[];
@@ -39,7 +32,6 @@ export default function SuggestedProducts({ suggested }: SuggestedProductsProps)
                 <ProductCard
                     key={suggestedProduct.id}
                     product={suggestedProduct}
-                    onEnquire={handleEnquire}
                 />
             ))}
         </div>

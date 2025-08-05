@@ -8,8 +8,8 @@ import SearchBar from "@/components/SearchBar";
 
 const Navbar: React.FC = () => {
   return (
-    <div className="sticky top-0 z-50">
-      <div className=" navbar z-50 px-4 ">
+    <div className="sticky top-0 z-40 ">
+      <div className=" navbar z-40 px-4 ">
         <div className="navbar-start z-50">
 
           {/* hamburger menu */}
@@ -80,10 +80,8 @@ const Navbar: React.FC = () => {
             Contact
           </Link>
         </div>
+        <div className="absolute inset-0 backdrop-blur-lg pointer-events-none z-30 "></div>
       </div>
-      <div className="h-6"></div>
-      <div className="absolute inset-0 glass-fade z-40 "></div>
-
     </div>
   );
 };

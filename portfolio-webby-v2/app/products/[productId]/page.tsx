@@ -6,6 +6,7 @@ import Image from 'next/image';
 import fs from 'fs/promises';
 import path from 'path';
 import SuggestedProducts from '@/components/SuggestedProducts';
+import EnquireButton from '@/components/EnquireButton'; // Import the new client component
 import { Metadata } from 'next'; // Import Metadata type
 
 // Define the interface for a Product
@@ -154,6 +155,10 @@ export default async function ProductPage(props: ProductPageProps) {
                                     {tag}
                                 </span>
                             ))}
+                        </div>
+                        {/* New EnquireButton component for client-side interactivity */}
+                        <div className="mt-8">
+                            <EnquireButton productName={product.name} />
                         </div>
                     </div>
                 </div>

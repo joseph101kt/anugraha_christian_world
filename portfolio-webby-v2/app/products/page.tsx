@@ -1,7 +1,10 @@
 // src/app/products/page.tsx
 import fs from 'fs/promises';
 import path from 'path';
+import { Suspense } from 'react';
 import ProductListClient from './ProductListClient';
+import SearchBar from '@/components/SearchBar';
+import ProductFilter from '@/components/ProductFilter';
 
 interface Product {
     id: string;
@@ -14,18 +17,12 @@ interface Product {
 interface ProductsPageProps {
     searchParams: {
         query?: string;
+        tags?: string | string[];
     };
 }
 
-/**
- * Renders the main products page, with a list of products.
- * This is a Server Component, so it fetches the data directly on the server.
- * The use of 'searchParams' automatically opts this page into dynamic rendering.
- * @param {ProductsPageProps} props - The component's props.
- */
 export default async function ProductsPage({ searchParams }: ProductsPageProps) {
     let products: Product[] = [];
-
     const filePath = path.join(process.cwd(), 'data', 'products.json');
     
     try {
@@ -35,14 +32,34 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         console.error('Error reading products.json:', error);
     }
 
-    const searchTerm = searchParams.query || '';
+    const allTags = [...new Set(products.flatMap(p => p.tags))];
+    const query = searchParams.query?.toLowerCase() || '';
+    const activeTags = Array.isArray(searchParams.tags) ? searchParams.tags : (searchParams.tags ? [searchParams.tags] : []);
+    
+    const filteredProducts = products.filter(product => {
+        // --- THIS IS THE UPDATED SEARCH LOGIC ---
+        // The search now matches the product name OR any of its tags.
+        const matchesSearch = query === '' || 
+            product.name.toLowerCase().includes(query) ||
+            product.tags.some(tag => tag.toLowerCase().includes(query));
+
+        const matchesTags = activeTags.length === 0 || activeTags.some(tag => product.tags.includes(tag));
+        
+        return matchesSearch && matchesTags;
+    });
 
     return (
-        <div className="flex flex-col items-center">
-            {/* The debugging timestamp has been removed to prevent hydration errors. */}
-            
-            {/* Pass the fetched products AND the searchTerm to the client component */}
-            <ProductListClient products={products} searchTerm={searchTerm} />
-        </div>
+        <Suspense fallback={<div>Loading...</div>}>
+            <div className="container mx-auto p-4 md:p-8">
+                <div className="flex justify-between  mb-6">
+
+                    <ProductFilter allTags={allTags} />
+                    <div className="w-full max-w-sm">
+                        <SearchBar />
+                    </div>
+                </div>
+                <ProductListClient products={filteredProducts} />
+            </div>
+        </Suspense>
     );
 }

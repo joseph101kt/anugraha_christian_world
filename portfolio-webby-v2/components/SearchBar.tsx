@@ -2,23 +2,26 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 export default function SearchBar() {
-  const [searchTerm, setSearchTerm] = useState('');
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentSearchTerm = searchParams.get('query') || '';
+  const [searchTerm, setSearchTerm] = useState(currentSearchTerm);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (pathname !== '/products') {
-      // If not on the products page, navigate to it with the search term
-      router.push(`/products?query=${encodeURIComponent(searchTerm)}`);
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    
+    if (searchTerm) {
+      newSearchParams.set('query', searchTerm);
     } else {
-      // If already on the products page, just update the URL query parameter
-      router.push(`${pathname}?query=${encodeURIComponent(searchTerm)}`);
+      newSearchParams.delete('query');
     }
+    
+    router.push(`${pathname}?${newSearchParams.toString()}`);
   };
 
   return (
@@ -26,7 +29,7 @@ export default function SearchBar() {
       <input
         type="text"
         placeholder="Search products..."
-        className="input  bg-secondary text-text !rounded-full "
+        className="input bg-secondary text-text w-full !rounded-full"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

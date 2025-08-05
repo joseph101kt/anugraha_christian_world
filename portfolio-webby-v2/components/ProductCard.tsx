@@ -43,7 +43,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     return (
         <div
-        className='group relative rounded-xl overflow-hidden shadow-md flex flex-col 
+        className=' group relative rounded-xl overflow-hidden shadow-md flex flex-col 
              transition-transform duration-200 ease-in-out hover:shadow-xl hover:-translate-y-2 bg-secondary h-[450px]'
         >
             <Link href={`/products/${product.id}`}
@@ -82,7 +82,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 {/* The button now has z-10 to ensure it's clickable over the parent link */}
                 <button
                     onClick={handleEnquireClick}
-                    className='relative z-10 bg-accent py-3 px-5 border-none rounded-lg text-base font-bold w-full'
+                    className='mt-auto z-10 bg-accent py-3 px-5 border-none rounded-lg text-base font-bold w-full'
                 >
                     Enquire Now
                 </button>

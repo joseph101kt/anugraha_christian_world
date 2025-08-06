@@ -22,6 +22,21 @@
         "customer_name": "Sarah P.",
         "rating": 5,
         "comment": "Love this mug! It's lightweight and looks great."
+      },
+      {
+        "customer_name": "boy",
+        "rating": 5,
+        "comment": "thats a dog"
+      },
+      {
+        "customer_name": "boy",
+        "rating": 4,
+        "comment": "black colored dog"
+      },
+      {
+        "customer_name": "boy",
+        "rating": 1,
+        "comment": "one more review"
       }
     ],
     "material": "Bamboo Fiber",

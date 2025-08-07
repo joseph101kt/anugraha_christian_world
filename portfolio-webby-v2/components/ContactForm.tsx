@@ -84,7 +84,7 @@ export default function ContactForm({ initialQuery = '' }) {
     return (
         <div className="w-full bg-secondary max-w-lg rounded-xl shadow-2xl p-8 transform transition-transform duration-500 hover:scale-[1.01]">
             <div className="text-center mb-8">
-                <h1 className="text-4xl font-extrabold tracking-tight">Contact Us</h1>
+                <h1 className="text-2xl font-extrabold tracking-tight">Contact Us</h1>
             </div>
             <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Submission Status Message */}

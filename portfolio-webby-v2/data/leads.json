@@ -70,5 +70,23 @@
     "timestamp": "2025-08-05T06:16:22.715Z",
     "source_url": "http://localhost:3000/contact",
     "status": "Contacted"
+  },
+  {
+    "id": "8a88b5de-9062-44f3-b0de-3a6542a2c6bf",
+    "name": "namae",
+    "phone": "number",
+    "query": "I would like to know more about the product: Eco-Friendly Bamboo Mug.",
+    "timestamp": "2025-08-06T11:23:18.641Z",
+    "source_url": "http://localhost:3000/contact?query=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Eco-Friendly%20Bamboo%20Mug.",
+    "status": "New"
+  },
+  {
+    "id": "1530f49f-d6c0-44a9-a25c-7cca87f53d69",
+    "name": "namae",
+    "phone": "number",
+    "query": "hi",
+    "timestamp": "2025-08-06T11:29:38.378Z",
+    "source_url": "http://localhost:3000/contact",
+    "status": "New"
   }
 ]

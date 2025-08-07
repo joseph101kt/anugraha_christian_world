@@ -5,8 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import fs from 'fs/promises';
 import path from 'path';
-import SuggestedProducts from '@/components/SuggestedProducts';
-import EnquireButton from '@/components/EnquireButton';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -17,7 +15,8 @@ import { Product, Review } from '@/lib/types';
 import ProductReviews from '@/components/ProductReviews';
 import ProductImageGallery from '@/components/ProductImageGallery';
 
-
+import ProductGrid from '@/components/ProductGrid';
+import EnquireButton from '@/components/EnquireButton';
 
 interface ProductPageProps {
     params: {
@@ -85,10 +84,30 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 // Helper to parse the additional_info string
 function parseAdditionalInfo(info: string) {
-  return info.split(',').map(item => {
-    const [title, description] = item.split(':');
-    return { title: title.trim(), description: description.trim() };
-  });
+  // Check if the info string is valid before trying to split it
+  if (!info || typeof info !== 'string') {
+    return [];
+  }
+  
+  return info.split(',').map(item => {
+    const [title, description] = item.split(':');
+    
+    // Check if both title and description exist before trimming
+    if (title && description) {
+      return {
+        title: title.trim(),
+        description: description.trim()
+      };
+    }
+    
+    // Handle cases where the format is invalid for a single item
+    // You can return a default or an empty object, or skip the item entirely
+    console.warn(`Invalid format found in additional_info: ${item}`);
+    return {
+      title: title ? title.trim() : '',
+      description: description ? description.trim() : ''
+    };
+  }).filter(item => item.title || item.description); // Remove any empty objects
 }
 
 /**
@@ -143,7 +162,7 @@ export default async function ProductPage(props: ProductPageProps) {
 
                     {/* CTA Button */}
                     <div className="mt-8">
-                    <EnquireButton productName={product.name} />
+                    <EnquireButton product={product} />
                     </div>
                 </div>
                 </div>
@@ -176,7 +195,7 @@ export default async function ProductPage(props: ProductPageProps) {
                 <div className="mb-12">
                     <h2 className="text-3xl font-bold mb-6">Suggested Products</h2>
                     {suggested.length > 0 ? (
-                        <SuggestedProducts suggested={suggested} />
+                        <ProductGrid products={suggested} ActionButton={EnquireButton} />
                     ) : (
                         <p className="text-center ">No suggested products found.</p>
                     )}

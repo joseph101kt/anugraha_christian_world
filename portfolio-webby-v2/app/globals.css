@@ -99,25 +99,11 @@ small {
 
 }
 
-.nav-bar-div {
-  /* This is crucial for the ::after pseudo-element to be positioned correctly */
-  position: relative;
-  /* Make sure the nav bar content is on top */
-  z-index: 40;
+.hover-scale {
+  @apply transition-transform duration-300 hover:scale-[1.03] hover:shadow-xl;
 }
 
-.nav-bar-div::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  /* This places the pseudo-element behind the nav bar's content */
-  z-index: -1; 
-  
-  /* Apply your glass-fade styles here */
-  @apply backdrop-blur-md bg-[var(--color-background)]/10;
-  
-  /* Your mask-image for the fade effect */
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0.5) 95%, rgba(0, 0, 0, 0) 100%);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0) 100%);
-  mask-mode: match-source;
+
+.text-muted {
+  @apply text-gray-600 dark:text-gray-500;
 }

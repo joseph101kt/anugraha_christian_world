@@ -1,4 +1,3 @@
-// src/app/ui/SearchBar.tsx
 'use client';
 
 import { useState } from 'react';
@@ -8,20 +7,28 @@ export default function SearchBar() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
   const currentSearchTerm = searchParams.get('query') || '';
   const [searchTerm, setSearchTerm] = useState(currentSearchTerm);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const newSearchParams = new URLSearchParams(searchParams.toString());
-    
-    if (searchTerm) {
-      newSearchParams.set('query', searchTerm);
-    } else {
-      newSearchParams.delete('query');
+
+    const newSearchParams = new URLSearchParams();
+
+    if (searchTerm.trim()) {
+      newSearchParams.set('query', searchTerm.trim());
     }
-    
-    router.push(`${pathname}?${newSearchParams.toString()}`);
+
+    const targetPath = '/products';
+    const queryString = newSearchParams.toString();
+
+    // Redirect to /products if not already there
+    if (pathname !== targetPath) {
+      router.push(`${targetPath}?${queryString}`);
+    } else {
+      router.push(`${pathname}?${queryString}`);
+    }
   };
 
   return (

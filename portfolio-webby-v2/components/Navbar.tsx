@@ -74,6 +74,12 @@ const Navbar: React.FC = () => {
 
           {/* 🎯 Action Button */}
           <Link
+            href="/about"
+            className="inline-block px-4 py-2 bg-primary font-black rounded-lg shadow mr-8"
+          >
+            About Us
+          </Link>
+          <Link
             href="/contact"
             className="inline-block px-4 py-2 bg-primary font-black rounded-lg shadow"
           >

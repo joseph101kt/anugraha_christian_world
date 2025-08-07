@@ -1,14 +1,13 @@
-// src/app/products/page.tsx
+// app/products/page.tsx
 import fs from 'fs/promises';
 import path from 'path';
 import { Suspense } from 'react';
-import ProductListClient from './ProductListClient';
 import SearchBar from '@/components/SearchBar';
 import ProductFilter from '@/components/ProductFilter';
+import ProductGrid from '@/components/ProductGrid';
+import EnquireButton from '@/components/EnquireButton';
 
-import { Product, Review } from '@/lib/types'; 
-
-
+import { Product } from '@/lib/types';
 
 interface ProductsPageProps {
     searchParams: {
@@ -20,7 +19,7 @@ interface ProductsPageProps {
 export default async function ProductsPage({ searchParams }: ProductsPageProps) {
     let products: Product[] = [];
     const filePath = path.join(process.cwd(), 'data', 'products.json');
-    
+
     try {
         const jsonData = await fs.readFile(filePath, 'utf8');
         products = JSON.parse(jsonData);
@@ -31,30 +30,29 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
     const allTags = [...new Set(products.flatMap(p => p.tags))];
     const query = searchParams.query?.toLowerCase() || '';
     const activeTags = Array.isArray(searchParams.tags) ? searchParams.tags : (searchParams.tags ? [searchParams.tags] : []);
-    
+
     const filteredProducts = products.filter(product => {
-        // --- THIS IS THE UPDATED SEARCH LOGIC ---
-        // The search now matches the product name OR any of its tags.
-        const matchesSearch = query === '' || 
+        const matchesSearch = query === '' ||
             product.name.toLowerCase().includes(query) ||
             product.tags.some(tag => tag.toLowerCase().includes(query));
 
         const matchesTags = activeTags.length === 0 || activeTags.some(tag => product.tags.includes(tag));
-        
         return matchesSearch && matchesTags;
     });
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
+            <div className='w-full text-center'><h1 className='mx-auto'>Our Products</h1></div>
+            
             <div className="container mx-auto p-4 md:p-8">
-                <div className="flex justify-between  mb-6">
-
+                <div className="flex justify-between mb-6">
                     <ProductFilter allTags={allTags} />
                     <div className="w-full max-w-sm">
                         <SearchBar />
                     </div>
                 </div>
-                <ProductListClient products={filteredProducts} />
+
+                <ProductGrid products={filteredProducts} ActionButton={EnquireButton} />
             </div>
         </Suspense>
     );

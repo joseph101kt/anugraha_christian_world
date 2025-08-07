@@ -1,23 +1,25 @@
+// components/HeroSection.tsx
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <section className="w-full h-[60vh] flex items-center justify-center  text-center px-4">
       <div className="max-w-3xl">
-        <h1 className="text-4xl md:text-6xl font-bold">
-          Anugraha Christian World
+        <h1 className="lg:text-9xl md:text-6xl sm:text-2xl font-bold">
+          Telangana’s Largest Christian Articles Store
         </h1>
         <p className="mt-4 text-lg">
           Sacred articles for spiritual living — handcrafted with faith and love.
         </p>
         <div className="mt-6 space-x-10 md:p-space-x-16 lg:space-x-32 ">
 
-          <a
+          <Link
             href="/products"
             className="bg-accent hover:bg-primary  py-2 px-6 rounded-full shadow-md transition"
           >
             Explore Catalog
-          </a>
+          </Link>
           <a
             href="/contact"
             className="  bg-accent hover:bg-primary  py-2 px-6 rounded-full shadow-md transition"

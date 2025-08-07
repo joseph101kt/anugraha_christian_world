@@ -1,17 +1,17 @@
-// src/components/ProductGrid.tsx
+// /components/ProductGrid.tsx
+
 'use client';
 
 import React from 'react';
 import ProductCard from "@/components/ProductCard";
-
-import { Product, Review } from '@/lib/types'; 
+import { Product } from '@/lib/types';
 
 interface ProductGridProps {
     products: Product[];
-    // The onEnquire prop is removed completely.
+    ActionButton?: React.ComponentType<{ product: Product }>; // Optional prop
 }
 
-export default function ProductGrid({ products }: ProductGridProps) {
+export default function ProductGrid({ products, ActionButton }: ProductGridProps) {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {products.length === 0 ? (
@@ -23,7 +23,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
                     <ProductCard
                         key={product.id}
                         product={product}
-                        // The onEnquire prop is no longer passed to ProductCard.
+                        ActionButton={ActionButton}
                     />
                 ))
             )}

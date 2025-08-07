@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import WhatsAppFAB from "@/components/WhatsAppFAB";
 import ThemeToggle from "@/components/ThemeToggle";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Jospeh Kakkassery Poertfolio",
@@ -20,7 +21,10 @@ export default function RootLayout({
         <Navbar />
         <ThemeToggle />
         <WhatsAppFAB />
+
         {children}
+        
+        <Footer />
         
       </body>
     </html>

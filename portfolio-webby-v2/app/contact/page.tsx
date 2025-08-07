@@ -5,6 +5,7 @@
 import React, { useEffect, useRef } from 'react';
 import ContactForm from '@/components/ContactForm';
 import { useSearchParams } from 'next/navigation';
+import { MdCall } from "react-icons/md";
 
 /**
  * This page serves as a container for the ContactForm component, providing the
@@ -49,6 +50,23 @@ export default function ContactPage() {
                 ></iframe>
                 </div>
 
+
+                    <div className='grid grid-cols-2 gap-4'>
+
+                        <a
+                            href="tel:+919397082746"
+                            className="w-full my-4 flex items-center p-3  justify-center border border-transparent rounded-lg shadow-sm text-base font-bold text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+                                <MdCall className="h-5 w-5" />
+                                <span
+                                className=' w-full text-center'>Call Now</span>
+                        </a>
+
+                        <a href="mailto:anugraha@email.com"
+                            className="w-full my-4 flex items-center p-3  justify-center border border-transparent rounded-lg shadow-sm text-base font-bold text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+                            Email Us
+                        </a>
+
+                    </div>
             </div>
 
         </div>

@@ -158,8 +158,9 @@ export default function ContactForm({ initialQuery = '' }) {
                         <span>Sending...</span>
                     ) : (
                         <>
-                            <FaWhatsapp className="mr-3 h-5 w-5" />
+                            <FaWhatsapp className="mr-3 h-5 w-auto" />
                             <span>Start Chat on WhatsApp</span>
+                            
                         </>
                     )}
                 </button>

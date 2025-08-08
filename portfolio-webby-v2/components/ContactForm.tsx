@@ -1,3 +1,5 @@
+// components/ContactForm.tsx
+
 'use client';
 
 import React, { useState, FormEvent, useEffect } from 'react';
@@ -5,34 +7,35 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { saveLead } from '@/components/saveLead';
 
 /**
- * A self-contained contact form component that includes its own styling and layout.
- * It now accepts an optional 'initialQuery' prop to pre-fill the query field.
- * It also saves the user's name and phone number to local storage to pre-fill the form on subsequent visits.
- * @param {object} props - The component props.
- * @param {string} [props.initialQuery] - An optional initial value for the query field.
+ * Contact form component for inquiries.
+ * Saves name and phone to localStorage for persistence,
+ * and supports optional prefill via initialMessage prop or `contact_message` URL param.
  */
-export default function ContactForm({ initialQuery = '' }) {
-    // State variables to hold form data and submission status
+interface ContactFormProps {
+    initialMessage?: string;
+}
+
+export default function ContactForm({ initialMessage = '' }: ContactFormProps) {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [query, setQuery] = useState(initialQuery);
+    const [messageText, setMessageText] = useState(initialMessage);
     const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-    // Effect hook to handle localStorage for name and phone
+    // Load saved name and phone from localStorage
     useEffect(() => {
-        // Retrieve saved name and phone from localStorage on component mount
         const savedName = localStorage.getItem('contactFormName');
         const savedPhone = localStorage.getItem('contactFormPhone');
 
-        if (savedName) {
-            setName(savedName);
-        }
-        if (savedPhone) {
-            setPhone(savedPhone);
-        }
-    }, []); // Empty dependency array ensures this runs only once on mount
+        if (savedName) setName(savedName);
+        if (savedPhone) setPhone(savedPhone);
 
-    // Another effect to save name and phone to localStorage whenever they change
+        // Optional: prefill from URL param `contact_message`
+        const params = new URLSearchParams(window.location.search);
+        const prefillMessage = params.get('contact_message');
+        if (prefillMessage) setMessageText(prefillMessage);
+    }, []);
+
+    // Save name/phone to localStorage
     useEffect(() => {
         localStorage.setItem('contactFormName', name);
     }, [name]);
@@ -41,16 +44,10 @@ export default function ContactForm({ initialQuery = '' }) {
         localStorage.setItem('contactFormPhone', phone);
     }, [phone]);
 
-    /**
-     * Handles the form submission logic.
-     * It prevents the default form action, saves the lead, and opens a new WhatsApp chat.
-     * @param e - The form event.
-     */
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        // Basic validation: ensure all required fields are filled
-        if (!name || !phone || !query) {
+        if (!name || !phone || !messageText) {
             setStatus('error');
             return;
         }
@@ -58,27 +55,20 @@ export default function ContactForm({ initialQuery = '' }) {
         setStatus('sending');
 
         try {
-            // Save the lead data to the server using the existing helper function
-            await saveLead({ name, phone, query });
+            await saveLead({ name, phone, query: messageText });
             setStatus('success');
         } catch (error) {
             setStatus('error');
             console.error('Submission error:', error);
-            return; // Stop execution if saving the lead fails
+            return;
         }
 
-        // Create the pre-filled message for WhatsApp
-        const message = `Hello, my name is ${name}. My phone number is: ${phone}. I have a question: ${query}`;
+        // Build WhatsApp link with the message
+        const message = `Hello, my name is ${name}. My phone number is: ${phone}. I have a question: ${messageText}`;
         const encodedMessage = encodeURIComponent(message);
-
-        // Construct the WhatsApp URL with the pre-filled message
         const whatsappUrl = `https://wa.me/919346851977?text=${encodedMessage}`;
 
-        // Open the WhatsApp chat in a new tab
         window.open(whatsappUrl, '_blank');
-        
-        // No need to reset name and phone as we want them to persist
-        // setQuery(''); // You might still want to clear the query after submission
     };
 
     return (
@@ -87,14 +77,12 @@ export default function ContactForm({ initialQuery = '' }) {
                 <h1 className="text-2xl font-extrabold tracking-tight">Contact Us</h1>
             </div>
             <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Submission Status Message */}
                 {status === 'error' && (
                     <p className="text-center text-red-500 font-bold">Please fill out all fields.</p>
                 )}
 
-                {/* Name Input Field */}
                 <div>
-                    <label htmlFor="name" className="block text-sm font-medium ">
+                    <label htmlFor="name" className="block text-sm font-medium">
                         Your Name
                     </label>
                     <input
@@ -108,7 +96,6 @@ export default function ContactForm({ initialQuery = '' }) {
                     />
                 </div>
 
-                {/* Phone Number Input Field */}
                 <div>
                     <label htmlFor="phone" className="block text-sm font-medium">
                         Phone Number
@@ -119,36 +106,33 @@ export default function ContactForm({ initialQuery = '' }) {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         className="mt-1 block w-full px-4 py-2 border border-accent rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 placeholder-gray-400"
-                        placeholder="Enter your Phone number"
+                        placeholder="Enter your phone number"
                         required
                     />
                 </div>
 
-                {/* Query/Message Textarea */}
                 <div>
-                    <label htmlFor="query" className="block text-sm font-medium">
+                    <label htmlFor="messageText" className="block text-sm font-medium">
                         Your Question or Message
                     </label>
                     <textarea
-                        id="query"
+                        id="messageText"
                         rows={4}
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
+                        value={messageText}
+                        onChange={(e) => setMessageText(e.target.value)}
                         className="mt-1 block w-full px-4 py-2 border border-accent rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 placeholder-gray-400"
                         placeholder="Tell us how we can help you"
                         required
                     ></textarea>
                 </div>
 
-                {/* Submission Status Message */}
                 {status === 'sending' && (
                     <p className="text-center text-green-500">Sending your message...</p>
                 )}
                 {status === 'success' && (
                     <p className="text-center text-green-600 font-bold">Message sent! Redirecting to WhatsApp...</p>
                 )}
-                
-                {/* Submit Button */}
+
                 <button
                     type="submit"
                     className="w-full flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-bold text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
@@ -160,7 +144,6 @@ export default function ContactForm({ initialQuery = '' }) {
                         <>
                             <FaWhatsapp className="mr-3 h-5 w-auto" />
                             <span>Start Chat on WhatsApp</span>
-                            
                         </>
                     )}
                 </button>

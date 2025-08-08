@@ -40,7 +40,24 @@
       }
     ],
     "material": "Bamboo Fiber",
-    "additional_info": "Care: Hand wash recommended"
+    "additional_info": [
+      {
+        "title": "Care",
+        "description": "Hand wash recommended"
+      },
+      {
+        "title": "Care",
+        "description": "Hand wash recommended"
+      },
+      {
+        "title": "Care",
+        "description": "Hand wash recommended"
+      },
+      {
+        "title": "Care",
+        "description": "Hand wash recommended"
+      }
+    ]
   },
   {
     "id": "smart-led-strip-004",
@@ -68,7 +85,12 @@
       }
     ],
     "material": "Plastic",
-    "additional_info": "Features: 16 million colors,Wi-Fi enabled"
+    "additional_info": [
+      {
+        "title": "Features",
+        "description": "16 million colors,Wi-Fi enabled"
+      }
+    ]
   },
   {
     "id": "yoga-mat-006",
@@ -96,7 +118,16 @@
       }
     ],
     "material": "Natural Rubber",
-    "additional_info": "Thickness: 6mm,Color: Forest Green"
+    "additional_info": [
+      {
+        "title": "Thickness",
+        "description": "6mm"
+      },
+      {
+        "title": "Color",
+        "description": "Forest Green"
+      }
+    ]
   },
   {
     "id": "ceramic-planter-007",
@@ -124,7 +155,16 @@
       }
     ],
     "material": "Ceramic",
-    "additional_info": "Finish: Matte White,Includes: Drainage saucer"
+    "additional_info": [
+      {
+        "title": "Finish",
+        "description": "Matte White"
+      },
+      {
+        "title": "Includes",
+        "description": "Drainage saucer"
+      }
+    ]
   },
   {
     "id": "bcecd106-313c-48da-9c90-60bf9acefb4c",
@@ -144,7 +184,16 @@
     "price": 15,
     "reviews": [],
     "material": "Paper",
-    "additional_info": "Style: Sketch,Artist: Local Artist"
+    "additional_info": [
+      {
+        "title": "Style",
+        "description": "Sketch"
+      },
+      {
+        "title": "Artist",
+        "description": "Local Artist"
+      }
+    ]
   },
   {
     "id": "135fcc15-8b93-4747-a611-ff3d3a27b139",
@@ -170,7 +219,16 @@
       }
     ],
     "material": "Wool",
-    "additional_info": "Handmade: Yes,Color: Blue"
+    "additional_info": [
+      {
+        "title": "Handmade",
+        "description": "Yes"
+      },
+      {
+        "title": "Color",
+        "description": "Blue"
+      }
+    ]
   },
   {
     "id": "test-1fb36379",
@@ -190,7 +248,12 @@
     "quantity": 1,
     "reviews": [],
     "material": "data",
-    "additional_info": "title-test : desc-test"
+    "additional_info": [
+      {
+        "title": "title-test",
+        "description": "desc-test"
+      }
+    ]
   },
   {
     "id": "test-2-wireframe-c0979fb3",
@@ -210,7 +273,12 @@
     "quantity": 0,
     "reviews": [],
     "material": "paper",
-    "additional_info": "title-wireframe-on-paper: desc-wireframe-for the website"
+    "additional_info": [
+      {
+        "title": "title-wireframe-on-paper",
+        "description": "desc-wireframe-for the website"
+      }
+    ]
   },
   {
     "id": "anime-9d6a2696",
@@ -230,7 +298,12 @@
     "quantity": 0,
     "reviews": [],
     "material": "1",
-    "additional_info": "1:2"
+    "additional_info": [
+      {
+        "title": "1",
+        "description": "2"
+      }
+    ]
   },
   {
     "id": "aa-7eff67f3",
@@ -250,7 +323,12 @@
     "quantity": 999,
     "reviews": [],
     "material": "sd",
-    "additional_info": "ad:ada"
+    "additional_info": [
+      {
+        "title": "ad",
+        "description": "ada"
+      }
+    ]
   },
   {
     "id": "1-82070f88",
@@ -267,6 +345,49 @@
     "quantity": 81,
     "reviews": [],
     "material": "asdf",
-    "additional_info": "asdf:adfsd"
+    "additional_info": [
+      {
+        "title": "asdf",
+        "description": "adfsd"
+      }
+    ]
+  },
+  {
+    "id": "abcd-1ebf6860",
+    "name": "abcd",
+    "description": "efg",
+    "main_image": "/images/51bf3332-07c7-4e8e-aa0c-df8a5379d6a3-wire frame.jpg",
+    "secondary_images": [
+      "/images/13ed173c-3a5f-4713-9332-c226d68221da-seo-pyramid-and-all-seo-components-1200x675.png.webp"
+    ],
+    "tags": [
+      "ceramic",
+      "eco-friendly",
+      "electronics",
+      "fitness",
+      "gadget",
+      "gardening",
+      "lighting",
+      "new"
+    ],
+    "price": 11,
+    "size": "11",
+    "quantity": 11,
+    "reviews": [],
+    "material": "11",
+    "additional_info": [
+      {
+        "title": "fish",
+        "description": "can roll"
+      },
+      {
+        "title": "crystal",
+        "description": "can sheild"
+      },
+      {
+        "title": "plant",
+        "description": "can snear"
+      }
+    ]
   }
 ]

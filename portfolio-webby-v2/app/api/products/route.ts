@@ -86,7 +86,9 @@ export async function POST(req: Request) {
         const sizeString = formData.get('size') as string;
         const quantityString = formData.get('quantity') as string;
         const material = formData.get('material') as string;
-        const additionalInfo = formData.get('additional_info') as string;
+        const additionalInfo = JSON.parse(formData.get('additional_info') as string);
+
+
 
         // Extract all secondary image files from the form data
         const secondaryImagesFiles = formData.getAll('secondary_images') as File[];

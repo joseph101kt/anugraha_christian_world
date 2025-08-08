@@ -63,7 +63,7 @@ export default function DashboardPage() {
 	};
 
   return (
-    <div className="container mx-auto p-4 md:p-8">
+    <div className=" mx-4 p-4 w-full">
       <div className="flex flex-col md:flex-row justify-between items-center mb-8">
         <h1 className="text-3xl md:text-4xl font-bold">Admin Dashboard</h1>
         <div className="flex mt-4 md:mt-0 space-x-4">
@@ -87,7 +87,9 @@ export default function DashboardPage() {
           </button>
         </div>
       </div>
-      {renderContent()}
+      <div className='w-full'>
+        {renderContent()}
+      </div>
     </div>
   );
 }

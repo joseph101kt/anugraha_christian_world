@@ -106,5 +106,23 @@
     "timestamp": "2025-08-07T06:41:28.887Z",
     "source_url": "http://localhost:3000/contact",
     "status": "New"
+  },
+  {
+    "id": "d7d64997-1f85-4cc5-957b-b3196d43965d",
+    "name": "josph",
+    "phone": "number",
+    "query": "I would like to know more about the product: Eco-Friendly Bamboo Mug.",
+    "timestamp": "2025-08-07T12:06:12.456Z",
+    "source_url": "http://localhost:3000/contact?query=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Eco-Friendly%20Bamboo%20Mug.",
+    "status": "New"
+  },
+  {
+    "id": "a6136fee-9641-4df3-af7a-5c9272855703",
+    "name": "josph",
+    "phone": "number",
+    "query": "I would like to know more about the product: Eco-Friendly Bamboo Mug. You can view it here: http://localhost:3000/products/eco-mug-001",
+    "timestamp": "2025-08-07T12:27:07.202Z",
+    "source_url": "http://localhost:3000/contact?query=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Eco-Friendly%20Bamboo%20Mug.%20You%20can%20view%20it%20here%3A%20http%3A%2F%2Flocalhost%3A3000%2Fproducts%2Feco-mug-001",
+    "status": "New"
   }
 ]

@@ -1,13 +1,19 @@
 // lib/types.ts
 
-// a interface for a single review
+// interface for a single review
 export interface Review {
   customer_name: string;
   rating: number;
   comment: string;
 }
 
-//  the Product interface 
+// new interface for additional info entries
+export interface AdditionalInfoItem {
+  title: string;
+  description: string;
+}
+
+// the Product interface
 export interface Product {
   id: string;
   name: string;
@@ -20,5 +26,5 @@ export interface Product {
   price: number;
   reviews: Review[];
   material: string;
-  additional_info: string;
+  additional_info: AdditionalInfoItem[]; // now a list of title-description pairs
 }

@@ -1,4 +1,5 @@
 // app/api/products/[id]/route.ts
+// app/api/products/[id]/route.ts
 
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
@@ -6,14 +7,22 @@ import path from 'path';
 import { NextRequest } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { fileURLToPath } from 'url';
+import sharp from 'sharp'; // 👈 Import sharp for image processing
 import { Product, AdditionalInfoItem } from '@/lib/types';
-
-
-// Import the new cache functions
 import { getProductsCache, setProductsCache, invalidateProductsCache } from '@/lib/cache';
+import { v4 as uuidv4 } from 'uuid'; // 👈 Import uuid for unique filenames
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
+function createSeoSlug(name: string): string {
+    const slug = name
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/[\s_-]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    return slug;
+}
 /**
  * Handles GET requests to retrieve a single product and its related products.
  */
@@ -140,29 +149,34 @@ export async function DELETE(
 
 
 
-// New: Next.js requires these options for FormData to work
+//  Next.js requires these options for FormData to work
 export const config = {
     api: {
         bodyParser: false,
     },
 };
+const processAndSaveImage = async (file: File, productName: string): Promise<string> => {
+    const fileBuffer = Buffer.from(await file.arrayBuffer());
+    const seoSlug = createSeoSlug(productName);
+    const fileId = uuidv4();
+    const webpFilename = `${seoSlug}-${fileId}.webp`;
+    const uploadPath = path.join(process.cwd(), 'public', 'images', webpFilename);
 
-// Helper function to get the base path for static files
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+    try {
+        await sharp(fileBuffer)
+            .webp({ quality: 80 })
+            .toFile(uploadPath);
 
-// Helper to save uploaded files to the `public/images` directory
-const saveFile = async (file: File, id: string): Promise<string> => {
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const filename = `${id}-${file.name.replace(/\s+/g, '-')}`;
-    const uploadPath = path.join(process.cwd(), 'public', 'images', filename);
-    await fs.writeFile(uploadPath, buffer);
-    return `/images/${filename}`;
+        return `/images/${webpFilename}`;
+    } catch (error) {
+        console.error('Sharp image conversion failed:', error);
+        throw new Error('Failed to process image file.');
+    }
 };
 
 /**
- * Handles PUT requests to update a single product.
- */
+ * Handles PUT requests to update a single product.
+ */
 export async function PUT(
     req: NextRequest,
     { params }: { params: { id: string } }
@@ -194,6 +208,7 @@ export async function PUT(
         }
 
         const existingProduct = products[productIndex];
+        const newProductName = formData.get('name') as string;
 
         // 4. Process new images
         const newMainImageFile = formData.get('main_image') as File | null;
@@ -205,23 +220,26 @@ export async function PUT(
 
         // Handle main image update and old image deletion
         if (newMainImageFile && newMainImageFile.size > 0) {
+            // Add existing main image to deletion list
             if (existingProduct.main_image.startsWith('/images/')) {
                 imagesToDelete.push(existingProduct.main_image);
             }
-            mainImagePath = await saveFile(newMainImageFile, id);
+            // Process and save the new main image
+            mainImagePath = await processAndSaveImage(newMainImageFile, newProductName);
         }
 
-        // Handle secondary image updates. This logic replaces all secondary images.
+        // Handle secondary image updates
         if (newSecondaryImageFiles && newSecondaryImageFiles.some(f => f.size > 0)) {
-            // Add existing secondary images to the deletion list, if they are local files
+            // Add existing secondary images to the deletion list
             existingProduct.secondary_images.forEach(imagePath => {
                 if (imagePath.startsWith('/images/')) {
                     imagesToDelete.push(imagePath);
                 }
             });
-            
+
+            // Process and save all new secondary images
             secondaryImagePaths = await Promise.all(
-                newSecondaryImageFiles.map(file => saveFile(file, id))
+                newSecondaryImageFiles.map(file => processAndSaveImage(file, newProductName))
             );
         } else if (formData.get('delete_secondary_images') === 'true') {
             // Handle explicit deletion of all secondary images
@@ -234,12 +252,10 @@ export async function PUT(
         }
 
         // 5. Construct the updated product object
-        // New logic to handle additional_info
         let additionalInfo: AdditionalInfoItem[] = [];
         const additionalInfoString = formData.get('additional_info') as string;
         if (additionalInfoString) {
             try {
-                // Parse the stringified JSON array from the form data
                 additionalInfo = JSON.parse(additionalInfoString) as AdditionalInfoItem[];
             } catch (jsonError) {
                 console.error('Failed to parse additional_info JSON:', jsonError);
@@ -249,7 +265,7 @@ export async function PUT(
         
         const updatedProduct: Product = {
             ...existingProduct,
-            name: formData.get('name') as string,
+            name: newProductName,
             description: formData.get('description') as string,
             tags: (formData.get('tags') as string).split(',').map(tag => tag.trim()),
             main_image: mainImagePath,
@@ -258,8 +274,8 @@ export async function PUT(
             quantity: parseInt(formData.get('quantity') as string, 10),
             price: parseFloat(formData.get('price') as string),
             material: formData.get('material') as string,
-            additional_info: additionalInfo, // Now correctly updating from the form
-            reviews: existingProduct.reviews, // Assuming this is not part of the form
+            additional_info: additionalInfo,
+            reviews: existingProduct.reviews,
         };
 
         // 6. Update the product and write to the file
@@ -284,6 +300,6 @@ export async function PUT(
 
     } catch (error) {
         console.error('Error updating product:', error);
-        return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+        return NextResponse.json({ message: 'Internal server error', details: (error as Error).message }, { status: 500 });
     }
 }

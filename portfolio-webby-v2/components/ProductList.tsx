@@ -1,3 +1,4 @@
+// components/ProductList
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
@@ -18,7 +19,6 @@ export default function ProductList({ ActionButton }: ProductListProps) {
     const [allProducts, setAllProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [statusMessage, setStatusMessage] = useState({ type: '', message: '' });
-    const router = useRouter();
     const searchParams = useSearchParams();
 
     useEffect(() => {

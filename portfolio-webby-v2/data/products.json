@@ -196,66 +196,6 @@
     ]
   },
   {
-    "id": "135fcc15-8b93-4747-a611-ff3d3a27b139",
-    "name": "fish",
-    "description": "can roll",
-    "tags": [
-      "seo",
-      "pyramid"
-    ],
-    "main_image": "/images/22c72f53-85dc-49f1-93e3-d5da20a4afb6-seo-pyramid-and-all-seo-components-1200x675.png.webp",
-    "secondary_images": [
-      "https://picsum.photos/id/257/400/300",
-      "https://picsum.photos/id/237/400/300"
-    ],
-    "size": "Small",
-    "quantity": 5,
-    "price": 5,
-    "reviews": [
-      {
-        "customer_name": "Patty D.",
-        "rating": 5,
-        "comment": "My cat loves this toy!"
-      }
-    ],
-    "material": "Wool",
-    "additional_info": [
-      {
-        "title": "Handmade",
-        "description": "Yes"
-      },
-      {
-        "title": "Color",
-        "description": "Blue"
-      }
-    ]
-  },
-  {
-    "id": "test-1fb36379",
-    "name": "Test",
-    "description": "test",
-    "main_image": "/images/c49115cd-8d44-47f6-8abd-ce641f0da6d1-seo-pyramid-and-all-seo-components-1200x675.png.webp",
-    "secondary_images": [
-      "/images/75f854fc-b859-4b6e-8b66-8bfffb5bca2a-seo-pyramid-and-all-seo-components-1200x675.png.webp",
-      "/images/61524d8b-e066-4b55-88d4-9d6cff6fa932-wire frame.jpg"
-    ],
-    "tags": [
-      "seo",
-      "pyramid"
-    ],
-    "price": 999,
-    "size": "xxl",
-    "quantity": 1,
-    "reviews": [],
-    "material": "data",
-    "additional_info": [
-      {
-        "title": "title-test",
-        "description": "desc-test"
-      }
-    ]
-  },
-  {
     "id": "test-2-wireframe-c0979fb3",
     "name": "test-2 wireframe",
     "description": "no",
@@ -391,43 +331,29 @@
     ]
   },
   {
-    "id": "test1-fb903afa",
-    "name": "rerender again",
-    "description": "eddited description",
-    "main_image": "/images/test1-ff9689e3-5141-4bdc-b9cd-d438f65ca84e.webp",
+    "id": "test-for-webp-0b83b29d",
+    "name": "test for webp",
+    "description": "dsaf1",
+    "main_image": "/images/test-for-webp-fab5abdf-50fa-47d0-99d7-2b5e70fe0710.webp",
     "secondary_images": [
-      "/images/test1-fb903afa-Screenshot-2025-07-21-163017.png",
-      "/images/test1-fb903afa-Screenshot-2025-07-21-163039.png",
-      "/images/test1-fb903afa-Screenshot-2025-08-01-153401.png"
+      "/images/test-for-webp-d05b3c95-370f-4462-86e9-4f11c779f26b.webp",
+      "/images/test-for-webp-15a78eb5-43fb-44e3-a789-453cd5e85f10.webp",
+      "/images/test-for-webp-c477b57b-4e61-445c-bd72-3c5ca0be92b8.webp",
+      "/images/test-for-webp-1008680e-d943-4576-9727-a505983a5423.webp"
     ],
     "tags": [
-      "new",
       "ceramic",
-      "eco-friendly",
-      "gadget",
-      "fitness",
-      "gardening",
-      "electronics",
-      "home-decor",
-      "home-goods"
+      "new"
     ],
-    "price": 999999,
-    "size": "19999999999999",
-    "quantity": 1119999999,
+    "price": 110.98,
+    "size": "11111",
+    "quantity": 111,
     "reviews": [],
-    "material": "199999999999999",
+    "material": "1",
     "additional_info": [
       {
         "title": "1",
         "description": "1"
-      },
-      {
-        "title": "additional aditional info",
-        "description": "sdfsdf"
-      },
-      {
-        "title": "more",
-        "description": "more"
       }
     ]
   }

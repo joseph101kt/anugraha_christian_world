@@ -389,5 +389,46 @@
         "description": "can snear"
       }
     ]
+  },
+  {
+    "id": "test1-fb903afa",
+    "name": "rerender again",
+    "description": "eddited description",
+    "main_image": "/images/test1-ff9689e3-5141-4bdc-b9cd-d438f65ca84e.webp",
+    "secondary_images": [
+      "/images/test1-fb903afa-Screenshot-2025-07-21-163017.png",
+      "/images/test1-fb903afa-Screenshot-2025-07-21-163039.png",
+      "/images/test1-fb903afa-Screenshot-2025-08-01-153401.png"
+    ],
+    "tags": [
+      "new",
+      "ceramic",
+      "eco-friendly",
+      "gadget",
+      "fitness",
+      "gardening",
+      "electronics",
+      "home-decor",
+      "home-goods"
+    ],
+    "price": 999999,
+    "size": "19999999999999",
+    "quantity": 1119999999,
+    "reviews": [],
+    "material": "199999999999999",
+    "additional_info": [
+      {
+        "title": "1",
+        "description": "1"
+      },
+      {
+        "title": "additional aditional info",
+        "description": "sdfsdf"
+      },
+      {
+        "title": "more",
+        "description": "more"
+      }
+    ]
   }
 ]

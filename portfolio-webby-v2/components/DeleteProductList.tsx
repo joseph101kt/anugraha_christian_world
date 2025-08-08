@@ -7,7 +7,12 @@ import ProductFilter from "@/components/ProductFilter";
 import { FaSpinner, FaTrashAlt, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import Image from 'next/image';
 
-import { Product, Review } from '@/lib/types'; 
+import { Product } from '@/lib/types';
+
+interface DeleteProductListProps {
+    onDelete: (productId: string, productName: string) => Promise<void>;
+    password: string;
+}
 
 interface DeleteProductCardProps {
     product: Product;
@@ -64,16 +69,29 @@ const DeleteProductCard: React.FC<DeleteProductCardProps> = ({ product, onDelete
     );
 };
 
-
-export default function DeleteProductList() {
+export default function DeleteProductList({ onDelete, password }: DeleteProductListProps) {
     const [allProducts, setAllProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [statusMessage, setStatusMessage] = useState({ type: '', message: '' });
     const router = useRouter();
-    // NEW: Use useSearchParams to read filter state from the URL
     const searchParams = useSearchParams();
-
     const [deletingProductId, setDeletingProductId] = useState<string | null>(null);
+
+    const handleDeleteWrapper = async (productId: string, productName: string) => {
+        setDeletingProductId(productId);
+        try {
+            await onDelete(productId, productName);
+            setAllProducts(prevProducts => prevProducts.filter(p => p.id !== productId));
+            setStatusMessage({ type: 'success', message: 'Product deleted successfully!' });
+            router.refresh();
+        } catch (error: unknown) {
+            console.error('Error deleting product:', error);
+            const message = error instanceof Error ? error.message : 'An unknown error occurred.';
+            setStatusMessage({ type: 'error', message: `Error: ${message}` });
+        } finally {
+            setDeletingProductId(null);
+        }
+    };
 
     useEffect(() => {
         async function fetchProducts() {
@@ -100,7 +118,6 @@ export default function DeleteProductList() {
     
     const filteredProducts = useMemo(() => {
         let result = allProducts;
-        // NEW: Get search and tags directly from the URL
         const searchTerm = searchParams.get('search')?.toLowerCase() || '';
         const activeTags = searchParams.getAll('tags');
 
@@ -118,50 +135,11 @@ export default function DeleteProductList() {
         return result;
     }, [allProducts, searchParams]);
 
-    const handleDelete = async (productId: string, productName: string) => {
-        if (!window.confirm(`Are you sure you want to delete the product: "${productName}"?`)) {
-            return;
-        }
-
-        setDeletingProductId(productId);
-        setStatusMessage({ type: '', message: '' });
-
-        try {
-            const password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
-
-            if (!password) {
-                throw new Error('Admin password is not set in environment variables.');
-            }
-
-            const response = await fetch(`/api/products/${productId}?password=${encodeURIComponent(password)}`, {
-                method: 'DELETE',
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to delete product.');
-            }
-
-            setAllProducts(prevProducts => prevProducts.filter(p => p.id !== productId));
-            setStatusMessage({ type: 'success', message: 'Product deleted successfully!' });
-            
-            router.refresh();
-
-        } catch (error: unknown) {
-            console.error('Error deleting product:', error);
-            const message = error instanceof Error ? error.message : 'An unknown error occurred.';
-            setStatusMessage({ type: 'error', message: `Error: ${message}` });
-        } finally {
-            setDeletingProductId(null);
-        }
-    };
-
     return (
         <div className="container mx-auto p-4 md:p-8">
             <h1 className="text-3xl md:text-4xl text-center font-bold mb-8">Delete Products</h1>
             <div className="flex justify-between items-center mb-6">
                 <div className="w-full max-w-sm">
-                    {/* The search input now updates the URL, which triggers the filter */}
                     <input
                         type="text"
                         placeholder="Search products..."
@@ -178,7 +156,6 @@ export default function DeleteProductList() {
                         }}
                     />
                 </div>
-                {/* ProductFilter now only needs the allTags prop */}
                 <ProductFilter allTags={allTags} />
             </div>
             {statusMessage.message && (
@@ -206,7 +183,7 @@ export default function DeleteProductList() {
                         <DeleteProductCard
                             key={product.id}
                             product={product}
-                            onDelete={handleDelete}
+                            onDelete={handleDeleteWrapper}
                             deleting={deletingProductId === product.id}
                         />
                     ))}

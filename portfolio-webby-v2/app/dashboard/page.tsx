@@ -90,7 +90,7 @@ export default function DashboardPage() {
             case 'delete':
                 // Pass the new handleDeleteProduct function as a prop
                 // and the authenticated password.
-                return <DeleteProductList onDelete={handleDeleteProduct} password={password} />;
+                return <DeleteProductList />;
             case 'leads':
                 return <LeadsList />;
             default:
@@ -102,7 +102,7 @@ export default function DashboardPage() {
         <div className=" mx-4 p-4 w-full">
             <div className="flex flex-col md:flex-row justify-between items-center mb-8">
                 <h1 className="text-3xl md:text-4xl font-bold">Admin Dashboard</h1>
-                <div className="flex mt-4 md:mt-0 space-x-4">
+                <div className="flex mt-4 md:mt-0 p-4 space-x-4">
                     <button
                         onClick={() => setCurrentView('add')}
                         className={`btn ${currentView === 'add' ? 'btn-primary' : 'btn-ghost'}`}

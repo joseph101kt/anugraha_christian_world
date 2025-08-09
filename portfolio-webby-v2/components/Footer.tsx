@@ -22,12 +22,21 @@ export default function Footer() {
             <li><Link href="/contact" className="hover:underline">Contact</Link></li>
           </ul>
         </div>
+        <div>
+          <h4 className="text-lg font-semibold mb-2">Other Links</h4>
+          <ul className="space-y-1 text-sm">
+            <li><Link href="/faq" className="hover:underline">FAQ</Link></li>
+            <li><Link href="/terms" className="hover:underline">Terms of Services</Link></li>
+            <li><Link href="/privacy" className="hover:underline">Privacy Policy</Link></li>
+          </ul>
+        </div>
+
 
         {/* Contact */}
         <div>
           <h4 className="text-lg font-semibold mb-2">Contact</h4>
           <ul className="space-y-1 text-sm">
-            <li>📍 Hyderabad, Telangana</li>
+            <li>📍 Metuuguda, Hyderabad, Telangana</li>
             <li>
               📞{" "}
               <a href="tel:+919397082746" className="hover:underline">
@@ -43,20 +52,18 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Socials or Newsletter */}
-        <div>
-          <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
-          <div className="flex space-x-4 text-xl">
-            <a href="#" className="hover:text-blue-500">🔗</a>
-            <a href="#" className="hover:text-blue-500">🔗</a>
-            <a href="#" className="hover:text-blue-500">🔗</a>
-          </div>
-        </div>
+
       </div>
 
-      <div className="border-t border-neutral-300 dark:border-neutral-600 mt-8 pt-4 text-center text-sm">
-        &copy; {new Date().getFullYear()} Anugraha Christian World. All rights reserved.
+      <div className=" border-t border-neutral-300 dark:border-neutral-600 mt-8 pt-4 text-center text-sm">
+          <div className="mx=5">
+            &copy; {new Date().getFullYear()} Anugraha Christian World. All rights reserved.
+          </div>
+          <div >
+            <Link href={"https://josephkakkassery.netlify.app/"} className="mx-auto">  Developed by Joseph Kakkassery</Link>
+          </div>
       </div>
+
     </footer>
   );
 }

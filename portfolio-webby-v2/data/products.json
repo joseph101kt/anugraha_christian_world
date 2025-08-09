@@ -271,28 +271,6 @@
     ]
   },
   {
-    "id": "1-82070f88",
-    "name": "1",
-    "description": "dsa",
-    "main_image": "/images/9cd7541c-dce3-4a36-a3df-2c9864079058-seo-pyramid-and-all-seo-components-1200x675.png.webp",
-    "secondary_images": [],
-    "tags": [
-      "seo",
-      "pyramid"
-    ],
-    "price": 1.01,
-    "size": "adf",
-    "quantity": 81,
-    "reviews": [],
-    "material": "asdf",
-    "additional_info": [
-      {
-        "title": "asdf",
-        "description": "adfsd"
-      }
-    ]
-  },
-  {
     "id": "abcd-1ebf6860",
     "name": "abcd",
     "description": "efg",

@@ -26,7 +26,7 @@ export default function TermsOfServicePage() {
         <section className="mb-10">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2">2. Intellectual Property</h2>
           <p className="text-base md:text-lg leading-relaxed">
-            The content on this website, including text, graphics, logos, and images, is the exclusive property of **[Your Company Name]** and is protected by copyright and other intellectual property laws.
+            The content on this website, including text, graphics, logos, and images, is the exclusive property of Anugraha Christian World and is protected by copyright and other intellectual property laws.
           </p>
         </section>
 
@@ -40,7 +40,7 @@ export default function TermsOfServicePage() {
         <section>
           <h2 className="text-2xl md:text-3xl font-bold mb-4 border-b-2 pb-2">4. Limitation of Liability</h2>
           <p className="text-base md:text-lg leading-relaxed">
-            In no event shall **[Your Company Name]** be liable for any damages arising out of the use or inability to use the materials on our website.
+            In no event shall Anugraha Christian World be liable for any damages arising out of the use or inability to use the materials on our website.
           </p>
         </section>
       </div>

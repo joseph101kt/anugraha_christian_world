@@ -29,7 +29,7 @@ export default function PrivacyPolicyPage() {
           </p>
           <ul className="list-disc list-inside mt-4 text-base md:text-lg space-y-2">
             <li>
-              **Personal Data:** Information that can be used to identify you, such as your name, email address, and shipping address.
+              **Personal Data:** Information that can be used to identify you, such as your name and phone number.
             </li>
             <li>
               **Usage Data:** Data on how the service is accessed and used, including your IP address, browser type, and pages visited.

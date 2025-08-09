@@ -3,8 +3,8 @@ import React from 'react';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'FAQ - [Your Company Name]',
-  description: 'Find answers to the most common questions about our products, shipping, and return policies.',
+  title: 'FAQ - Anugraha Christian World',
+  description: 'Find answers to the most common questions about our products.',
 };
 
 export default function FAQPage() {
@@ -17,37 +17,31 @@ export default function FAQPage() {
 
       <div className="space-y-8">
         <div className="bg-secondary rounded-xl shadow-lg p-6 md:p-8">
-          <h2 className="text-xl md:text-2xl font-bold mb-2">How can I place an order?</h2>
+          <h4 className="text-xl md:text-2xl font-bold mb-2">How can I place an order?</h4>
           <p className="text-base md:text-lg">
-            To place an order, simply add your desired items to the cart and proceed to the checkout page. Follow the prompts to enter your shipping and payment information to complete your purchase.
+            Contact us through the <Link href={"/contact"}>Contact page</Link>
           </p>
         </div>
 
         <div className="bg-secondary rounded-xl shadow-lg p-6 md:p-8">
-          <h2 className="text-xl md:text-2xl font-bold mb-2">What payment methods do you accept?</h2>
+          <h4 className="text-xl md:text-2xl font-bold mb-2">What payment methods do you accept?</h4>
           <p className="text-base md:text-lg">
-            We accept all major credit and debit cards, as well as secure payment options like PayPal and Apple Pay.
+            There is no payment method through the website. Payment can be done in store.
           </p>
         </div>
 
         <div className="bg-secondary rounded-xl shadow-lg p-6 md:p-8">
-          <h2 className="text-xl md:text-2xl font-bold mb-2">What is your shipping policy?</h2>
+          <h4 className="text-xl md:text-2xl font-bold mb-2">What is your shipping policy?</h4>
           <p className="text-base md:text-lg">
-            We offer various shipping options. Standard shipping typically takes 5-7 business days, while expedited options are also available. You will receive a tracking number once your order has shipped.
+            We can ship through services like rapido.
           </p>
         </div>
 
-        <div className="bg-secondary rounded-xl shadow-lg p-6 md:p-8">
-          <h2 className="text-xl md:text-2xl font-bold mb-2">What is your return policy?</h2>
-          <p className="text-base md:text-lg">
-            We offer a 30-day return policy for unused items in their original packaging. Please visit our dedicated <Link href="/returns" className="bg-accent text-primary p-1 rounded font-semibold">Returns Page</Link> for detailed instructions and to start the process.
-          </p>
-        </div>
 
         <div className="bg-secondary rounded-xl shadow-lg p-6 md:p-8">
-          <h2 className="text-xl md:text-2xl font-bold mb-2">How can I contact customer support?</h2>
+          <h4 className="text-xl md:text-2xl font-bold mb-2">How can I contact customer support?</h4>
           <p className="text-base md:text-lg">
-            You can reach our customer support team via email at support@[yourcompany.com] or through our contact form. We strive to respond to all inquiries within 24-48 hours.
+            You can reach us through the <Link href={"/contact"}>Contact page</Link>
           </p>
         </div>
       </div>

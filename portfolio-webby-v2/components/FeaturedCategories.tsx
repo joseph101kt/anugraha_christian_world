@@ -11,16 +11,16 @@ import Carousel from './Carousel';
 const allCategories = [
   // Slide 1 (Bento box layout)
   [
-    { name: "Chalice", image: "/images/categories/chalice.webp", tag: "chalice, church-item, church-offering", size: "col-span-2 row-span-2" },
-    { name: "Cross", image: "/images/categories/brass-cross.webp", tag: "cross, church-item, church-offering", size: "col-span-2" },
-    { name: "Ciborium", image: "/images/categories/ciborium.webp", tag: "ciborium, church-item, church-offering", size: "" },
-    { name: "Monstrance", image: "/images/categories/monstrance.webp", tag: "monstrance, church-item, church-offering", size: "" },
+    { name: "Chalice", image: "/images/categories/chalice.webp", tag: "chalice, church-offering", size: "col-span-2 row-span-2" },
+    { name: "Cross", image: "/images/categories/brass-cross.webp", tag: "cross, church-offering", size: "col-span-2" },
+    { name: "Ciborium", image: "/images/categories/ciborium.webp", tag: "ciborium, church-offering", size: "" },
+    { name: "Monstrance", image: "/images/categories/monstrance.webp", tag: "monstrance, church-offering", size: "" },
   ],
   // Slide 2 (Another bento box layout)
   [
-    { name: "Brass Candle Stands", image: "/images/categories/brass-candle-stands.webp", tag: "brass, candle-stands, church-item", size: "col-span-2 row-span-2" },
-    { name: "Fiber Globes", image: "/images/categories/fiber-globes-for-candle-stand.webp", tag: "fiber, globes, church-item", size: "col-span-2" },
-    { name: "Fiber Candle Stands", image: "/images/categories/fiber-candlestands.webp", tag: "fiber, candle-stands, church-item", size: "col-span-2" },
+    { name: "Brass Candle Stands", image: "/images/categories/brass-candle-stands.webp", tag: "brass, candle-stands,  ", size: "col-span-2 row-span-2" },
+    { name: "Fiber Globes", image: "/images/categories/fiber-globes-for-candle-stand.webp", tag: "fiber, globes,  ", size: "col-span-2" },
+    { name: "Fiber Candle Stands", image: "/images/categories/fiber-candlestands.webp", tag: "fiber, candle-stands,  ", size: "col-span-2" },
   ],
   // Slide 3
   [

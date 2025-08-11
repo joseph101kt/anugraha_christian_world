@@ -45,7 +45,14 @@ export default function FeaturedCategory() {
                 key={catIndex}
                 className={`relative p-4 bg-secondary shadow-lg rounded-lg overflow-hidden hover:scale-[1.02] transition-transform duration-200 ease-in-out ${cat.size}`}
               >
-                <Link  href={`/products?tags=${encodeURIComponent(cat.tag)}`}>
+                <Link
+                  href={`/products?${cat.tag
+                    .split(',')
+                    .map(tag => tag.trim())
+                    .filter(Boolean)
+                    .map(tag => `tags=${encodeURIComponent(tag)}`)
+                    .join('&')}`}
+                >
                   <div className="absolute inset-0 z-0">
                     <Image
                       src={cat.image}

@@ -8,8 +8,8 @@ import SearchBar from '@/components/SearchBar';
 import { FaSpinner } from 'react-icons/fa';
 
 import { Product } from '@/lib/types';
-import ProductCard from '@/components/ProductCard'; // Import your existing ProductCard
-import Pagination from '@/components/Pagination'; // Assuming you have a Pagination component
+import ProductCard from '@/components/ProductCard';
+import Pagination from '@/components/Pagination';
 
 interface ProductListProps {
     ActionButton: React.ComponentType<{ product: Product }>;
@@ -23,6 +23,11 @@ export default function ProductList({ ActionButton }: ProductListProps) {
     const [statusMessage, setStatusMessage] = useState({ type: '', message: '' });
     const searchParams = useSearchParams();
     const router = useRouter();
+
+    // Extract current params once (to be used in effects and memo)
+    const query = searchParams.get('query') || '';
+    const tags = searchParams.getAll('tags');
+    const pageParam = parseInt(searchParams.get('page') || '1', 10);
 
     useEffect(() => {
         async function fetchProducts() {
@@ -45,62 +50,71 @@ export default function ProductList({ ActionButton }: ProductListProps) {
         fetchProducts();
     }, []);
 
+    // Reset page to 1 when search query or tags change and current page > 1
+    useEffect(() => {
+        if (pageParam > 1) {
+            const params = new URLSearchParams();
+            if (query) params.set('query', query);
+            tags.forEach(tag => params.append('tags', tag));
+            params.set('page', '1');
+
+            router.replace(`/products?${params.toString()}`);
+        }
+    }, [query, tags.join(','), pageParam, router]);
+
     // Extract all unique tags from products
-    const allTags = useMemo(() => 
+    const allTags = useMemo(() =>
         Array.from(new Set(allProducts.flatMap(product => product.tags))),
         [allProducts]
     );
 
-    // Enhanced filtering and ranking logic
+    // Enhanced filtering and ranking logic with combined search and tag scoring
     const filteredProducts = useMemo(() => {
-        let result = allProducts;
-        const searchTermRaw = searchParams.get('query')?.toLowerCase() || '';
-        const activeTags = searchParams.getAll('tags');
-
-        // Normalize search term: replace '-' with space, split by spaces, filter out empty words
+        const activeTags = tags.map(t => t.toLowerCase());
+        const searchTermRaw = query.toLowerCase();
         const normalizedSearchTerm = searchTermRaw.replace(/-/g, ' ');
         const searchWords = normalizedSearchTerm.split(/\s+/).filter(Boolean);
 
-        if (searchWords.length > 0) {
-            // Map products to scored objects
-            const scoredProducts = allProducts
-                .map(product => {
-                    let score = 0;
-                    const name = product.name.toLowerCase();
-                    const description = product.description.toLowerCase();
-                    const material = (product.material || '').toLowerCase();
-                    const tags = product.tags.map(tag => tag.toLowerCase());
-
-                    for (const word of searchWords) {
-                        if (name.includes(word)) score += 3;
-                        if (description.includes(word)) score += 2;
-                        if (material.includes(word)) score += 2;
-                        if (tags.some(tag => tag.includes(word))) score += 1;
-                    }
-
-                    return { product, score };
-                })
-                // Filter out products with no match
-                .filter(({ score }) => score > 0)
-                // Sort by score descending
-                .sort((a, b) => b.score - a.score)
-                .map(({ product }) => product);
-
-            result = scoredProducts;
+        // Show all if no filters/search
+        if (searchWords.length === 0 && activeTags.length === 0) {
+            return allProducts;
         }
 
-        // Apply tag filters (after scoring)
-        if (activeTags.length > 0) {
-            result = result.filter(product =>
-                activeTags.some(tag => product.tags.includes(tag))
-            );
-        }
+        const scoredProducts = allProducts
+            .map(product => {
+                let score = 0;
+                const name = product.name.toLowerCase();
+                const description = product.description.toLowerCase();
+                const material = (product.material || '').toLowerCase();
+                const tags = product.tags.map(tag => tag.toLowerCase());
 
-        return result;
-    }, [allProducts, searchParams]);
+                // Search term scoring
+                for (const word of searchWords) {
+                    if (name.includes(word)) score += 3;
+                    if (description.includes(word)) score += 2;
+                    if (material.includes(word)) score += 2;
+                    if (tags.some(tag => tag.includes(word))) score += 1;
+                }
+
+                // Tag matching scoring (5 points per matching tag)
+                if (activeTags.length > 0) {
+                    const matchingTagsCount = activeTags.filter(tag => tags.includes(tag)).length;
+                    score += matchingTagsCount * 5;
+                }
+
+                return { product, score };
+            })
+            // Filter out zero-score products (no match)
+            .filter(({ score }) => score > 0)
+            // Sort descending by score
+            .sort((a, b) => b.score - a.score)
+            .map(({ product }) => product);
+
+        return scoredProducts;
+    }, [allProducts, query, tags]);
 
     // Pagination logic
-    const currentPage = parseInt(searchParams.get('page') || '1', 10);
+    const currentPage = pageParam;
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
     const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
@@ -128,8 +142,8 @@ export default function ProductList({ ActionButton }: ProductListProps) {
                 </div>
             ) : filteredProducts.length === 0 ? (
                 <p className="col-span-full text-center text-lg">
-                    {searchParams.get('query')
-                        ? `No products found matching your search: "${searchParams.get('query')}".`
+                    {query
+                        ? `No products found matching your search: "${query}".`
                         : `No products found for the selected filters.`}
                 </p>
             ) : (

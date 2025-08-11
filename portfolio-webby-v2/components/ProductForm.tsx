@@ -23,9 +23,9 @@ export default function ProductForm({ initialProduct, onSave }: ProductFormProps
     const [productName, setProductName] = useState(initialProduct?.name || '');
     const [productDescription, setProductDescription] = useState(initialProduct?.description || '');
     const [productTags, setProductTags] = useState(initialProduct?.tags.join(',') || '');
-    const [price, setPrice] = useState(initialProduct?.price.toString() || '');
+    const [price, setPrice] = useState(initialProduct?.price.toString() || '0');
     const [size, setSize] = useState(initialProduct?.size || '');
-    const [quantity, setQuantity] = useState(initialProduct?.quantity.toString() || '');
+    const [quantity, setQuantity] = useState(initialProduct?.quantity.toString() || '1');
     const [material, setMaterial] = useState(initialProduct?.material || '');
 
     // Additional info state.

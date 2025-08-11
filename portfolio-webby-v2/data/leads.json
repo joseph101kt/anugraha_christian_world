@@ -124,5 +124,14 @@
     "timestamp": "2025-08-07T12:27:07.202Z",
     "source_url": "http://localhost:3000/contact?query=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Eco-Friendly%20Bamboo%20Mug.%20You%20can%20view%20it%20here%3A%20http%3A%2F%2Flocalhost%3A3000%2Fproducts%2Feco-mug-001",
     "status": "New"
+  },
+  {
+    "id": "07f8a2d0-ca67-4eb8-b683-571ba18feabb",
+    "name": "farza",
+    "phone": "6203262832",
+    "query": "hii\n",
+    "timestamp": "2025-08-10T08:37:45.055Z",
+    "source_url": "http://localhost:3000/contact",
+    "status": "New"
   }
 ]

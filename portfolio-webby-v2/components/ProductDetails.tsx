@@ -50,9 +50,9 @@ export default async function ProductDetails({ productId }: ProductDetailsProps)
           <h1 className="text-4xl font-extrabold mb-2">{product.name}</h1>
           <p className="leading-relaxed mb-4">{product.description}</p>
 
-          {/* Price & Stock */}
+          {/* Price & Stock */} {/* Price is hidden */}
           <div className="mb-4">
-            <p className="text-2xl font-bold text-accent mb-1">
+            <p className="text-2xl hidden font-bold text-accent mb-1">
               ${product.price.toFixed(2)}
             </p>
             <p className="text-sm">In Stock: {product.quantity}</p>

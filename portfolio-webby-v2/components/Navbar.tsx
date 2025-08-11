@@ -12,8 +12,6 @@ const Navbar: React.FC = () => {
       <div className=" navbar z-40 px-4 ">
         <div className="navbar-start z-50">
 
-
-
           {/* 🧠 Site Logo */}
           <Link href="/" className="font-black rounded-sm text-2xl mx-4">
             Anugraha

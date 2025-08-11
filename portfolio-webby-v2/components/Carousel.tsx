@@ -23,7 +23,7 @@ export default function Carousel({ children, options, slideClass = 'w-full' }: C
   }, [emblaApi]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative h-full w-full">
       {/* Carousel track */}
       <div className="overflow-hidden w-full" ref={emblaRef}>
         <div className="flex w-full">
@@ -43,7 +43,7 @@ export default function Carousel({ children, options, slideClass = 'w-full' }: C
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-5 h-5 text-white"
+          className="w-5 h-5 text-accent"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -60,7 +60,7 @@ export default function Carousel({ children, options, slideClass = 'w-full' }: C
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-5 h-5 text-white"
+          className="w-5 h-5 text-accent"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

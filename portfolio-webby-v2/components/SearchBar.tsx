@@ -1,3 +1,4 @@
+// components/SerachBar.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -12,7 +13,7 @@ export default function SearchBar() {
   const currentSearchTerm = searchParams.get('query') || '';
   const [searchTerm, setSearchTerm] = useState(currentSearchTerm);
 
-  // Synchronize the local state with the URL query parameter whenever the URL changes
+  // Keep search input in sync with URL changes
   useEffect(() => {
     const query = searchParams.get('query') || '';
     setSearchTerm(query);
@@ -21,24 +22,25 @@ export default function SearchBar() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Start with the current search parameters to preserve other filters (like tags)
+    // Clone current params so we preserve filters (tags, etc.)
     const newSearchParams = new URLSearchParams(searchParams.toString());
 
-    // Only add the 'query' parameter if the search term is not empty
+    // Reset pagination so a new search starts on page 1
+    newSearchParams.delete('page');
+
+    // Update the 'query' parameter based on search input
     if (searchTerm.trim()) {
       newSearchParams.set('query', searchTerm.trim());
     } else {
-      // If the search term is empty, remove the 'query' parameter
       newSearchParams.delete('query');
     }
 
     const queryString = newSearchParams.toString();
 
-    // Redirect to /products if not on /dashboard or its subpaths
+    // Route logic — keep on current path or go to /products
     if (!pathname.startsWith('/dashboard')) {
       router.push(`/products?${queryString}`);
     } else {
-      // Otherwise, update current path with new search params (no redirect to products)
       router.push(`${pathname}?${queryString}`);
     }
   };

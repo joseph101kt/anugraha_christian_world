@@ -32,13 +32,13 @@ export default function SearchBar() {
       newSearchParams.delete('query');
     }
 
-    const targetPath = '/products';
     const queryString = newSearchParams.toString();
 
-    // Redirect to /products if not already there, otherwise update the current page
-    if (pathname !== targetPath) {
-      router.push(`${targetPath}?${queryString}`);
+    // Redirect to /products if not on /dashboard or its subpaths
+    if (!pathname.startsWith('/dashboard')) {
+      router.push(`/products?${queryString}`);
     } else {
+      // Otherwise, update current path with new search params (no redirect to products)
       router.push(`${pathname}?${queryString}`);
     }
   };

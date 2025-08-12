@@ -50,17 +50,6 @@ export default function ProductList({ ActionButton }: ProductListProps) {
         fetchProducts();
     }, []);
 
-    // Reset page to 1 when search query or tags change and current page > 1
-    useEffect(() => {
-        if (pageParam > 1) {
-            const params = new URLSearchParams();
-            if (query) params.set('query', query);
-            tags.forEach(tag => params.append('tags', tag));
-            params.set('page', '1');
-
-            router.replace(`/products?${params.toString()}`);
-        }
-    }, [query, tags.join(','), pageParam, router]);
 
     // Extract all unique tags from products
     const allTags = useMemo(() =>

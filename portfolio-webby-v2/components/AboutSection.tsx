@@ -3,8 +3,8 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <section className="w-full px-6 py-12 flex flex-col lg:flex-row  justify-between ">
-        <div className="max-w-3xl text-center lg:text-left">
+    <section className="w-full mt-5 px-6 py-12 flex flex-col lg:flex-row  justify-between ">
+        <div className="max-w-3xl  text-center lg:text-left">
         <h2 className="text-4xl font-extrabold mb-6 tracking-tight">
             About <span className="text-primary">Anugraha</span>
         </h2>
@@ -23,9 +23,9 @@ export default function AboutSection() {
 
 
 
-      <div className="border-3 border-accent p-2 rounded-xl shadow-lg">
+      <div className=" p-2 rounded-xl shadow-lg">
         <Image
-          src="/about-owner.jpg"
+          src="/images/biju.jpg"
           alt="Founder standing"
           width={400}
           height={600}

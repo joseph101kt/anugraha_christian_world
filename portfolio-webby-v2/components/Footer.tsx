@@ -37,6 +37,7 @@ export default function Footer() {
           <h4 className="text-lg font-semibold mb-2">Contact</h4>
           <ul className="space-y-1 text-sm">
             <li>📍 Metuuguda, Hyderabad, Telangana</li>
+            <li>Opens: 9:30 AM  Closes: 8:30 PM</li>
             <li>
               📞{" "}
               <a href="tel:+919397082746" className="hover:underline">

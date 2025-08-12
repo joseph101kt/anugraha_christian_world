@@ -1018,8 +1018,8 @@
   },
   {
     "id": "brass-candle-stand-set-with-stones-1ed3bcb5",
-    "name": "Brass Candle Stand Set with Stones",
-    "description": "A beautifully crafted set of brass candle stands adorned with sparkling stones, combining traditional brass craftsmanship with elegant decorative accents. Perfect for enhancing the ambiance of any sacred or ceremonial space.",
+    "name": "Gold Plated Candle Stand with Stones",
+    "description": "A beautifully crafted of gold plated candle stands adorned with sparkling stones, combining traditional craftsmanship with elegant decorative accents. Perfect for enhancing the ambiance of any sacred or ceremonial space.",
     "main_image": "/images/brass-candle-stand-set-with-stones-24ef8aec-58b0-417f-a0b9-b5973b5f9713.webp",
     "secondary_images": [],
     "tags": [
@@ -1032,7 +1032,7 @@
     "size": "All Sizes",
     "quantity": 20,
     "reviews": [],
-    "material": "Brass with Stones",
+    "material": "Gold plated",
     "additional_info": []
   },
   {
@@ -1128,6 +1128,236 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass",
+    "additional_info": []
+  },
+  {
+    "id": "fiber-globe-with-elegant-lotus-design-cf40be3c",
+    "name": "Fiber Globe with Elegant Lotus Design",
+    "description": "A beautifully crafted fiber globe candle cover featuring a delicate lotus pattern. Lightweight yet durable, it adds a serene and graceful ambiance to any candle stand or altar.",
+    "main_image": "/images/fiber-globe-with-elegant-lotus-design-80417777-87fd-4ea6-b66a-fdcf82f4b924.webp",
+    "secondary_images": [],
+    "tags": [
+      "candle-stand",
+      "church-offering",
+      "fiber",
+      "religious-decor"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 20,
+    "reviews": [],
+    "material": "Fiber",
+    "additional_info": []
+  },
+  {
+    "id": "candle-stand-with-flowerdesign-d139dd2a",
+    "name": "Candle Stand with FlowerDesign",
+    "description": "Elegand candle stands made of unbreakable fiber material with flower design",
+    "main_image": "/images/candle-stand-with-flowerdesign-bfb86ec0-bec5-4959-9432-10e290b4da5f.webp",
+    "secondary_images": [],
+    "tags": [
+      "candle-stand",
+      "church-offering",
+      "religious-decor"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 19,
+    "reviews": [],
+    "material": "Fiber",
+    "additional_info": []
+  },
+  {
+    "id": "fiber-globe-with-elegant-lotus-design-2d25e42c",
+    "name": "Fiber Globe with Elegant Lotus Design",
+    "description": "A beautifully crafted fiber globe candle cover featuring a delicate lotus pattern. Lightweight yet durable, it adds a serene and graceful ambiance to any candle stand or altar.",
+    "main_image": "/images/fiber-globe-with-elegant-lotus-design-585ac2b7-d731-421a-8ab7-6bcfa2fbba52.webp",
+    "secondary_images": [],
+    "tags": [
+      "candle-stand",
+      "church-offering",
+      "religious-decor",
+      "fiber"
+    ],
+    "price": 0,
+    "size": "Small",
+    "quantity": 20,
+    "reviews": [],
+    "material": "Fiber",
+    "additional_info": []
+  },
+  {
+    "id": "candle-stands-small-c3270270",
+    "name": "Candle Stands Small",
+    "description": "Compact Candle stands for church or home",
+    "main_image": "/images/candle-stands-small-aaca6939-de05-4697-a352-f58c6c2e3ebc.webp",
+    "secondary_images": [
+      "/images/candle-stands-small-7b25017e-7564-4934-a89e-600723735c96.webp"
+    ],
+    "tags": [
+      "candle-stand",
+      "fiber",
+      "church-offering",
+      "religious-decor"
+    ],
+    "price": 0,
+    "size": "Small",
+    "quantity": 50,
+    "reviews": [],
+    "material": "Fiber",
+    "additional_info": []
+  },
+  {
+    "id": "medium-size-candle-stand-087c5162",
+    "name": "Medium size Candle Stand",
+    "description": "Candle stand for Church or Home use",
+    "main_image": "/images/medium-size-candle-stand-9f5becb4-e7f2-422a-9b16-b2c21d93cace.webp",
+    "secondary_images": [],
+    "tags": [
+      "candle-stand",
+      "fiber",
+      "church-offering",
+      "religious-decor"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "additional_info": []
+  },
+  {
+    "id": "long-flower-model-candle-stand-7a2c4e86",
+    "name": "Long Flower Model Candle Stand",
+    "description": "Tall candle stand to use in home or offer to the church",
+    "main_image": "/images/long-flower-model-candle-stand-ece58dca-ec00-496c-98d7-96c6fb038e89.webp",
+    "secondary_images": [],
+    "tags": [
+      "candle-stand",
+      "church-offering",
+      "fiber",
+      "religious-decor"
+    ],
+    "price": 0,
+    "size": "Large",
+    "quantity": 20,
+    "reviews": [],
+    "material": "Fiber",
+    "additional_info": []
+  },
+  {
+    "id": "multicolor-globes-flower-design-695043b5",
+    "name": "Multicolor Globes Flower Design",
+    "description": "Detachable and easly cleanable globes with mutlit color designs",
+    "main_image": "/images/multicolor-globes-flower-design-c3c08acf-8e1d-4888-8884-bbcaf13e5892.webp",
+    "secondary_images": [],
+    "tags": [
+      "religious-decor",
+      "fiber",
+      "globe"
+    ],
+    "price": 0,
+    "size": "Church Candle Size",
+    "quantity": 49,
+    "reviews": [],
+    "material": "Fiber",
+    "additional_info": []
+  },
+  {
+    "id": "detachable-flower-style-globe-46919c5b",
+    "name": "Detachable flower Style Globe",
+    "description": "Detachable flower Style Globe which can be esily cleaned",
+    "main_image": "/images/detachable-flower-style-globe-663b9848-0aa1-4c85-8dcc-620eac4c0f1c.webp",
+    "secondary_images": [],
+    "tags": [
+      "fiber",
+      "religious-decor",
+      "globe",
+      "church-offering"
+    ],
+    "price": 0,
+    "size": "Church Candle Size",
+    "quantity": 49,
+    "reviews": [],
+    "material": "Fiber",
+    "additional_info": []
+  },
+  {
+    "id": "detachable-flower-shaped-globes-with-design-567abf16",
+    "name": "Detachable Flower Shaped Globes with Design",
+    "description": "Detachable Flower Shaped Globes with Elegant Design",
+    "main_image": "/images/detachable-flower-shaped-globes-with-design-cf19ac07-9e85-4e77-9cfa-a1ce103597f8.webp",
+    "secondary_images": [],
+    "tags": [
+      "church-offering",
+      "globe",
+      "fiber",
+      "religious-decor"
+    ],
+    "price": 0,
+    "size": "Church Candle Size",
+    "quantity": 49,
+    "reviews": [],
+    "material": "Fiber",
+    "additional_info": []
+  },
+  {
+    "id": "tall-globes-with-designs-e933c692",
+    "name": "Tall Globes with Designs",
+    "description": "Tall globes to protect the candle flame from the wind",
+    "main_image": "/images/tall-globes-with-designs-ccc0fbbb-bcc4-41a3-b9b6-a118f6a010ed.webp",
+    "secondary_images": [],
+    "tags": [
+      "church-offering",
+      "globe",
+      "fiber",
+      "religious-decor"
+    ],
+    "price": 0,
+    "size": "Large",
+    "quantity": 50,
+    "reviews": [],
+    "material": "Fiber",
+    "additional_info": []
+  },
+  {
+    "id": "flower-shaped-globe-eb86a355",
+    "name": "Flower Shaped Globe",
+    "description": "Flower shaped Globes to protect the candle flame.",
+    "main_image": "/images/flower-shaped-globe-ceeab01b-f174-4056-bbdd-137ac1e1ca7f.webp",
+    "secondary_images": [
+      "/images/flower-shaped-globe-68a5c761-2a50-46b8-9d3e-46efed1ea3dc.webp"
+    ],
+    "tags": [
+      "globe",
+      "church-offering",
+      "fiber",
+      "religious-decor"
+    ],
+    "price": 0,
+    "size": "Church Candle Size",
+    "quantity": 100,
+    "reviews": [],
+    "material": "Fiber",
+    "additional_info": []
+  },
+  {
+    "id": "flower-shaped-globe-with-designs-30826012",
+    "name": "Flower Shaped Globe with Designs",
+    "description": "Colorful and Vibrant Globes for alter candles",
+    "main_image": "/images/flower-shaped-globe-with-designs-db372815-79e1-4054-94bc-92dc95544d00.webp",
+    "secondary_images": [],
+    "tags": [
+      "globe",
+      "church-offering",
+      "fiber",
+      "religious-decor"
+    ],
+    "price": 0,
+    "size": "Church Candle Size",
+    "quantity": 100,
+    "reviews": [],
+    "material": "Fiber",
     "additional_info": []
   }
 ]

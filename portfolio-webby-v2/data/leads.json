@@ -133,5 +133,14 @@
     "timestamp": "2025-08-10T08:37:45.055Z",
     "source_url": "http://localhost:3000/contact",
     "status": "New"
+  },
+  {
+    "id": "9d0d4e61-b0a0-4cc3-aeb9-4703bc094d53",
+    "name": "josph",
+    "phone": "999999",
+    "query": "I would like to know more about the product: Brass Cross with 12 Apostles Design. You can view it here: http://localhost:3000/products/brass-cross-with-12-apostles-design-869528f5",
+    "timestamp": "2025-08-11T11:56:14.358Z",
+    "source_url": "http://localhost:3000/contact?contact_message=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Brass%20Cross%20with%2012%20Apostles%20Design.%20You%20can%20view%20it%20here%3A%20http%3A%2F%2Flocalhost%3A3000%2Fproducts%2Fbrass-cross-with-12-apostles-design-869528f5",
+    "status": "New"
   }
 ]

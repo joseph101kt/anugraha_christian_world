@@ -47,7 +47,7 @@ export default async function ProductDetails({ productId }: ProductDetailsProps)
         />
 
         <div className="w-full">
-          <h1 className="text-4xl font-extrabold mb-2">{product.name}</h1>
+          <h1 className=" !text-3xl md:!text-4xl lg:!text-5xl font-extrabold mb-2">{product.name}</h1>
           <p className="leading-relaxed mb-4">{product.description}</p>
 
           {/* Price & Stock */} {/* Price is hidden */}

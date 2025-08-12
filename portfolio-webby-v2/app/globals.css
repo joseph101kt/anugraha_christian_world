@@ -107,3 +107,18 @@ small {
 .text-muted {
   @apply text-gray-600 dark:text-gray-500;
 }
+
+@keyframes slideUpAndFade {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideUpAndFade {
+  animation: slideUpAndFade 1.5s ease-out forwards;
+}

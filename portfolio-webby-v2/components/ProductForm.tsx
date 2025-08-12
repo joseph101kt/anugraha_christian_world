@@ -173,7 +173,7 @@ export default function ProductForm({ initialProduct, onSave }: ProductFormProps
         
         // Basic validation
         const hasMainImage = !!mainImage || (isEditing && !!initialProduct?.main_image);
-        if (!productName.trim() || !productDescription.trim() || !price || !size || !quantity || !material || !hasMainImage) {
+        if (!productName.trim() || !productDescription.trim() || !size || !material || !hasMainImage) {
             setStatus('error');
             setStatusMessage('Please fill out all required fields and upload a main image.');
             return;
@@ -215,9 +215,9 @@ export default function ProductForm({ initialProduct, onSave }: ProductFormProps
                 if (!isEditing) {
                     setProductName('');
                     setProductDescription('');
-                    setProductTags('');
-                    setPrice('');
-                    setQuantity('');
+                    setProductTags(productTags);
+                    setPrice('0');
+                    setQuantity('1');
                     setSize('');
                     setMaterial('');
                     setAdditionalInfo([{ title: "", description: "" }]);

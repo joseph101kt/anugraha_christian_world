@@ -12,7 +12,7 @@ interface ProductGridProps {
     ActionButton?: React.ComponentType<{ product: Product }>; // Optional prop
 }
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 20;
 
 export default function ProductGrid({ products, ActionButton }: ProductGridProps) {
     const searchParams = useSearchParams();

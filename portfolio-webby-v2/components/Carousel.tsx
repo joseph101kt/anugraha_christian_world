@@ -38,12 +38,12 @@ export default function Carousel({ children, options, slideClass = 'w-full' }: C
       {/* Prev button */}
       <button
         onClick={scrollPrev}
-        className="absolute top-1/2 -translate-y-1/2 left-4 z-10 w-10 h-10 rounded-full backdrop-blur-md bg-white/30 hover:bg-white/50 flex items-center justify-center transition"
+        className="absolute top-1/2 -translate-y-1/2 left-4 z-10 w-15 h-15 rounded-full backdrop-blur-md bg-accent/80 hover:bg-accent/100 flex items-center justify-center transition-transform duration-200 ease-in-out hover:scale-140"
         aria-label="Previous slide"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-5 h-5 text-accent"
+          className="w-5 h-5 text-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -55,12 +55,12 @@ export default function Carousel({ children, options, slideClass = 'w-full' }: C
       {/* Next button */}
       <button
         onClick={scrollNext}
-        className="absolute top-1/2 -translate-y-1/2 right-4 z-10 w-10 h-10 rounded-full backdrop-blur-md bg-white/30 hover:bg-white/50 flex items-center justify-center transition"
+        className="absolute top-1/2 -translate-y-1/2 right-4 z-10 w-15 h-15 rounded-full backdrop-blur-md bg-accent/80 hover:bg-accent/100 flex items-center justify-center transition-transform duration-200 ease-in-out hover:scale-140"
         aria-label="Next slide"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-5 h-5 text-accent"
+          className="w-5 h-5 text-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

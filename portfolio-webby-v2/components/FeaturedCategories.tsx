@@ -18,15 +18,15 @@ const allCategories = [
   ],
   // Slide 2 (Another bento box layout)
   [
-    { name: "Brass Candle Stands", image: "/images/categories/brass-candle-stands.webp", tag: "brass, candle-stands,  ", size: "col-span-2 row-span-2" },
-    { name: "Fiber Globes", image: "/images/categories/fiber-globes-for-candle-stand.webp", tag: "fiber, globes,  ", size: "col-span-2" },
-    { name: "Fiber Candle Stands", image: "/images/categories/fiber-candlestands.webp", tag: "fiber, candle-stands,  ", size: "col-span-2" },
+    { name: "Brass Candle Stands", image: "/images/categories/brass-candle-stands.webp", tag: "brass, candle-stand,  ", size: "col-span-2 row-span-2" },
+    { name: "Fiber Globes", image: "/images/categories/fiber-globes-for-candle-stand.webp", tag: "fiber, globe,  ", size: "col-span-2" },
+    { name: "Fiber Candle Stands", image: "/images/categories/fiber-candlestands.webp", tag: "fiber, candle-stand,  ", size: "col-span-2" },
   ],
   // Slide 3
   [
-    { name: "Statues", image: "/images/categories/nativity-set.webp", tag: "statues", size: "col-span-2 row-span-2" },
-    { name: "Holy Family Statues", image: "/images/categories/holy-family.webp", tag: "holy-family, statues", size: "col-span-2" },
-    { name: "Mary Statues", image: "/images/categories/mary-statues.webp", tag: "mary, statues", size: "col-span-2" },
+    { name: "Statues", image: "/images/categories/nativity-set.webp", tag: "statue", size: "col-span-2 row-span-2" },
+    { name: "Holy Family Statues", image: "/images/categories/holy-family.webp", tag: "holy-family, statue", size: "col-span-2" },
+    { name: "Mary Statues", image: "/images/categories/mary-statues.webp", tag: "mary, statue", size: "col-span-2" },
   ],
 ];
 
@@ -43,7 +43,7 @@ export default function FeaturedCategory() {
             {slide.map((cat, catIndex) => (
               <div
                 key={catIndex}
-                className={`relative p-4 bg-secondary shadow-lg rounded-lg overflow-hidden hover:scale-[1.02] transition-transform duration-200 ease-in-out ${cat.size}`}
+                className={`relative p-4  shadow-lg rounded-lg overflow-hidden hover:scale-[1.02] transition-transform duration-200 ease-in-out ${cat.size}`}
               >
                 <Link
                   href={`/products?${cat.tag
@@ -59,12 +59,12 @@ export default function FeaturedCategory() {
                       alt={cat.name}
                       layout="fill"
                       objectFit="cover"
-                      className="rounded-lg opacity-70"
+                      className="rounded-lg"
                     />
                   </div>
-                  <div className="relative z-10 flex items-end h-full">
-                    <h3 className="text-xl backdrop-blur-xs rounded-full font-bold drop-shadow-md">
-                      {cat.name}
+                  <div className="relative  z-10 flex items-end h-full p-4">
+                    <h3 className="text-xl font-bold text-white px-4 py-2 rounded-full bg-black/50 drop-shadow-lg">
+                      {cat.name}  
                     </h3>
                   </div>
                 </Link>

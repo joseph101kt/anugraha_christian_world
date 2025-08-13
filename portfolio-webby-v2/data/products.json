@@ -1431,23 +1431,6 @@
     "category": "alter"
   },
   {
-    "id": "test-4c6d0bfe",
-    "name": "test",
-    "description": "test",
-    "main_image": "/images/test-91b698f0-cba6-45a5-a9b9-a347e37a5d45.webp",
-    "secondary_images": [],
-    "tags": [
-      "test"
-    ],
-    "price": 0,
-    "size": "test",
-    "quantity": 1,
-    "reviews": [],
-    "material": "test",
-    "additional_info": [],
-    "category": "Test"
-  },
-  {
     "id": "last-supper-photo-frames-665ff6cc",
     "name": "Last Supper Photo Frames",
     "description": "Elegant  Last Supper photo frame capturing the timeless biblical scene in intricate detail. Perfect for Christian homes, churches, or as a spiritual gift. Durable build with rich colors that bring depth to the artwork. Ideal for wall décor or altar placement.",
@@ -1489,7 +1472,7 @@
       "jesus",
       "mary",
       "joseph",
-      "holy-familly"
+      "holy-family"
     ],
     "price": 0,
     "size": "All Sizes Available",
@@ -1946,23 +1929,6 @@
     "additional_info": []
   },
   {
-    "id": "test-72167303",
-    "name": "Test",
-    "description": "s",
-    "main_image": "/images/test-88ee18b4-8b4b-4ddc-90bd-b62a604e6315.webp",
-    "secondary_images": [],
-    "tags": [
-      "test"
-    ],
-    "price": 0,
-    "size": "s",
-    "quantity": 1,
-    "reviews": [],
-    "material": "s",
-    "category": "Test",
-    "additional_info": []
-  },
-  {
     "id": "rectangular-tabernacle-chalice-host-grapes-medium-870f8f0f",
     "name": "Rectangular Tabernacle – Chalice, Host & Grapes (Medium)",
     "description": "Medium rectangular tabernacle featuring a chalice, host, and grape design, symbolizing the Holy Eucharist. Ideal for parish use.\r\n\r\n",
@@ -2101,7 +2067,7 @@
     ],
     "tags": [
       "statue",
-      "holy-familly"
+      "holy-family"
     ],
     "price": 0,
     "size": "Medium",

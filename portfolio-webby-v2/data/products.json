@@ -2414,7 +2414,7 @@
   {
     "id": "gold-vestment-a6f1e1f1",
     "name": "Gold Vestment ",
-    "description": "Luxurious gold vestment for festive masses, symbolizing glory and celebration.\r\n",
+    "description": "Gold vestment\r\n",
     "main_image": "/images/gold-vestment-1a4ac2e4-0e0c-4300-bac2-9b06547fb376.webp",
     "secondary_images": [],
     "tags": [
@@ -2432,7 +2432,7 @@
   {
     "id": "gold-vestment-bcac1d1a",
     "name": "Gold Vestment ",
-    "description": "Luxurious gold vestment for festive masses, symbolizing glory and celebration.\r\n",
+    "description": "Gold vestment\r\n",
     "main_image": "/images/gold-vestment-e27a4b22-d7b0-40fa-9a74-46a320b283ed.webp",
     "secondary_images": [],
     "tags": [
@@ -2450,7 +2450,7 @@
   {
     "id": "gold-vestment-0f8c7287",
     "name": "Gold Vestment ",
-    "description": "Luxurious gold vestment for festive masses, symbolizing glory and celebration.\r\n",
+    "description": "Gold vestment\r\n",
     "main_image": "/images/gold-vestment-ef9bad3e-84b4-4d29-ab7c-5587b86561ae.webp",
     "secondary_images": [
       "/images/gold-vestment-1395415d-b2ec-49a5-baa7-8930d28a5892.webp"
@@ -2470,7 +2470,7 @@
   {
     "id": "liturgical-vestment-ad1254cc",
     "name": "Liturgical Vestment ",
-    "description": "High-quality liturgical vestment for clergy, available in multiple colors to suit different church seasons and celebrations. Crafted for comfort, durability, and elegance.\r\n",
+    "description": " Vestment\r\n",
     "main_image": "/images/liturgical-vestment-8b9f9af0-31f4-4176-8ee4-4dc81624db89.webp",
     "secondary_images": [
       "/images/liturgical-vestment-d8dbaf68-2d2e-453f-a0b5-176f3c989320.webp",
@@ -2492,7 +2492,7 @@
   {
     "id": "white-vestment-b83618f8",
     "name": "White Vestment",
-    "description": "Classic white vestment, perfect for weddings, baptisms, and holy celebrations.\r\n",
+    "description": " Vestment\r\n",
     "main_image": "/images/white-vestment-07b8b2b4-1c87-4418-9108-545186e28fb5.webp",
     "secondary_images": [],
     "tags": [
@@ -2510,7 +2510,7 @@
   {
     "id": "vestment-47500232",
     "name": "Vestment",
-    "description": "Elegant red vestment for liturgical celebrations, crafted from quality fabric for comfort and durability.\r\nPremium green vestment ideal for ordinary time services, offering a perfect blend of tradition and style.\r\nRoyal purple vestment for Advent and Lent, designed for comfort and reverence.\r\n",
+    "description": " Vestment\r\n",
     "main_image": "/images/vestment-d9df7503-3f77-4ece-a229-9bfd046b3247.webp",
     "secondary_images": [
       "/images/vestment-0e6ff43c-d76d-45b4-8c9a-3f6b3018fa04.webp",
@@ -2531,7 +2531,7 @@
   {
     "id": "green-vestment-36272bce",
     "name": "Green Vestment",
-    "description": "Premium green vestment ideal for ordinary time services, offering a perfect blend of tradition and style.\r\n",
+    "description": " Vestment\r\n",
     "main_image": "/images/green-vestment-c6a05a03-6327-4d37-8166-2c7e9bf86102.webp",
     "secondary_images": [],
     "tags": [

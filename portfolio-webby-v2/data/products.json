@@ -16,7 +16,8 @@
     "quantity": 100,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "candle-stand-with-gold-design-0c4fb199",
@@ -34,7 +35,8 @@
     "quantity": 100,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "flower-shape-candle-stand-d14db2b9",
@@ -52,7 +54,8 @@
     "quantity": 1,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "gold-plated-chalice-with-silver-exterior-c2b2e6a4",
@@ -70,7 +73,8 @@
     "quantity": 7,
     "reviews": [],
     "material": "Brass with gold plating",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "gold-plated-chalice-with-stones-c6824596",
@@ -88,7 +92,8 @@
     "quantity": 5,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "chalice-with-textured-gold-plating-2b13de5d",
@@ -106,7 +111,8 @@
     "quantity": 7,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "classic-gold-plated-chalice-e49daf9f",
@@ -124,7 +130,8 @@
     "quantity": 3,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "gold-plated-ciborium-with-silver-tone-exterior-5c91e542",
@@ -142,7 +149,8 @@
     "quantity": 3,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "gold-plated-ciborium-with-ornate-layer-and-stone-accents-29e9c7e9",
@@ -160,7 +168,8 @@
     "quantity": 3,
     "reviews": [],
     "material": "Brass with Gold plating",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "large-ciborium-with-gold-plating-44237d91",
@@ -178,7 +187,8 @@
     "quantity": 5,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "medium-size-gold-plated-ciborium-a074314e",
@@ -196,7 +206,8 @@
     "quantity": 18,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "double-gold-plated-ciborium-8999a704",
@@ -214,7 +225,8 @@
     "quantity": 4,
     "reviews": [],
     "material": "Brass with Gold Plated",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "elegant-brass-cross-with-stand-6f0f55b9",
@@ -234,7 +246,8 @@
     "quantity": 1,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "medium-brass-cross-with-stand-7eba0ffc",
@@ -254,7 +267,8 @@
     "quantity": 30,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "large-brass-cross-with-stand-350a405c",
@@ -274,7 +288,8 @@
     "quantity": 40,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "brass-cross-with-stand-medium-clover-ends-d3b563e3",
@@ -295,7 +310,8 @@
     "quantity": 35,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "brass-cross-with-12-disciples-9b1a605b",
@@ -314,7 +330,8 @@
     "quantity": 21,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "brass-cross-with-12-apostles-design-869528f5",
@@ -337,7 +354,8 @@
     "quantity": 1,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "blue-metal-cross-with-stand-f17668d9",
@@ -359,7 +377,8 @@
     "quantity": 31,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "red-steel-cross-with-stand-7b495ce1",
@@ -381,7 +400,8 @@
     "quantity": 32,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "silver-steel-cross-with-stand-0d996673",
@@ -403,7 +423,8 @@
     "quantity": 31,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "cross-with-stand-brass-ea033dd1",
@@ -425,7 +446,8 @@
     "quantity": 21,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "hanging-cross-with-wooden-design-ff48b56c",
@@ -446,7 +468,8 @@
     "quantity": 31,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "red-and-blue-hanging-cross-27e7215c",
@@ -467,7 +490,8 @@
     "quantity": 22,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "radium-standing-cross-8299a8d1",
@@ -487,7 +511,8 @@
     "quantity": 20,
     "reviews": [],
     "material": "Radium",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "wodden-cross-8594e957",
@@ -509,7 +534,8 @@
     "quantity": 50,
     "reviews": [],
     "material": "Wood",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "wooden-hanging-cross-f83ed74d",
@@ -532,7 +558,8 @@
     "quantity": 49,
     "reviews": [],
     "material": "Wood, Plastic",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "wood-cross-with-wood-carved-figure-24f08602",
@@ -555,7 +582,8 @@
     "quantity": 20,
     "reviews": [],
     "material": "Wood",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "dark-wooden-cross-0c0c476b",
@@ -577,7 +605,8 @@
     "quantity": 19,
     "reviews": [],
     "material": "Wood and Plastic",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "brass-cross-set-3789fa53",
@@ -599,7 +628,8 @@
     "quantity": 50,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "cross-crucifix"
   },
   {
     "id": "chromium-plated-brass-thurible-675553eb",
@@ -619,7 +649,8 @@
     "quantity": 20,
     "reviews": [],
     "material": "Brass Polished",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "chromium-plated-brass-thurible-8a2995d7",
@@ -637,7 +668,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass with Chromium Plating",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "chromium-plated-brass-thurible-large-117fa4fe",
@@ -655,7 +687,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass with Chromium Plating",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "sprinkler-set-a302bb73",
@@ -673,7 +706,8 @@
     "quantity": 50,
     "reviews": [],
     "material": "Brass and Brass with Chromium Plating",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "large-brass-bell-with-cross-design-f719a1a4",
@@ -691,7 +725,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "steel-double-bell-set-54df092f",
@@ -709,7 +744,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "steel-triple-bell-set-cd1e92c3",
@@ -728,7 +764,8 @@
     "quantity": 9,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "steel-quadruple-bell-set-7d9ac09d",
@@ -748,7 +785,8 @@
     "quantity": 1,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "steel-quintuple-bell-set-dda8e225",
@@ -769,7 +807,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "5-in-one-bell-2d754652",
@@ -789,7 +828,8 @@
     "quantity": 9,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "six-steel-bell-set-b8bceb77",
@@ -807,7 +847,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "steel-candle-stand-medium-size-e14c8e18",
@@ -825,7 +866,8 @@
     "quantity": 20,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "steel-candle-stand-small-24cab2fd",
@@ -843,7 +885,8 @@
     "quantity": 8,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "candle-stand-with-flower-design-fbfd4fb5",
@@ -861,7 +904,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Steel",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "brass-candle-stand-with-floral-design-49ca34c1",
@@ -880,7 +924,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "brass-candlestand-with-heart-design-441fa106",
@@ -899,7 +944,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "tall-plain-brass-candle-stand-e3c63438",
@@ -918,7 +964,8 @@
     "quantity": 20,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "tall-brass-candle-stand-with-flower-design-8f85ed9e",
@@ -937,7 +984,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "candle-stand-on-transparent-pole-b2cb414c",
@@ -956,7 +1004,8 @@
     "quantity": 20,
     "reviews": [],
     "material": "Brass and fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "medium-brass-candle-stand-with-flower-design-1d59ffbb",
@@ -975,7 +1024,8 @@
     "quantity": 20,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "long-brass-candle-stand-plain-design-bff55e5a",
@@ -996,7 +1046,8 @@
     "quantity": 19,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "small-brass-candle-stand-plain-design-0f75b4bf",
@@ -1014,7 +1065,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "brass-candle-stand-set-with-stones-1ed3bcb5",
@@ -1033,7 +1085,8 @@
     "quantity": 20,
     "reviews": [],
     "material": "Gold plated",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "brass-candle-stand-large-with-stones-6e0c15e0",
@@ -1052,7 +1105,8 @@
     "quantity": 20,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "brass-candle-stand-large-with-multicolor-stones-782e54bb",
@@ -1071,7 +1125,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "brass-candle-stand-small-with-stones-91745e71",
@@ -1090,7 +1145,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "brass-candle-stand-medium-with-stones-067e9244",
@@ -1109,7 +1165,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "medium-candle-stand-chromium-plated-301be834",
@@ -1128,7 +1185,8 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "fiber-globe-with-elegant-lotus-design-cf40be3c",
@@ -1147,7 +1205,8 @@
     "quantity": 20,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "candle-stand-with-flowerdesign-d139dd2a",
@@ -1165,7 +1224,8 @@
     "quantity": 19,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "fiber-globe-with-elegant-lotus-design-2d25e42c",
@@ -1184,7 +1244,8 @@
     "quantity": 20,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "candle-stands-small-c3270270",
@@ -1205,7 +1266,8 @@
     "quantity": 50,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "medium-size-candle-stand-087c5162",
@@ -1224,7 +1286,8 @@
     "quantity": 1,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "long-flower-model-candle-stand-7a2c4e86",
@@ -1243,7 +1306,8 @@
     "quantity": 20,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "multicolor-globes-flower-design-695043b5",
@@ -1261,7 +1325,8 @@
     "quantity": 49,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "detachable-flower-style-globe-46919c5b",
@@ -1280,7 +1345,8 @@
     "quantity": 49,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "detachable-flower-shaped-globes-with-design-567abf16",
@@ -1299,7 +1365,8 @@
     "quantity": 49,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "tall-globes-with-designs-e933c692",
@@ -1318,7 +1385,8 @@
     "quantity": 50,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "flower-shaped-globe-eb86a355",
@@ -1339,7 +1407,8 @@
     "quantity": 100,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "flower-shaped-globe-with-designs-30826012",
@@ -1358,7 +1427,8 @@
     "quantity": 100,
     "reviews": [],
     "material": "Fiber",
-    "additional_info": []
+    "additional_info": [],
+    "category": "alter"
   },
   {
     "id": "test-4c6d0bfe",

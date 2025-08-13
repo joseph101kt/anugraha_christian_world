@@ -57,72 +57,92 @@ export default function ProductFilter({ categoryTagArray }: ProductFilterProps) 
     }
   };
 
-  return (
-    <div className="w-full">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl font-semibold">Categories</h3>
-        <button
-          onClick={handleClearAll}
-          className="btn btn-sm btn-outline"
-          aria-label="Clear all filters"
-        >
-          Clear All
-        </button>
-      </div>
+return (
+  <div className="w-full">
+    {/* Header */}
+    <div className="flex justify-between items-center mb-4">
+      <h3 className="text-xl font-semibold">Categories</h3>
+      <button
+        onClick={handleClearAll}
+        className="px-3 py-1 border border-accent rounded hover:bg-accent hover:text-white transition-colors"
+        aria-label="Clear all filters"
+      >
+        Clear All
+      </button>
+    </div>
 
-      {/* Bento grid for md+ screens */}
-      <div className="hidden md:grid grid-cols-3 gap-4">
-        {categoryTagArray.map(({ category, tags }) => (
-          <div key={category} className="border rounded p-4 shadow-sm">
-            <h4 className="font-bold mb-2">{category}</h4>
-            <div className="flex flex-wrap gap-2">
+    {/* Bento grid for md+ screens */}
+    <div className="hidden w-full md:grid grid-cols-3 gap-4">
+      {categoryTagArray.map(({ category, tags }) => (
+        <div
+          key={category}
+          className=" rounded-xl p-4 shadow-sm bg-secondary"
+        >
+          <h4 className="font-bold mb-2">{category}</h4>
+          <div className="flex flex-wrap gap-2">
+            {tags.map(tag => (
+              <button
+                key={tag}
+                onClick={() => handleTagClick(tag)}
+                className={`px-3 py-1 rounded border transition-colors ${
+                  activeTags.includes(tag)
+                    ? 'bg-accent border-accent text-white hover:bg-accent/90'
+                    : 'border-accent hover:bg-accent hover:text-white'
+                }`}
+              >
+                {tag.replace(/-/g, ' ')}
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* Accordion for small screens */}
+    <div className="md:hidden">
+      {categoryTagArray.map(({ category, tags }) => (
+        <div
+          key={category}
+          className="mb-3 border border-primary rounded shadow-sm bg-secondary"
+        >
+          <button
+            className="w-full text-left px-4 py-2 font-semibold flex justify-between items-center"
+            onClick={() =>
+              setExpandedCategory(prev =>
+                prev === category ? null : category
+              )
+            }
+            aria-expanded={expandedCategory === category}
+            aria-controls={`panel-${category}`}
+          >
+            {category}
+            <span>{expandedCategory === category ? '-' : '+'}</span>
+          </button>
+          {expandedCategory === category && (
+            <div
+              id={`panel-${category}`}
+              className="p-4 flex flex-wrap gap-2"
+            >
               {tags.map(tag => (
                 <button
                   key={tag}
                   onClick={() => handleTagClick(tag)}
-                  className={`btn btn-sm ${
-                    activeTags.includes(tag) ? 'btn-primary' : 'btn-outline'
+                  className={`px-3 py-1 rounded border transition-colors ${
+                    activeTags.includes(tag)
+                      ? 'bg-accent border-accent text-white hover:bg-accent/90'
+                      : 'border-accent hover:bg-accent hover:text-white'
                   }`}
                 >
                   {tag.replace(/-/g, ' ')}
                 </button>
               ))}
             </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Accordion for small screens */}
-      <div className="md:hidden">
-        {categoryTagArray.map(({ category, tags }) => (
-          <div key={category} className="mb-3 border rounded shadow-sm">
-            <button
-              className="w-full text-left px-4 py-2 font-semibold flex justify-between items-center"
-              onClick={() => setExpandedCategory(prev => (prev === category ? null : category))}
-              aria-expanded={expandedCategory === category}
-              aria-controls={`panel-${category}`}
-            >
-              {category}
-              <span>{expandedCategory === category ? '-' : '+'}</span>
-            </button>
-            {expandedCategory === category && (
-              <div id={`panel-${category}`} className="p-4 flex flex-wrap gap-2">
-                {tags.map(tag => (
-                  <button
-                    key={tag}
-                    onClick={() => handleTagClick(tag)}
-                    className={`btn btn-sm ${
-                      activeTags.includes(tag) ? 'btn-primary' : 'btn-outline'
-                    }`}
-                  >
-                    {tag.replace(/-/g, ' ')}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+          )}
+        </div>
+      ))}
     </div>
-  );
+  </div>
+);
+
+
 }

@@ -263,6 +263,7 @@ export async function PUT(
             quantity: parseInt(formData.get('quantity') as string, 10),
             price: parseFloat(formData.get('price') as string),
             material: formData.get('material') as string,
+            category: formData.get('category') as string,
             additional_info: additionalInfo,
             reviews: existingProduct.reviews,
         };

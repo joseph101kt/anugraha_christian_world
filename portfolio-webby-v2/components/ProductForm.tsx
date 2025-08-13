@@ -23,6 +23,7 @@ export default function ProductForm({ initialProduct, onSave }: ProductFormProps
     const [productName, setProductName] = useState(initialProduct?.name || '');
     const [productDescription, setProductDescription] = useState(initialProduct?.description || '');
     const [productTags, setProductTags] = useState(initialProduct?.tags.join(',') || '');
+    const [category, setcategory] = useState(initialProduct?.category || '');
     const [price, setPrice] = useState(initialProduct?.price.toString() || '0');
     const [size, setSize] = useState(initialProduct?.size || '');
     const [quantity, setQuantity] = useState(initialProduct?.quantity.toString() || '1');
@@ -202,6 +203,7 @@ export default function ProductForm({ initialProduct, onSave }: ProductFormProps
         formData.append('size', size);
         formData.append('quantity', quantity);
         formData.append('material', material);
+        formData.append('category', category)
         formData.append('additional_info', JSON.stringify(additionalInfo.filter(item => item.title || item.description)));
         
         try {
@@ -220,6 +222,7 @@ export default function ProductForm({ initialProduct, onSave }: ProductFormProps
                     setQuantity('1');
                     setSize(size);
                     setMaterial(material);
+                    setcategory(category)
                     setAdditionalInfo([{ title: "", description: "" }]);
                     setMainImage(null);
                     setPreviewMainImage(null);
@@ -252,6 +255,7 @@ export default function ProductForm({ initialProduct, onSave }: ProductFormProps
         size: size || 'N/A',
         quantity: parseInt(quantity) || 0,
         material: material || 'N/A',
+        category: category || 'N/A',
         additional_info: additionalInfo.filter(item => item.title || item.description),
         reviews: initialProduct?.reviews || []
     };
@@ -428,6 +432,12 @@ export default function ProductForm({ initialProduct, onSave }: ProductFormProps
                                 );
                             })}
                         </div>
+                    </div>
+
+                    <div>
+                        <label htmlFor="category" className="block text-sm font-medium mb-1">Category</label>
+                        <input type="text" id="category" value={category} onChange={(e) => setcategory(e.target.value)}
+                            className="input input-bordered bg-secondary border-2 border-accent w-full" required />
                     </div>
 
                     <div>

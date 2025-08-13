@@ -27,4 +27,5 @@ export interface Product {
   reviews: Review[];
   material: string;
   additional_info: AdditionalInfoItem[]; // now a list of title-description pairs
+  category?: string;
 }

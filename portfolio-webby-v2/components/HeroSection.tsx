@@ -17,19 +17,19 @@ export default function Home() {
       </div>
 
       {/* Text content column */}
-      <div className="max-w-3xl flex flex-col items-center justify-center p-4">
+      <div className="max-w-3xl bg-secondary rounded-4xl flex flex-col items-center justify-center p-4">
         <div className="flex flex-col gap-0">
           <h1 className="lg:text-9xl md:text-6xl sm:text-2xl font-bold leading-none ">
             ANUGRAHA CHRISTIAN WORLD
           </h1>
         </div>
-        <h1 className="lg:text-8xl md:text-6xl sm:text-2xl font-bold mt-5 ">
+        <h1 className="lg:text-8xl md:text-6xl sm:text-2xl font-bold ">
           Telangana and Andhra’s Largest Christian Articles Store
         </h1>
-        <p className="mt-4 text-lg ">
+        <p className="mt-2 text-lg ">
           Sacred articles for spiritual living — handcrafted with faith and love.
         </p>
-        <div className="mt-6 space-x-10 md:p-space-x-16 lg:space-x-32 ">
+        <div className="mt-4 mb-4 space-x-10 md:p-space-x-16 lg:space-x-32 ">
           <Link
             href="/products"
             className="bg-accent hover:bg-primary py-2 px-6 rounded-full shadow-md transition "

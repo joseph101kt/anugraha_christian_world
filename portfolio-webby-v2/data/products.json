@@ -1359,5 +1359,22 @@
     "reviews": [],
     "material": "Fiber",
     "additional_info": []
+  },
+  {
+    "id": "test-4c6d0bfe",
+    "name": "test",
+    "description": "test",
+    "main_image": "/images/test-91b698f0-cba6-45a5-a9b9-a347e37a5d45.webp",
+    "secondary_images": [],
+    "tags": [
+      "test"
+    ],
+    "price": 0,
+    "size": "test",
+    "quantity": 1,
+    "reviews": [],
+    "material": "test",
+    "additional_info": [],
+    "category": "Test"
   }
 ]

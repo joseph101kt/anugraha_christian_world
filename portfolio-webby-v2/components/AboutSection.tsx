@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function AboutSection() {
   return (
     <section className="w-full mt-5 px-6 py-12 flex flex-col lg:flex-row  justify-between ">
-        <div className="max-w-3xl  text-center lg:text-left">
+        <div className="max-w-3xl bg-secondary rounded-4xl text-center p-10 lg:text-left">
         <h2 className="text-4xl font-extrabold mb-6 tracking-tight">
             About <span className="text-primary">Anugraha</span>
         </h2>

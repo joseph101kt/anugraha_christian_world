@@ -1,96 +1,128 @@
-// /components/ProductFilter.tsx
 'use client';
 
 import React, { useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
-interface ProductFilterProps {
-  allTags: string[];
+interface CategoryWithTags {
+  category: string;
+  tags: string[];
 }
 
-export default function ProductFilter({ allTags }: ProductFilterProps) {
+interface ProductFilterProps {
+  categoryTagArray: CategoryWithTags[];
+}
+
+export default function ProductFilter({ categoryTagArray }: ProductFilterProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [showFilterPanel, setShowFilterPanel] = useState(false);
+  const currentPath = usePathname();
+
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
   const activeTags = searchParams.getAll('tags');
 
+  // Toggle tag selection
   const handleTagClick = (tag: string) => {
     const currentTags = searchParams.getAll('tags');
     const newSearchParams = new URLSearchParams(searchParams.toString());
 
     if (currentTags.includes(tag)) {
-      // Remove the tag from selection
       newSearchParams.delete('tags');
-      currentTags
-        .filter(t => t !== tag)
-        .forEach(t => newSearchParams.append('tags', t));
+      currentTags.filter(t => t !== tag).forEach(t => newSearchParams.append('tags', t));
     } else {
-      // Add new tag
       newSearchParams.append('tags', tag);
     }
 
-    // Reset pagination when changing filters
     newSearchParams.delete('page');
     newSearchParams.set('page', '1');
 
-    router.push(`?${newSearchParams.toString()}`);
+    if (currentPath === '/') {
+      router.push(`/products?${newSearchParams.toString()}`);
+    } else {
+      router.replace(`?${newSearchParams.toString()}`);
+    }
   };
 
-  const handleAllProductsClick = () => {
+  // Clear all filters
+  const handleClearAll = () => {
     const newSearchParams = new URLSearchParams(searchParams.toString());
-
-    // Remove all tag filters
     newSearchParams.delete('tags');
-
-    // Reset pagination
     newSearchParams.delete('page');
     newSearchParams.set('page', '1');
 
-    router.push(`?${newSearchParams.toString()}`);
+    if (currentPath === '/') {
+      router.push(`/products?${newSearchParams.toString()}`);
+    } else {
+      router.replace(`?${newSearchParams.toString()}`);
+    }
   };
 
   return (
-    <div className="flex flex-col gap-2">
-      {/* Toggle filter panel */}
-      <button
-        onClick={() => setShowFilterPanel(!showFilterPanel)}
-        className="btn btn-accent font-black rounded-full w-40"
-      >
-        {activeTags.length > 0
-          ? `Filters (${activeTags.length})`
-          : 'Filter'}
-      </button>
+    <div className="w-full">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-xl font-semibold">Categories</h3>
+        <button
+          onClick={handleClearAll}
+          className="btn btn-sm btn-outline"
+          aria-label="Clear all filters"
+        >
+          Clear All
+        </button>
+      </div>
 
-      {showFilterPanel && (
-        <div className="bg-accent p-6 rounded-box shadow-xl mb-8">
-          <h3 className="text-xl font-semibold mb-4">Choose Filters</h3>
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={handleAllProductsClick}
-              className={`btn ${
-                activeTags.length === 0 ? 'btn-primary' : 'btn-ghost'
-              }`}
-            >
-              All Products
-            </button>
-            {allTags.map(tag => (
-              <button
-                key={tag}
-                onClick={() => handleTagClick(tag)}
-                className={`btn ${
-                  activeTags.includes(tag)
-                    ? 'btn-primary'
-                    : 'btn-ghost'
-                }`}
-              >
-                {tag.charAt(0).toUpperCase() +
-                  tag.slice(1).replace(/-/g, ' ')}
-              </button>
-            ))}
+      {/* Bento grid for md+ screens */}
+      <div className="hidden md:grid grid-cols-3 gap-4">
+        {categoryTagArray.map(({ category, tags }) => (
+          <div key={category} className="border rounded p-4 shadow-sm">
+            <h4 className="font-bold mb-2">{category}</h4>
+            <div className="flex flex-wrap gap-2">
+              {tags.map(tag => (
+                <button
+                  key={tag}
+                  onClick={() => handleTagClick(tag)}
+                  className={`btn btn-sm ${
+                    activeTags.includes(tag) ? 'btn-primary' : 'btn-outline'
+                  }`}
+                >
+                  {tag.replace(/-/g, ' ')}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        ))}
+      </div>
+
+      {/* Accordion for small screens */}
+      <div className="md:hidden">
+        {categoryTagArray.map(({ category, tags }) => (
+          <div key={category} className="mb-3 border rounded shadow-sm">
+            <button
+              className="w-full text-left px-4 py-2 font-semibold flex justify-between items-center"
+              onClick={() => setExpandedCategory(prev => (prev === category ? null : category))}
+              aria-expanded={expandedCategory === category}
+              aria-controls={`panel-${category}`}
+            >
+              {category}
+              <span>{expandedCategory === category ? '-' : '+'}</span>
+            </button>
+            {expandedCategory === category && (
+              <div id={`panel-${category}`} className="p-4 flex flex-wrap gap-2">
+                {tags.map(tag => (
+                  <button
+                    key={tag}
+                    onClick={() => handleTagClick(tag)}
+                    className={`btn btn-sm ${
+                      activeTags.includes(tag) ? 'btn-primary' : 'btn-outline'
+                    }`}
+                  >
+                    {tag.replace(/-/g, ' ')}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

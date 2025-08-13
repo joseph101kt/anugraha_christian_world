@@ -75,6 +75,7 @@ export async function POST(req: Request) {
         const sizeString = formData.get('size') as string;
         const quantityString = formData.get('quantity') as string;
         const material = formData.get('material') as string;
+        const category = formData.get('category') as string;
 
         let additionalInfo;
         try {
@@ -98,6 +99,7 @@ export async function POST(req: Request) {
             sizeString: !sizeString,
             quantityString: !quantityString,
             material: !material,
+            category: !category,
             additionalInfo: !additionalInfo
         };
         console.log('DEBUG: Missing fields map:', missingFields);
@@ -157,6 +159,7 @@ export async function POST(req: Request) {
             quantity: parseInt(quantityString),
             reviews: [],
             material,
+            category,
             additional_info: additionalInfo,
         };
 

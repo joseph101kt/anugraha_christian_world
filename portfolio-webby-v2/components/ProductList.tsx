@@ -51,11 +51,7 @@ export default function ProductList({ ActionButton }: ProductListProps) {
     }, []);
 
 
-    // Extract all unique tags from products
-    const allTags = useMemo(() =>
-        Array.from(new Set(allProducts.flatMap(product => product.tags))),
-        [allProducts]
-    );
+
 
     // Enhanced filtering and ranking logic with combined search and tag scoring
     const filteredProducts = useMemo(() => {
@@ -102,16 +98,47 @@ export default function ProductList({ ActionButton }: ProductListProps) {
         return scoredProducts;
     }, [allProducts, query, tags]);
 
+
+    const category = searchParams.get('category') || '';
+
+
     // Pagination logic
     const currentPage = pageParam;
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
     const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
 
+    interface CategoryWithTags {
+    category: string;
+    tags: string[];
+    }
+
+function buildCategoryTagArray(products: Product[]): CategoryWithTags[] {
+    const map: Record<string, Set<string>> = {};
+
+    products.forEach(product => {
+    // Assign a fallback category if undefined
+    const category = product.category ?? "Others";
+
+    if (!map[category]) {
+        map[category] = new Set();
+    }
+    product.tags.forEach(tag => map[category].add(tag)); // use 'category' instead of 'product.category'
+    });
+
+    return Object.entries(map).map(([category, tagsSet]) => ({
+        category,
+        tags: Array.from(tagsSet),
+    }));
+}
+    const categoryTagArray = useMemo(() => buildCategoryTagArray(allProducts), [allProducts]);
+
+
+
     return (
         <div className="container mx-auto p-4 md:p-8">
             <div className="flex justify-between mb-6">
-                <ProductFilter allTags={allTags} />
+                <ProductFilter categoryTagArray={categoryTagArray} />
                 <div className="w-full m-2 max-w-sm">
                     <SearchBar />
                 </div>

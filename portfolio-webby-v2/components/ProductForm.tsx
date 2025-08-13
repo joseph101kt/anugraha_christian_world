@@ -218,8 +218,8 @@ export default function ProductForm({ initialProduct, onSave }: ProductFormProps
                     setProductTags(productTags);
                     setPrice('0');
                     setQuantity('1');
-                    setSize('');
-                    setMaterial('');
+                    setSize(size);
+                    setMaterial(material);
                     setAdditionalInfo([{ title: "", description: "" }]);
                     setMainImage(null);
                     setPreviewMainImage(null);

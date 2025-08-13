@@ -11,8 +11,6 @@ import sharp from 'sharp';
 import { Product } from '@/lib/types';
 import { getProductsCache, setProductsCache, invalidateProductsCache } from '@/lib/cache';
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
-
 function createSeoSlug(name: string): string {
     console.log(`DEBUG: Creating SEO slug for name: "${name}"`);
     const slug = name
@@ -65,15 +63,6 @@ export async function POST(req: Request) {
         console.time('formData parsing');
         const formData = await req.formData();
         console.timeEnd('formData parsing');
-
-        const password = formData.get('password');
-        console.log(`DEBUG: Password received: ${password ? '[HIDDEN]' : 'MISSING'}`);
-
-        if (password !== ADMIN_PASSWORD) {
-            console.error('POST request failed: Incorrect password');
-            return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-        }
-        console.log('DEBUG: Password verified.');
 
         // Debug all form data keys
         console.log('DEBUG: formData keys received:', [...formData.keys()]);

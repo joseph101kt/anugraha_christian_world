@@ -7,57 +7,38 @@ import EditProductForm from '@/components/EditProductForm';
 import DeleteProductList from '@/components/DeleteProductList';
 import LeadsList from '@/components/LeadsList';
 
-const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
-
 type DashboardView = 'add' | 'edit' | 'delete' | 'leads';
 
 export default function DashboardPage() {
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState('password');
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentView, setCurrentView] = useState<DashboardView>('add');
 
-    const handlePasswordSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // A simple string comparison for demonstration purposes.
-        if (password === ADMIN_PASSWORD) {
-            setIsAuthenticated(true);
-        } else {
-            alert('Incorrect password. Access denied.');
-            setPassword('');
-        }
-    };
-    
-    // This is the new function to handle the DELETE API call.
-    const handleDeleteProduct = async (productId: string, productName: string) => {
-        if (window.confirm(`Are you sure you want to delete "${productName}"?`)) {
-            try {
-                // The API route requires the password in the request body
-                const response = await fetch(`/api/products/${productId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    // Pass the authenticated password from the state
-                    body: JSON.stringify({ password }),
-                });
+const handlePasswordSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try {
+    const response = await fetch('/api/authenticate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
 
-                if (response.ok) {
-                    // Handle successful deletion, e.g., show a success message or re-fetch data
-                    console.log('Product deleted successfully!');
-                    alert('Product deleted successfully!');
-                    // You might want to re-render the list or perform other actions here.
-                } else {
-                    // Handle errors
-                    const errorData = await response.json();
-                    console.error('Failed to delete product:', errorData.message);
-                    alert(`Error: ${errorData.message}`);
-                }
-            } catch (error) {
-                console.error('An unexpected error occurred during deletion:', error);
-                alert('An unexpected error occurred.');
-            }
-        }
-    };
+    if (response.ok) {
+      const data = await response.json();
+      if (data.authenticated) {
+        setIsAuthenticated(true);
+      } else {
+        alert('Incorrect password. Access denied.');
+        setPassword('');
+      }
+    }
+  } catch (error) {
+    console.error('Login failed:', error);
+    alert('An error occurred during login.');
+    setPassword('');
+  }
+};
+    
 
     if (!isAuthenticated) {
         return (
@@ -88,8 +69,6 @@ export default function DashboardPage() {
             case 'edit':
                 return <EditProductForm  />;
             case 'delete':
-                // Pass the new handleDeleteProduct function as a prop
-                // and the authenticated password.
                 return <DeleteProductList />;
             case 'leads':
                 return <LeadsList />;

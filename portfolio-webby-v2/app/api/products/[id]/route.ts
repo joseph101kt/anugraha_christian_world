@@ -12,7 +12,6 @@ import { Product, AdditionalInfoItem } from '@/lib/types';
 import { getProductsCache, setProductsCache, invalidateProductsCache } from '@/lib/cache';
 import { v4 as uuidv4 } from 'uuid'; // 👈 Import uuid for unique filenames
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 function createSeoSlug(name: string): string {
     const slug = name
@@ -77,13 +76,8 @@ export async function DELETE(
     req: NextRequest,
     { params }: { params: { id: string } }
 ) {
-    // SECURITY NOTE: Retrieving the password from the request body is more secure
-    // than using search parameters, which can be logged.
-    const { password } = await req.json();
 
-    if (!ADMIN_PASSWORD || password !== ADMIN_PASSWORD) {
-        return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-    }
+
 
     const { id } = params;
     const filePath = path.join(process.cwd(), 'data', 'products.json');
@@ -190,12 +184,7 @@ export async function PUT(
 
         // 1. Parse the FormData from the request
         const formData = await req.formData();
-        const password = formData.get('password');
 
-        // 2. Perform authentication
-        if (!ADMIN_PASSWORD || password !== ADMIN_PASSWORD) {
-            return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-        }
 
         // 3. Read the existing products and find the one to update
         const filePath = path.join(process.cwd(), 'data', 'products.json');

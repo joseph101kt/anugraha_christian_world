@@ -33,14 +33,7 @@ export default function DeleteProductList() {
 
     const handleDelete = async (productId: string) => {
         setDeletingProductId(productId);
-        
-        const password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
-        if (!password) {
-            console.error('Environment variable NEXT_PUBLIC_ADMIN_PASSWORD is not set.');
-            setDeletingProductId(null);
-            alert('Admin password is not set.');
-            return;
-        }
+
 
         if (!window.confirm("Are you sure you want to delete this product? This action cannot be undone.")) {
             setDeletingProductId(null);
@@ -53,7 +46,6 @@ export default function DeleteProductList() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ password }),
             });
 
             if (!response.ok) {

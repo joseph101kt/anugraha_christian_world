@@ -9,11 +9,7 @@ export default function AddProductForm() {
     const router = useRouter();
 
     const handleSave = async (formData: FormData) => {
-        const password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
-        if (!password) {
-            return { success: false, message: 'Admin password is not set.' };
-        }
-        formData.append('password', password);
+
 
         try {
             const response = await fetch('/api/products', {

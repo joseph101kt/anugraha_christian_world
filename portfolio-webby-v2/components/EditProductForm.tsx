@@ -42,18 +42,12 @@ export default function EditProductPage() {
         // --- ADDED DEBUGGING 1: Initial check and logging ---
         console.log('Attempting to save product...', id ? `ID: ${id}` : 'Adding new product');
         
-        const password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
-        if (!password) {
-            console.error('Environment variable NEXT_PUBLIC_ADMIN_PASSWORD is not set.');
-            return { success: false, message: 'Admin password is not set.' };
-        }
-        formData.append('password', password);
+
 
         // --- ADDED DEBUGGING 2: Log FormData content ---
         // You can't directly log a FormData object, so we iterate through it.
         console.log('Sending FormData:');
         for (const [key, value] of formData.entries()) {
-            // Be careful not to log sensitive data like passwords in production!
             console.log(`- ${key}:`, value);
         }
 

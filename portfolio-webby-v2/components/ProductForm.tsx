@@ -174,7 +174,7 @@ export default function ProductForm({ initialProduct, onSave }: ProductFormProps
         
         // Basic validation
         const hasMainImage = !!mainImage || (isEditing && !!initialProduct?.main_image);
-        if (!productName.trim() || !productDescription.trim() || !size || !material || !hasMainImage) {
+        if (!productName.trim() || !productDescription.trim() || !size || !material || !hasMainImage || !category) {
             setStatus('error');
             setStatusMessage('Please fill out all required fields and upload a main image.');
             return;
@@ -215,11 +215,12 @@ export default function ProductForm({ initialProduct, onSave }: ProductFormProps
 
                 // Reset form on successful add, but not on edit.
                 if (!isEditing) {
-                    setProductName('');
-                    setProductDescription('');
+                    setProductName(productName);
+                    setProductDescription(productDescription);
                     setProductTags(productTags);
+                    setcategory(category);
                     setPrice('0');
-                    setQuantity('1');
+                    setQuantity(quantity);
                     setSize(size);
                     setMaterial(material);
                     setcategory(category)

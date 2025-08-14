@@ -78,7 +78,7 @@ export default function ProductFilter({ categoryTagArray }: ProductFilterProps) 
       </div>
 
       {/* Bento grid for md+ screens */}
-      <div className="hidden w-full md:grid grid-cols-3 gap-4">
+      <div className="hidden w-full md:grid grid-cols-4 gap-4">
         {categoryTagArray.map(({ category, tags }) => {
           const sortedTags = [...tags].sort((a, b) =>
             a.localeCompare(b, undefined, { sensitivity: 'base' })

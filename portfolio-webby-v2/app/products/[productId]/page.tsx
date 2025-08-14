@@ -1,6 +1,6 @@
 // app/products/[productId]/page.tsx
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import fs from 'fs/promises';
 import path from 'path';
@@ -53,8 +53,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const { productId } = await params;
 
   return (
+    <Suspense>
     <div className="h-full p-2 lg:p-8">
       <ProductDetails productId={productId} />
     </div>
+    </Suspense>
   );
 }

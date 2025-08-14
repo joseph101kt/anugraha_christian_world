@@ -1,7 +1,7 @@
 import AboutSection from "@/components/AboutSection";
 
 
-export default function HomePage() {
+export default function AboutPage() {
   return (
     <>
       <AboutSection />

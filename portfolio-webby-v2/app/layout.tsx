@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import WhatsAppFAB from "@/components/WhatsAppFAB";
 import ThemeToggle from "@/components/ThemeToggle";
 import Footer from "@/components/Footer";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Anugraha Christian World",
@@ -16,6 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <Suspense>
     <html lang="en">
       <body className="min-h-screen bg-base-100 text-base-content">
         <Navbar />
@@ -28,5 +30,6 @@ export default function RootLayout({
         
       </body>
     </html>
+    </Suspense>
   );
 }

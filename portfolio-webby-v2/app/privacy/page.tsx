@@ -1,5 +1,5 @@
 // app/privacy/page.tsx
-import React from 'react';
+import React, { Suspense } from 'react';
 
 export const metadata = {
   title: 'Privacy Policy - [Your Company Name]',
@@ -8,6 +8,7 @@ export const metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
+    <Suspense>
     <div className="container mx-auto p-8 md:p-12 lg:p-16 max-w-5xl">
       <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-center">Privacy Policy</h1>
       <p className="text-sm md:text-base text-center mb-12">
@@ -48,5 +49,6 @@ export default function PrivacyPolicyPage() {
         </section>
       </div>
     </div>
+    </Suspense>
   );
 }

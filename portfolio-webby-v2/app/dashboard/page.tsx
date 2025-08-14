@@ -1,7 +1,7 @@
 // app/dashboard/page.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import AddProductForm from '@/components/AddProductForm';
 import EditProductForm from '@/components/EditProductForm';
 import DeleteProductList from '@/components/DeleteProductList';
@@ -42,6 +42,7 @@ const handlePasswordSubmit = async (e: React.FormEvent) => {
 
     if (!isAuthenticated) {
         return (
+            <Suspense>
             <div className="flex justify-center items-center h-screen">
                 <div className="card w-96 shadow-xl p-8">
                     <h2 className="text-2xl font-bold text-center mb-4">Staff Login</h2>
@@ -59,6 +60,7 @@ const handlePasswordSubmit = async (e: React.FormEvent) => {
                     </form>
                 </div>
             </div>
+            </Suspense>
         );
     }
 

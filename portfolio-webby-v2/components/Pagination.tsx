@@ -20,17 +20,61 @@ export default function Pagination({ totalPages }: PaginationProps) {
 
     const renderPageButtons = () => {
         const buttons = [];
-        for (let i = 1; i <= totalPages; i++) {
+        const maxButtons = 5; // Maximum number of buttons to show
+        const halfMaxButtons = Math.floor(maxButtons / 2);
+
+        // Determine the start and end pages for the visible buttons
+        let startPage = Math.max(1, currentPage - halfMaxButtons);
+        let endPage = Math.min(totalPages, currentPage + halfMaxButtons);
+
+        // Adjust start and end pages to always show maxButtons if possible
+        if (totalPages > maxButtons) {
+            if (endPage === totalPages) {
+                startPage = Math.max(1, totalPages - maxButtons + 1);
+            } else if (startPage === 1) {
+                endPage = Math.min(totalPages, maxButtons);
+            }
+        }
+
+        // Add "..." at the beginning if there are pages before the start page
+        if (startPage > 1) {
+            buttons.push(
+                <button
+                    key="ellipsis-start"
+                    onClick={() => handlePageChange(1)}
+                    className="mx-1 p-2 rounded bg-secondary"
+                >
+                    ...
+                </button>
+            );
+        }
+
+        // Add the page number buttons
+        for (let i = startPage; i <= endPage; i++) {
             buttons.push(
                 <button
                     key={i}
                     onClick={() => handlePageChange(i)}
-                    className={`mx-1 p-2 rounded ${i === currentPage ? 'bg-accent ' : 'bg-secondary'}`}
+                    className={`mx-1 p-2 rounded ${i === currentPage ? 'bg-accent' : 'bg-secondary'}`}
                 >
                     {i}
                 </button>
             );
         }
+
+        // Add "..." at the end if there are pages after the end page
+        if (endPage < totalPages) {
+            buttons.push(
+                <button
+                    key="ellipsis-end"
+                    onClick={() => handlePageChange(totalPages)}
+                    className="mx-1 p-2 rounded bg-secondary"
+                >
+                    ...
+                </button>
+            );
+        }
+
         return buttons;
     };
 

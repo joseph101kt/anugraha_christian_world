@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-neutral-800 dark:to-neutral-700 text-neutral-900 dark:text-neutral-200 py-10 px-6 mt-10">
@@ -40,11 +41,11 @@ export default function Footer() {
             <li>Opens: 9:30 AM  Closes: 8:30 PM</li>
             <li>
               📞{" "}
-              <a href="tel:+91-9912888606" className="hover:underline">
+              <a href="tel:+91-9912888606" className="hover:underline">9912888606
               </a>
-              <a href="9848587301" className="hover:underline">Whatsapp
-              </a>
+              
             </li>
+            
             <li>
               📧{" "}
               <a href="mailto:anugrahachristianworld@email.com" className="hover:underline">

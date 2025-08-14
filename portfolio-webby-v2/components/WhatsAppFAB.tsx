@@ -34,7 +34,7 @@ export default function WhatsAppFAB() {
     const encodedMessage = encodeURIComponent(message);
     
     // Replace <your_phone_number> with your WhatsApp number (e.g., 1234567890)
-    const whatsappUrl = `https://wa.me/919346851977?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/919848587301?text=${encodedMessage}`;
     
     window.open(whatsappUrl, '_blank');
     

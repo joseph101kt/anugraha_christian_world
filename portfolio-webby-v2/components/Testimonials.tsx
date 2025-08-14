@@ -62,21 +62,21 @@ export default function Testimonials() {
             {slide.map((t, tIndex) => (
               <div
                 key={tIndex}
-                className={`relative bg-secondary shadow-lg rounded-lg overflow-hidden hover:scale-[1.02] transition-transform duration-200 ease-in-out ${t.size || ""}`}
+                className={`flex flex-col bg-secondary p-4 shadow-lg rounded-lg overflow-hidden hover:scale-[1.02] transition-transform duration-200 ease-in-out ${t.size || ""}`}
               >
-          
+                <div>
+                  <h3 className="font-semibold text-base md:text-lg">
+                    {t.name}
+                  </h3>
+                  <p className="font-light">{t.role}</p>
+                </div>
 
                 {/* Text Overlay */}
-                <div className="relative z-10 flex flex-col justify-end h-full p-4">
+                <div className=" z-10 flex flex-col  h-full p-4">
                   <p className="italic text-sm md:text-base mb-3">
                     “{t.quote}”
                   </p>
-                  <div>
-                    <h3 className="font-semibold text-base md:text-lg">
-                      {t.name}
-                    </h3>
-                    <p className="font-light">{t.role}</p>
-                  </div>
+
                 </div>
               </div>
             ))}

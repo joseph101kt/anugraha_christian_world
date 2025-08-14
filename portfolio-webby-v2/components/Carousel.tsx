@@ -38,7 +38,7 @@ export default function Carousel({ children, options, slideClass = 'w-full' }: C
       {/* Prev button */}
       <button
         onClick={scrollPrev}
-        className="absolute top-1/2 -translate-y-1/2 left-4 z-10 w-15 h-15 rounded-full backdrop-blur-md bg-accent/80 hover:bg-accent/100 flex items-center justify-center transition-transform duration-200 ease-in-out hover:scale-140"
+        className="absolute top-1/2 -translate-y-1/2 left-4 z-10 w-10 h-10 rounded-full backdrop-blur-md bg-accent/80 hover:bg-accent/100 flex items-center justify-center transition-transform duration-200 ease-in-out hover:scale-140"
         aria-label="Previous slide"
       >
         <svg
@@ -55,7 +55,7 @@ export default function Carousel({ children, options, slideClass = 'w-full' }: C
       {/* Next button */}
       <button
         onClick={scrollNext}
-        className="absolute top-1/2 -translate-y-1/2 right-4 z-10 w-15 h-15 rounded-full backdrop-blur-md bg-accent/80 hover:bg-accent/100 flex items-center justify-center transition-transform duration-200 ease-in-out hover:scale-140"
+        className="absolute top-1/2 -translate-y-1/2 right-4 z-10 w-10 h-10 rounded-full backdrop-blur-md bg-accent/80 hover:bg-accent/100 flex items-center justify-center transition-transform duration-200 ease-in-out hover:scale-140"
         aria-label="Next slide"
       >
         <svg

@@ -27,7 +27,6 @@ export default function ProductList({ ActionButton, ITEMS_PER_PAGE = Default_ITE
     const [statusMessage, setStatusMessage] = useState({ type: '', message: '' });
 
     const searchParams = useSearchParams();
-    const router = useRouter();
 
     const query = searchParams.get('query') || '';
     const tags = searchParams.getAll('tags');

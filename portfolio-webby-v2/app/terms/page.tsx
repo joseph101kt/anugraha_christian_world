@@ -1,7 +1,5 @@
 // app/terms/page.tsx
 import React from 'react';
-import Link from 'next/link';
-
 export const metadata = {
   title: 'Terms of Service - [Your Company Name]',
   description: 'The terms and conditions that govern the use of our services. By using our site, you agree to these terms.',

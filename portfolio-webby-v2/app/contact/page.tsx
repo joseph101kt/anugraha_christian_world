@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import ContactForm from '@/components/ContactForm';
 import { useSearchParams } from 'next/navigation';
 import { MdCall } from "react-icons/md";
@@ -32,7 +32,7 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div className="flex items-center justify-center">
                 <div ref={contactFormRef} className="w-full max-w-xl  rounded-xl ">
-                <ContactForm initialQuery={initialQuery} />
+                <ContactForm initialMessage={initialQuery} />
                 </div>
             </div>
             {/* Map Card */}

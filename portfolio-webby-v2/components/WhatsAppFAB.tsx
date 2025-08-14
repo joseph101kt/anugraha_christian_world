@@ -11,8 +11,6 @@ export default function WhatsAppFAB() {
   const [phone, setPhone] = useState('');
   const [query, setQuery] = useState('');
 
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-
 
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
@@ -26,12 +24,9 @@ export default function WhatsAppFAB() {
       alert('Please fill out  your name, phone number and query.');
       return;
     }
-    setStatus('sending');
     try {
       await saveLead({ name, phone, query });
-      setStatus('success');
     } catch (error) {
-      setStatus('error');
       console.error('Submission error:', error);
     }
 

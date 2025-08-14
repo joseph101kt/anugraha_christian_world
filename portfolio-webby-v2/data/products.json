@@ -2039,7 +2039,7 @@
   {
     "id": "holy-cross-statue-8de4c4ea",
     "name": "Holy Cross Statue",
-    "description": "Elegant Holy Cross statue for prayer rooms, churches, or as a faithful home décor piece.\r\nImported statue.\r\n\r\n\r\n",
+    "description": "Holy Cross statue for prayer rooms and churches.",
     "main_image": "/images/holy-cross-statue-19f6b956-3d55-4238-a341-67d8942d3d2d.webp",
     "secondary_images": [
       "/images/holy-cross-statue-2a076676-a60c-402a-bb92-e17c9b6723d6.webp",
@@ -2060,7 +2060,7 @@
   {
     "id": "holy-family-statue-7cb8a10e",
     "name": "Holy Family Statue ",
-    "description": "Premium imported Holy Family statue with exquisite detailing of Jesus, Mary, and Joseph. Perfect for home altars, churches, or as a special gift.\r\n\r\n\r\n",
+    "description": "Imported Holy Family statue of Jesus, Mary, and Joseph for home altars and churches.",
     "main_image": "/images/holy-family-statue-c55a7963-510f-4613-94c4-5f5cb2572d9d.webp",
     "secondary_images": [
       "/images/holy-family-statue-30b3e3bf-2ce2-4530-aa6d-f377b57c7a50.webp"
@@ -2080,7 +2080,7 @@
   {
     "id": "st-antony-statue-23477426",
     "name": "St. Antony Statue",
-    "description": "Premium imported St. Antony statue with fine craftsmanship, ideal for homes, churches, or as a devotional gift.\r\n\r\n\r\n",
+    "description": "Imported St. Antony statue for homes and churches.",
     "main_image": "/images/st-antony-statue-120548cb-2fe2-48d5-88ae-d850b15861e6.webp",
     "secondary_images": [
       "/images/st-antony-statue-923a2db7-34a8-4078-90d7-7bc327dd7bcb.webp",
@@ -2101,7 +2101,7 @@
   {
     "id": "st-antony-statue-60e8d25d",
     "name": "St. Antony Statue",
-    "description": "Premium imported St. Antony statue with fine craftsmanship, ideal for homes, churches, or as a devotional gift.\r\n\r\n\r\n",
+    "description": "Imported St. Antony statue for homes and churches.",
     "main_image": "/images/st-antony-statue-a7844f15-ead0-4593-99f8-21720469d53f.webp",
     "secondary_images": [
       "/images/st-antony-statue-a3f5577a-3b41-4946-a567-4c7acf1c0302.webp",
@@ -2122,7 +2122,7 @@
   {
     "id": "st-joseph-with-baby-jesus-statue-66277471",
     "name": "St. Joseph with Baby Jesus Statue ",
-    "description": "Beautiful imported St. Joseph with Baby Jesus statue, symbolizing protection and fatherly care. Ideal for home altars and churches.\r\n\r\n\r\n",
+    "description": "Imported St. Joseph with Baby Jesus statue for home altars and churches.",
     "main_image": "/images/st-joseph-with-baby-jesus-statue-a3827d31-552e-4c83-8509-6e1e0b514bad.webp",
     "secondary_images": [
       "/images/st-joseph-with-baby-jesus-statue-3253ccba-6bfe-4427-a04b-74393745cd2c.webp"
@@ -2142,7 +2142,7 @@
   {
     "id": "st-joseph-without-baby-jesus-a0f22fbe",
     "name": "St. Joseph without Baby Jesus ",
-    "description": "Elegant imported St. Joseph statue without Baby Jesus, perfect for devotional spaces and religious collections.\r\n\r\n\r\n",
+    "description": "Imported St. Joseph statue without Baby Jesus for devotional spaces.",
     "main_image": "/images/st-joseph-without-baby-jesus-c0b831b1-a4eb-4636-a659-499d1dcbdf4c.webp",
     "secondary_images": [],
     "tags": [
@@ -2160,7 +2160,7 @@
   {
     "id": "sleeping-st-joseph-statue-60aeecbe",
     "name": "Sleeping St. Joseph Statue",
-    "description": "Imported Sleeping St. Joseph statue, representing trust in God’s guidance. Great for prayer corners and faith-inspired décor.\r\n\r\n\r\n",
+    "description": "Imported Sleeping St. Joseph statue for prayer corners.",
     "main_image": "/images/sleeping-st-joseph-statue-b2f36ad0-4c9a-4e25-b46d-1f71d3a947d4.webp",
     "secondary_images": [],
     "tags": [
@@ -2178,7 +2178,7 @@
   {
     "id": "divine-mercy-statue-54c8327d",
     "name": " Divine Mercy Statue",
-    "description": "Premium imported Divine Mercy statue with vibrant detail, perfect for homes, churches, or as a devotional gift.\r\n\r\n\r\n",
+    "description": "Imported Divine Mercy statue for homes and churches.",
     "main_image": "/images/divine-mercy-statue-aa5d3868-6605-4305-bec8-7fc4667d6b05.webp",
     "secondary_images": [],
     "tags": [
@@ -2196,7 +2196,7 @@
   {
     "id": "infant-jesus-statue-05a6f114",
     "name": "Infant Jesus Statue",
-    "description": "Elegant imported Infant Jesus statue, symbolizing innocence and divine love. Ideal for prayer rooms and altars.\r\n\r\n\r\n",
+    "description": "Imported Infant Jesus statue for prayer rooms and altars.",
     "main_image": "/images/infant-jesus-statue-75eb7e3e-a62d-4e51-a0eb-51cafb72332a.webp",
     "secondary_images": [],
     "tags": [
@@ -2214,7 +2214,7 @@
   {
     "id": "kneeling-angel-statue-ac0a869c",
     "name": " Kneeling Angel Statue ",
-    "description": "Elegant imported kneeling angel statue, symbolizing prayer and devotion. Perfect for gardens, homes, or church décor.\r\n\r\n\r\n",
+    "description": "Imported kneeling angel statue for gardens, homes, or church décor.",
     "main_image": "/images/kneeling-angel-statue-1c77846a-87ea-4dbc-8a0c-f3215f3fe535.webp",
     "secondary_images": [],
     "tags": [
@@ -2232,7 +2232,7 @@
   {
     "id": "standing-angel-statue-0b2bf732",
     "name": " Standing Angel Statue ",
-    "description": "Beautiful imported standing angel statue with graceful detailing, ideal for altars, gardens, or interior décor.\r\n\r\n\r\n",
+    "description": "Imported standing angel statue for altars, gardens, or interior décor.",
     "main_image": "/images/standing-angel-statue-023f014b-4e45-4ebb-8dea-ef4f03bc7953.webp",
     "secondary_images": [],
     "tags": [
@@ -2250,7 +2250,7 @@
   {
     "id": "st-michael-statue-8d782b5f",
     "name": "St. Michael Statue",
-    "description": "Premium imported St. Michael statue depicting the Archangel defeating evil, crafted with fine detail. Perfect for homes, churches, and devotional spaces.\r\n\r\n\r\n",
+    "description": "Imported St. Michael statue of the Archangel defeating evil. Good for homes, churches, and devotional spaces.",
     "main_image": "/images/st-michael-statue-ca23aeee-92d2-456c-b21d-33570f298e2a.webp",
     "secondary_images": [],
     "tags": [
@@ -2268,7 +2268,7 @@
   {
     "id": "our-lady-of-perpetual-help-statue-dcc67a23",
     "name": "Our Lady of Perpetual Help Statue ",
-    "description": "Stunning imported Our Lady of Perpetual Help statue with intricate craftsmanship for devotional spaces.\r\n\r\n\r\n",
+    "description": "Imported Our Lady of Perpetual Help statue for devotional spaces.",
     "main_image": "/images/our-lady-of-perpetual-help-statue-6cf7f910-c5be-474d-bdbc-903e41298eb1.webp",
     "secondary_images": [],
     "tags": [
@@ -2286,7 +2286,7 @@
   {
     "id": "immaculate-mary-statue-2d447c6f",
     "name": "Immaculate Mary Statue ",
-    "description": "\r\nGraceful imported Immaculate Mary statue symbolizing purity and faith. Ideal for churches and homes.\r\n\r\n",
+    "description": "Imported Immaculate Mary statue for churches and homes.",
     "main_image": "/images/immaculate-mary-statue-11e36ba7-8801-46da-9663-52dc42779b51.webp",
     "secondary_images": [
       "/images/immaculate-mary-statue-bed68a28-5a1e-4310-9bf8-4acdfe50ac6c.webp"
@@ -2306,7 +2306,7 @@
   {
     "id": "rosary-mary-statue-51f85ac2",
     "name": "Rosary Mary Statue ",
-    "description": "Imported Rosary Mary statue holding the holy rosary, perfect for prayer and reflection.\r\n\r\n",
+    "description": "Imported Rosary Mary statue with a holy rosary, for prayer.",
     "main_image": "/images/rosary-mary-statue-9ec9aa16-1ae0-4abc-bae7-f5f27824748b.webp",
     "secondary_images": [],
     "tags": [
@@ -2324,7 +2324,7 @@
   {
     "id": "heart-of-mary-statue-f82d16d7",
     "name": "Heart of Mary Statue",
-    "description": "Beautiful imported Heart of Mary statue, representing love and compassion. Perfect for home altars.\r\n\r\n",
+    "description": "Imported Heart of Mary statue for home altars.",
     "main_image": "/images/heart-of-mary-statue-4a7f239a-ecb0-48b0-a136-a2c267ce8449.webp",
     "secondary_images": [],
     "tags": [
@@ -2342,7 +2342,7 @@
   {
     "id": "our-lady-of-fatima-statue-7357cf9b",
     "name": "Our Lady of Fatima Statue",
-    "description": "Premium imported Our Lady of Fatima statue with beautiful detailing, ideal for devotional spaces.\r\n\r\n",
+    "description": "Imported Our Lady of Fatima statue for devotional spaces.",
     "main_image": "/images/our-lady-of-fatima-statue-f616341d-724b-44f1-a005-b863d09eba4c.webp",
     "secondary_images": [
       "/images/our-lady-of-fatima-statue-f4f915e9-1a44-47d5-903b-51e7178ba2ed.webp"
@@ -2362,7 +2362,7 @@
   {
     "id": "lady-of-lourdes-statue-637cbf9e",
     "name": "Lady of Lourdes Statue",
-    "description": "Elegant imported Lady of Lourdes statue, symbolizing purity and grace. Perfect for prayer rooms and churches.\r\n\r\n",
+    "description": "Imported Lady of Lourdes statue for prayer rooms and churches.",
     "main_image": "/images/lady-of-lourdes-statue-d9aff400-4f05-47b5-8c60-0172c00d36a7.webp",
     "secondary_images": [],
     "tags": [
@@ -2380,7 +2380,7 @@
   {
     "id": "gold-vestment-a6f1e1f1",
     "name": "Gold Vestment ",
-    "description": "Gold vestment\r\n",
+    "description": "Gold Vestment.",
     "main_image": "/images/gold-vestment-1a4ac2e4-0e0c-4300-bac2-9b06547fb376.webp",
     "secondary_images": [],
     "tags": [
@@ -2398,7 +2398,7 @@
   {
     "id": "gold-vestment-bcac1d1a",
     "name": "Gold Vestment ",
-    "description": "Gold vestment\r\n",
+    "description": "Gold Vestment.",
     "main_image": "/images/gold-vestment-e27a4b22-d7b0-40fa-9a74-46a320b283ed.webp",
     "secondary_images": [],
     "tags": [
@@ -2416,7 +2416,7 @@
   {
     "id": "gold-vestment-0f8c7287",
     "name": "Gold Vestment ",
-    "description": "Gold vestment\r\n",
+    "description": "Gold Vestment.",
     "main_image": "/images/gold-vestment-ef9bad3e-84b4-4d29-ab7c-5587b86561ae.webp",
     "secondary_images": [
       "/images/gold-vestment-1395415d-b2ec-49a5-baa7-8930d28a5892.webp"
@@ -2436,7 +2436,7 @@
   {
     "id": "liturgical-vestment-ad1254cc",
     "name": "Liturgical Vestment ",
-    "description": " Vestment\r\n",
+    "description": "Liturgical Vestment.",
     "main_image": "/images/liturgical-vestment-8b9f9af0-31f4-4176-8ee4-4dc81624db89.webp",
     "secondary_images": [
       "/images/liturgical-vestment-d8dbaf68-2d2e-453f-a0b5-176f3c989320.webp",
@@ -2458,7 +2458,7 @@
   {
     "id": "white-vestment-b83618f8",
     "name": "White Vestment",
-    "description": " Vestment\r\n",
+    "description": "White Vestment.",
     "main_image": "/images/white-vestment-07b8b2b4-1c87-4418-9108-545186e28fb5.webp",
     "secondary_images": [],
     "tags": [
@@ -2476,7 +2476,7 @@
   {
     "id": "vestment-47500232",
     "name": "Vestment",
-    "description": " Vestment\r\n",
+    "description": "Vestment.",
     "main_image": "/images/vestment-d9df7503-3f77-4ece-a229-9bfd046b3247.webp",
     "secondary_images": [
       "/images/vestment-0e6ff43c-d76d-45b4-8c9a-3f6b3018fa04.webp",
@@ -2497,7 +2497,7 @@
   {
     "id": "green-vestment-36272bce",
     "name": "Green Vestment",
-    "description": " Vestment\r\n",
+    "description": "Green Vestment.",
     "main_image": "/images/green-vestment-c6a05a03-6327-4d37-8166-2c7e9bf86102.webp",
     "secondary_images": [],
     "tags": [
@@ -2515,7 +2515,7 @@
   {
     "id": "last-supper-statue-b3ad79ea",
     "name": "Last Supper Statue",
-    "description": "Premium imported Last Supper statue with intricate detailing, capturing the sacred moment of Jesus and His disciples. Perfect for home altars, churches, or as a meaningful Christian gift.\r\n",
+    "description": "Imported Last Supper statue of Jesus and His disciples. Good for home altars, churches, or as a Christian gift.",
     "main_image": "/images/last-supper-statue-58068955-05f1-4311-80a9-0329719d5983.webp",
     "secondary_images": [],
     "tags": [
@@ -2533,7 +2533,7 @@
   {
     "id": "passion-of-christ-statue-e12e8eea",
     "name": "Passion of Christ Statue ",
-    "description": "Detailed imported Passion of Christ statue depicting the sacrifice of Jesus with lifelike craftsmanship. Ideal for prayer rooms, churches, and devotional displays.\r\n",
+    "description": "Imported Passion of Christ statue of Jesus. Good for prayer rooms and churches.",
     "main_image": "/images/passion-of-christ-statue-0b4158ab-8099-4c73-95ed-e28823fb6dfa.webp",
     "secondary_images": [],
     "tags": [
@@ -2551,7 +2551,7 @@
   {
     "id": "life-of-jesus-statue-0d4f78bf",
     "name": "Life of Jesus Statue",
-    "description": "Exquisite imported Life of Jesus statue set, beautifully portraying scenes from His birth to resurrection. A devotional masterpiece ideal for churches, prayer rooms, and Christian homes. Crafted with fine detail to inspire faith and reflection.\r\n",
+    "description": "Imported Life of Jesus statue set from His birth to resurrection. Good for churches, prayer rooms, and homes.",
     "main_image": "/images/life-of-jesus-statue-17942d42-0d77-43d6-b404-e1e04b682c0a.webp",
     "secondary_images": [],
     "tags": [
@@ -2569,7 +2569,7 @@
   {
     "id": "st-anne-mother-of-mary-statue-5625fa32",
     "name": "St. Anne (Mother of Mary )Statue",
-    "description": "Elegant imported St. Anne statue with fine craftsmanship, ideal for churches, prayer rooms, or Christian home décor.\r\n",
+    "description": "St. Anne (Mother of Mary )Statue.",
     "main_image": "/images/st-anne-mother-of-mary-statue-0de437f2-8ef6-4838-8f24-e3e5eeb1f261.webp",
     "secondary_images": [],
     "tags": [
@@ -2587,7 +2587,7 @@
   {
     "id": "st-anne-statue-16a83a2a",
     "name": "St. Anne Statue",
-    "description": "Elegant imported St. Anne statue with fine craftsmanship, ideal for churches, prayer rooms, or Christian home décor.\r\n",
+    "description": "Imported St. Anne statue for churches, prayer rooms, or home décor.",
     "main_image": "/images/st-anne-statue-7aad5b00-1381-43ed-8c7a-2f480418cc5d.webp",
     "secondary_images": [],
     "tags": [
@@ -2605,7 +2605,7 @@
   {
     "id": "our-lady-of-velankanni-statue-922e1bd8",
     "name": "Our Lady of Velankanni Statue",
-    "description": "Beautiful Our Lady of Velankanni statue, crafted with fine detail to honor the revered Mother of Good Health. Ideal for churches, prayer rooms, and Christian home décor.\r\n",
+    "description": "Our Lady of Velankanni statue for churches, prayer rooms, and homes.",
     "main_image": "/images/our-lady-of-velankanni-statue-b4cd0913-d1ea-4192-9ecb-c1a5f2bf28bb.webp",
     "secondary_images": [],
     "tags": [
@@ -2623,7 +2623,7 @@
   {
     "id": "immaculate-conception-mother-mary-f8be6583",
     "name": "Immaculate conception mother mary",
-    "description": "Mary Statue imported",
+    "description": "Imported Mary statue.",
     "main_image": "/images/immaculate-conception-mother-mary-4db9377a-92eb-45e5-89ef-5fde3d3e3485.webp",
     "secondary_images": [],
     "tags": [
@@ -2641,7 +2641,7 @@
   {
     "id": "test-d9d92f11",
     "name": "Test",
-    "description": "Test",
+    "description": "Test.",
     "main_image": "/images/test-1850cbd4-267b-44c8-882c-e6ff43a63919.webp",
     "secondary_images": [],
     "tags": [

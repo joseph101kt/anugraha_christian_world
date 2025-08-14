@@ -32,14 +32,14 @@ export default function ProductCard({ product, ActionButton }: ProductCardProps)
             <Link href={`/products/${product.id}`}></Link>
 
             <Link href={`/products/${product.id}`} className='relative w-full h-[200px]'>
-<Image
-    src={product.main_image}
-    alt={product.name}
-    fill
-    className="object-cover"
-    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-    priority
-/>
+                <Image
+                    src={product.main_image}
+                    alt={product.name}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority
+                />
             </Link>
 
             <div style={{ padding: '20px', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>

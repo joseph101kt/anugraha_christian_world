@@ -1,10 +1,8 @@
 // components/AboutSection.tsx
 import Image from "next/image";
-import { Suspense } from "react";
 
 export default function AboutSection() {
   return (
-    <Suspense>
     <section className="w-full mt-5 px-6 py-12 flex flex-col lg:flex-row  justify-between ">
         <div className="max-w-3xl bg-secondary rounded-4xl text-center p-10 lg:text-left">
         <h2 className="text-4xl font-extrabold mb-6 tracking-tight">
@@ -35,6 +33,5 @@ export default function AboutSection() {
         />
       </div>
     </section>
-    </Suspense>
   );
 }

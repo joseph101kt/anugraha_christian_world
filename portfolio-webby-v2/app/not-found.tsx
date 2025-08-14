@@ -4,7 +4,6 @@ import { Suspense } from "react";
 
 export default function NotFound() {
   return (
-    <Suspense>
     <div className="flex flex-col items-center justify-center min-h-screen text-center p-6">
       <h1 className="text-4xl font-bold mb-4">404 — Page Not Found</h1>
       <p className="mb-6">Sorry, we couldn’t find the page you’re looking for.</p>
@@ -15,6 +14,5 @@ export default function NotFound() {
         Go Home
       </Link>
     </div>
-    </Suspense>
   );
 }

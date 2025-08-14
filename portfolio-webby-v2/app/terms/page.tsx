@@ -1,5 +1,4 @@
 // app/terms/page.tsx
-import React, { Suspense } from 'react';
 export const metadata = {
   title: 'Terms of Service - [Your Company Name]',
   description: 'The terms and conditions that govern the use of our services. By using our site, you agree to these terms.',
@@ -7,7 +6,6 @@ export const metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <Suspense>
     <div className="container mx-auto p-8 md:p-12 lg:p-16 max-w-5xl">
       <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-center">Terms of Service</h1>
       <p className="text-sm md:text-base text-center mb-12">
@@ -44,6 +42,5 @@ export default function TermsOfServicePage() {
         </section>
       </div>
     </div>
-    </Suspense>
   );
 }

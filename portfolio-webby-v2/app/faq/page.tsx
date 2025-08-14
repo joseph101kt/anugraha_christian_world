@@ -1,5 +1,4 @@
 // app/faq/page.tsx
-import React, { Suspense } from 'react';
 import Link from 'next/link';
 
 export const metadata = {
@@ -9,7 +8,6 @@ export const metadata = {
 
 export default function FAQPage() {
   return (
-    <Suspense>
     <div className="container mx-auto p-8 md:p-12 lg:p-16 max-w-5xl">
       <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-center">Frequently Asked Questions</h1>
       <p className="text-sm md:text-base text-center mb-12">
@@ -47,6 +45,5 @@ export default function FAQPage() {
         </div>
       </div>
     </div>
-    </Suspense>
   );
 }

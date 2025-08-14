@@ -4,7 +4,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ProductFilter from "@/components/ProductFilter";
-import SearchBar from '@/components/SearchBar';
 import { FaSpinner } from 'react-icons/fa';
 
 import { Product } from '@/lib/types';
@@ -139,9 +138,7 @@ function buildCategoryTagArray(products: Product[]): CategoryWithTags[] {
         <div className="container mx-auto p-4 md:p-8">
             <div className="flex justify-between mb-6">
                 <ProductFilter categoryTagArray={categoryTagArray} />
-                <div className="w-full m-2 max-w-sm">
-                    <SearchBar />
-                </div>
+
             </div>
 
             {statusMessage.message && (

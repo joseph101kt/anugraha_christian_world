@@ -35,7 +35,7 @@ export default function ContactPage() {
             </div>
             <div className='grid grid-cols-2 gap-4'>
               <a
-                href="tel:+919397082746"
+                href="tel:+91-9912888606"
                 className="w-full my-4 flex items-center p-3 justify-center border border-transparent rounded-lg shadow-sm text-base font-bold text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
                 <MdCall className="h-5 w-5" />
                 <span className=' w-full text-center'>Call Now</span>

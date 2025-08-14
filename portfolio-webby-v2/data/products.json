@@ -3093,5 +3093,197 @@
     "material": "Poly marble",
     "category": "Photo Frame",
     "additional_info": []
+  },
+  {
+    "id": "st-joseph-statue-afaae4fb",
+    "name": "St Joseph Statue",
+    "description": "St Joseph Statue for home. Washable statue",
+    "main_image": "/images/st-joseph-statue-000b704f-1c96-4c1e-b173-ec191d52e5ce.webp",
+    "secondary_images": [
+      "/images/st-joseph-statue-09bc7047-3c4c-4359-9153-aa616d4ea26f.webp"
+    ],
+    "tags": [
+      "joseph",
+      "statue"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "mother-mary-statue-aeb9ce4a",
+    "name": "Mother Mary Statue",
+    "description": "Mother Mary Statue for home. Washable statue",
+    "main_image": "/images/mother-mary-statue-48477955-2f45-4ae4-8162-b12d1837a721.webp",
+    "secondary_images": [
+      "/images/mother-mary-statue-0653c3b2-b305-4bb0-a1de-53de556fdc2b.webp",
+      "/images/mother-mary-statue-47dca2bc-6a36-44cb-981d-f3e9e4be9a63.webp"
+    ],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "st-joseph-with-jesus-statue-951fc73c",
+    "name": "St Joseph with Jesus Statue",
+    "description": "St Joseph with Jesus Statue for home. Washable statue",
+    "main_image": "/images/st-joseph-with-jesus-statue-a3e41471-0af0-4c74-87b5-092607d51d13.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "joseph"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "st-joseph-with-jesus-statue-45bf5393",
+    "name": "St Joseph with Jesus Statue",
+    "description": "St Joseph with Jesus Statue for home. Washable statue",
+    "main_image": "/images/st-joseph-with-jesus-statue-4e2d1883-0221-41f6-b168-a1e0ee9eb2ab.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "joseph",
+      "jesus"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "angels-with-candle-stands-statue-79057885",
+    "name": "Angels with Candle Stands Statue",
+    "description": "Angels with Candle Stands Statue for home or chaple. Washable statue",
+    "main_image": "/images/angels-with-candle-stands-statue-522bf336-b106-47c9-9a47-a6fabe5ffae4.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "angel"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "rosa-mistica-statue-25caa3ff",
+    "name": "Rosa Mistica Statue",
+    "description": "Rosa Mistica Statue for home or chaple. Washable statue",
+    "main_image": "/images/rosa-mistica-statue-eca6777b-4812-4b03-bf00-3aa2c4a6871d.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "lourd-mary-statue-61783c09",
+    "name": "Lourd Mary Statue",
+    "description": "Lourd Mary Statue for home or chaple. Washable statue",
+    "main_image": "/images/lourd-mary-statue-c49e3bb3-40d5-410c-a6a8-c9a0a1a4596a.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "st-antony-with-jesus-statue-8d4ba4be",
+    "name": "St Antony with Jesus Statue",
+    "description": "St Antony with Jesus Statue for home or chaple. Washable statue",
+    "main_image": "/images/st-antony-with-jesus-statue-878a4ae3-5c7f-4e71-a14f-aa0acb30cf8a.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "st antony"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "last-supper-wall-hanging-af5506c7",
+    "name": "Last Supper Wall Hanging",
+    "description": "Last Supper Wall Hanging for home. Washable statue",
+    "main_image": "/images/last-supper-wall-hanging-4d8be860-a432-4cf3-b376-791e6a937cdf.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "wall-hanging",
+      "last supper"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "home-alters-ad31c437",
+    "name": "Home Alters",
+    "description": "Home alters to place statues in.",
+    "main_image": "/images/home-alters-f01069e3-917c-46f8-a422-51bb2692aae9.webp",
+    "secondary_images": [
+      "/images/home-alters-beeec74e-0779-4fec-9d92-fe5806cf48ca.webp",
+      "/images/home-alters-0c1ed215-f920-4357-aa5d-1d210195b3d6.webp",
+      "/images/home-alters-ff9b5dd9-7f67-4eca-b617-559f3cd53a72.webp"
+    ],
+    "tags": [
+      "statue",
+      "wall-hanging",
+      "gift-item"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
   }
 ]

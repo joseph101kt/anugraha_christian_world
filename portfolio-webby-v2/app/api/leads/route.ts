@@ -12,13 +12,9 @@ interface Lead {
   status: 'New' | 'Contacted' | 'Closed';
 }
 
-const ADMIN_PASSWORD = 'password';
 
 export async function GET(req: NextRequest) {
-  const password = req.nextUrl.searchParams.get('password');
-  if (password !== ADMIN_PASSWORD) {
-    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-  }
+
 
   const filePath = path.join(process.cwd(), 'data', 'leads.json');
 

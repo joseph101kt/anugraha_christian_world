@@ -24,10 +24,6 @@ export default function LeadsList() {
     const [leadToDelete, setLeadToDelete] = useState<string | null>(null);
     const [statusMessage, setStatusMessage] = useState<string | null>(null);
     
-    const password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
-    if (!password) {
-        throw new Error('Admin password is not set in environment variables.');
-    }
     // Function to show a message in a custom modal
     const showStatusModal = (message: string) => {
         setStatusMessage(message);
@@ -46,13 +42,10 @@ export default function LeadsList() {
 
     // Function to handle the actual deletion after confirmation
     const handleDeleteConfirmed = async () => {
-        if (!leadToDelete || !password) {
-            showStatusModal('Authentication error: Password is required to delete leads.');
-            return;
-        }
+
 
         try {
-            const response = await fetch(`/api/leads/${leadToDelete}?password=${encodeURIComponent(password)}`, {
+            const response = await fetch(`/api/leads/${leadToDelete}}`, {
                 method: 'DELETE',
             });
 
@@ -76,11 +69,8 @@ export default function LeadsList() {
         async function fetchLeads() {
             setLoading(true);
             try {
-                const password = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
-                if (!password) {
-                    throw new Error('Admin password is not set in environment variables.');
-                }
-                const response = await fetch(`/api/leads?password=${encodeURIComponent(password)}`);
+
+                const response = await fetch(`/api/leads`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch leads');
                 }
@@ -97,19 +87,16 @@ export default function LeadsList() {
             }
         }
 
-        if (password) {
+        
             fetchLeads();
-        }
-    }, [password]);
+        
+    },);
 
     const handleStatusChange = async (leadId: string, newStatus: Lead['status']) => {
-        if (!password) {
-            showStatusModal('Authentication error: Password is required to change lead status.');
-            return;
-        }
+
 
         try {
-            const response = await fetch(`/api/leads/${leadId}?password=${encodeURIComponent(password)}`, {
+            const response = await fetch(`/api/leads/${leadId}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: newStatus }),

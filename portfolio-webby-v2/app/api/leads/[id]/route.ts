@@ -13,7 +13,6 @@ interface Lead {
   status: 'New' | 'Contacted' | 'Closed'
 }
 
-const ADMIN_PASSWORD = 'password'
 
 // DELETE lead
 export async function DELETE(
@@ -21,11 +20,7 @@ export async function DELETE(
   context: { params: Promise<{ id: string }> }
 ) {
   const { id } = await context.params
-  const password = req.nextUrl.searchParams.get('password')
 
-  if (password !== ADMIN_PASSWORD) {
-    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
-  }
 
   const filePath = path.join(process.cwd(), 'data', 'leads.json')
 
@@ -57,11 +52,7 @@ export async function PATCH(
   context: { params: Promise<{ id: string }> }
 ) {
   const { id } = await context.params
-  const password = req.nextUrl.searchParams.get('password')
 
-  if (password !== ADMIN_PASSWORD) {
-    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
-  }
 
   const { status } = (await req.json()) as { status?: Lead['status'] }
   if (!status) {

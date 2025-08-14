@@ -169,5 +169,14 @@
     "timestamp": "2025-08-14T17:36:13.549Z",
     "source_url": "http://localhost:3000/contact?contact_message=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Chalice%20with%20Textured%20Gold%20Plating.%20You%20can%20view%20it%20here%3A%20http%3A%2F%2Flocalhost%3A3000%2Fproducts%2Fchalice-with-textured-gold-plating-2b13de5d",
     "status": "New"
+  },
+  {
+    "id": "446126ad-8897-4be4-a354-7ca5e390bde9",
+    "name": "josph",
+    "phone": "999999",
+    "query": "I would like to know more about the product: Candle Stand with Gold Design. You can view it here: http://localhost:3000/products/candle-stand-with-gold-design-0c4fb199",
+    "timestamp": "2025-08-14T17:43:29.286Z",
+    "source_url": "http://localhost:3000/contact?contact_message=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Candle%20Stand%20with%20Gold%20Design.%20You%20can%20view%20it%20here%3A%20http%3A%2F%2Flocalhost%3A3000%2Fproducts%2Fcandle-stand-with-gold-design-0c4fb199",
+    "status": "New"
   }
 ]

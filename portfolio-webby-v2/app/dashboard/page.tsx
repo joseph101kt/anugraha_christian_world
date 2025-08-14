@@ -10,7 +10,7 @@ import LeadsList from '@/components/LeadsList';
 type DashboardView = 'add' | 'edit' | 'delete' | 'leads';
 
 export default function DashboardPage() {
-    const [password, setPassword] = useState('password');
+    const [password, setPassword] = useState('');
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentView, setCurrentView] = useState<DashboardView>('add');
 

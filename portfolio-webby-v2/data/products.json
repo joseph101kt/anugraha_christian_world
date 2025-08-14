@@ -2690,5 +2690,425 @@
     "material": "Gold plated",
     "category": "alter",
     "additional_info": []
+  },
+  {
+    "id": "immaculate-mary-statue-e6881939",
+    "name": "Immaculate Mary Statue",
+    "description": "Immaculate Mary Statue for home.",
+    "main_image": "/images/immaculate-mary-statue-9c2e75ba-e6c9-491b-8653-2e409c12080e.webp",
+    "secondary_images": [
+      "/images/immaculate-mary-statue-928c0f84-40b9-48fa-8122-2e27cc06192e.webp",
+      "/images/immaculate-mary-statue-cac6677f-61c1-47e2-b2a5-5c820dc6cb88.webp",
+      "/images/immaculate-mary-statue-34cdd604-5d7b-42c6-85f3-6ecc04238c5d.webp"
+    ],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "lourd-mary-statue-d3ac8a9a",
+    "name": "Lourd Mary Statue",
+    "description": "Lourd Mary Statue for home.",
+    "main_image": "/images/lourd-mary-statue-121c3fff-a107-4727-876a-b1d9f8e05b0d.webp",
+    "secondary_images": [
+      "/images/lourd-mary-statue-09e443ad-a630-432f-ac71-a30971b2a669.webp",
+      "/images/lourd-mary-statue-7957485e-c180-429f-aaf0-6759d1b4cf81.webp",
+      "/images/lourd-mary-statue-353278c8-211c-4393-aec8-4fe7ee9ceaa9.webp"
+    ],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "mary-with-crown-statue-6a41ddb1",
+    "name": "Mary with crown Statue",
+    "description": "Mary with crown Statue for home.",
+    "main_image": "/images/mary-with-crown-statue-bc9b9bc9-d54e-406d-b08f-adaced9b4cba.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "rosa-mistica-statue-6715d705",
+    "name": "Rosa Mistica Statue",
+    "description": "Rosa Mistica Statue for home.",
+    "main_image": "/images/rosa-mistica-statue-c86c83fa-c4ef-47b2-a860-481b4d2a20f6.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "our-lady-of-guadalupe-0fb19e01",
+    "name": "Our Lady of Guadalupe",
+    "description": "Our Lady of Guadalupe Statue for home.",
+    "main_image": "/images/our-lady-of-guadalupe-6f9cf732-115f-436c-a9c3-8a1a4fc03225.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "assumption-mary-statue-43d81fc8",
+    "name": "Assumption Mary Statue",
+    "description": "Assumption Mary Statue for home.",
+    "main_image": "/images/assumption-mary-statue-ffccdf7d-880b-412c-8fa1-f66c64f79fc2.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "mary-statue-9a6d31a4",
+    "name": "Mary Statue",
+    "description": "Mother Mary Brown colored Statue for home.",
+    "main_image": "/images/mary-statue-b4825bfe-d11b-4eb0-b57d-ad7a60e10575.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "velankanni-mary-statue-92906437",
+    "name": "Velankanni Mary Statue",
+    "description": "Velankanni Mother Mary Goldcolored Statue for home.",
+    "main_image": "/images/velankanni-mary-statue-81ea90f4-e0e9-413e-8fff-8de409eddd67.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "jesus-statue-68167586",
+    "name": "Jesus Statue",
+    "description": "Jesus Brown colored Statue for home.",
+    "main_image": "/images/jesus-statue-cbef1226-c50d-4fa5-a842-207c5c06bb33.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "jesus"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "holy-family-statue-7243dc0f",
+    "name": "Holy Family Statue",
+    "description": "Holy Familycolored Statue for home.",
+    "main_image": "/images/holy-family-statue-77aa798f-b2c5-4d6f-990e-aeeeb71c3a59.webp",
+    "secondary_images": [
+      "/images/holy-family-statue-45e92682-03a7-445e-ae8a-18d9ef40bbb3.webp"
+    ],
+    "tags": [
+      "statue",
+      "jesus",
+      "joseph",
+      "mary",
+      "holy-family"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "holy-family-statue-2c652013",
+    "name": "Holy Family Statue",
+    "description": "Holy Familycolored Statue for home.",
+    "main_image": "/images/holy-family-statue-e4dd2e0a-209a-4216-b9cf-8d323eaa69d1.webp",
+    "secondary_images": [
+      "/images/holy-family-statue-949d9fcc-73e7-4add-ad46-b38f99a88c51.webp",
+      "/images/holy-family-statue-0a4e5162-b767-4e00-ba9b-224219874ba6.webp"
+    ],
+    "tags": [
+      "statue",
+      "jesus",
+      "joseph",
+      "mary",
+      "holy-family"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "holy-family-statue-6736678b",
+    "name": "Holy Family Statue",
+    "description": "Holy Familycolored Statue for home.",
+    "main_image": "/images/holy-family-statue-8ee73883-58ea-4147-abb1-84a4dd6de172.webp",
+    "secondary_images": [
+      "/images/holy-family-statue-ab820138-4edf-43c2-b56b-2064d4fb73cf.webp"
+    ],
+    "tags": [
+      "statue",
+      "jesus",
+      "joseph",
+      "mary",
+      "holy-family"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "holy-family-statue-bc02231f",
+    "name": "Holy Family Statue",
+    "description": "Holy Familycolored Statue for home.",
+    "main_image": "/images/holy-family-statue-5862d830-3e63-46dc-b3a0-01f6a728cec1.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "jesus",
+      "joseph",
+      "mary",
+      "holy-family"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "holy-family-statue-966f8199",
+    "name": "Holy Family Statue",
+    "description": "Holy Familycolored Statue for home.",
+    "main_image": "/images/holy-family-statue-561440ca-e173-4318-b39f-d81c9864d60c.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "jesus",
+      "joseph",
+      "mary",
+      "holy-family"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "holy-family-statue-4b76390d",
+    "name": "Holy Family Statue",
+    "description": "Holy Familycolored Statue for home.",
+    "main_image": "/images/holy-family-statue-d7af385c-212d-4225-b540-80661da9f520.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "jesus",
+      "joseph",
+      "mary",
+      "holy-family"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "holy-family-statue-b670d74b",
+    "name": "Holy Family Statue",
+    "description": "Holy Familycolored Statue for home.",
+    "main_image": "/images/holy-family-statue-827d3489-f666-4eff-8c37-885336160593.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "jesus",
+      "joseph",
+      "mary",
+      "holy-family"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "holy-family-statue-3fab71bf",
+    "name": "Holy Family Statue",
+    "description": "Holy Familycolored Statue for home.",
+    "main_image": "/images/holy-family-statue-7c8e142c-80b5-4589-89fd-661c512631eb.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "jesus",
+      "joseph",
+      "mary",
+      "holy-family"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "our-lady-of-perpetual-help-57e7e849",
+    "name": "Our Lady of Perpetual help",
+    "description": "Our Lady of Perpetual help photo frame for home.",
+    "main_image": "/images/our-lady-of-perpetual-help-59201664-698b-494c-a024-ead0f8ea0bb5.webp",
+    "secondary_images": [],
+    "tags": [
+      "mary",
+      "wall-hanging",
+      "photo frame"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "Photo Frame",
+    "additional_info": []
+  },
+  {
+    "id": "st-jude-960acf9b",
+    "name": "St Jude",
+    "description": "St Jude photo frame",
+    "main_image": "/images/st-jude-96c4e190-1b01-4b09-bdc1-e5ea10fb8de9.webp",
+    "secondary_images": [],
+    "tags": [
+      "wall-hanging",
+      "photo frame",
+      "st jude"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "Photo Frame",
+    "additional_info": []
+  },
+  {
+    "id": "jeusu-wall-hanging-04071013",
+    "name": "Jeusu Wall Hanging",
+    "description": "Jesus Wall Hanging",
+    "main_image": "/images/jeusu-wall-hanging-604fdb5f-5b4c-436b-9da3-361524e27c47.webp",
+    "secondary_images": [],
+    "tags": [
+      "wall-hanging",
+      "jesus"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "Photo Frame",
+    "additional_info": []
+  },
+  {
+    "id": "jeusu-wall-hanging-c84275be",
+    "name": "Jeusu Wall Hanging",
+    "description": "Jesus Wall Hanging",
+    "main_image": "/images/jeusu-wall-hanging-ca725bec-0071-40a5-9ad0-4173517111b5.webp",
+    "secondary_images": [],
+    "tags": [
+      "wall-hanging",
+      "jesus",
+      "cross"
+    ],
+    "price": 0,
+    "size": "Medium",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Poly marble",
+    "category": "Photo Frame",
+    "additional_info": []
   }
 ]

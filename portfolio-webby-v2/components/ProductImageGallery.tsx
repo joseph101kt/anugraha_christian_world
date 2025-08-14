@@ -28,7 +28,7 @@ const ProductImageGallery: React.FC<ProductImageGalleryProps> = ({
           src={currentImage}
           alt={name}
           fill
-          className="object-cover transition-opacity duration-300"
+          className="object-contain transition-opacity duration-300"
         />
       </div>
 

@@ -36,18 +36,19 @@ export default function Footer() {
         <div>
           <h4 className="text-lg font-semibold mb-2">Contact</h4>
           <ul className="space-y-1 text-sm">
-            <li>📍 Metuuguda, Hyderabad, Telangana</li>
+            <li>📍 Metuuguda, Beside St. Antony Shrine, Hyderabad, Telangana</li>
             <li>Opens: 9:30 AM  Closes: 8:30 PM</li>
             <li>
               📞{" "}
-              <a href="tel:+919397082746" className="hover:underline">
-                +91 98765 43210
+              <a href="tel:+9912888606" className="hover:underline">
+              </a>
+              <a href="9848587301" className="hover:underline">Whatsapp
               </a>
             </li>
             <li>
               📧{" "}
-              <a href="mailto:anugraha@email.com" className="hover:underline">
-                anugraha@email.com
+              <a href="mailto:anugrahachristianworld@email.com" className="hover:underline">
+                anugrahachristianworld@email.com
               </a>
             </li>
           </ul>

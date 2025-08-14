@@ -142,5 +142,23 @@
     "timestamp": "2025-08-11T11:56:14.358Z",
     "source_url": "http://localhost:3000/contact?contact_message=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Brass%20Cross%20with%2012%20Apostles%20Design.%20You%20can%20view%20it%20here%3A%20http%3A%2F%2Flocalhost%3A3000%2Fproducts%2Fbrass-cross-with-12-apostles-design-869528f5",
     "status": "New"
+  },
+  {
+    "id": "e22a31fa-3806-4a04-9972-976ff20158fb",
+    "name": "josph",
+    "phone": "999999",
+    "query": "I would like to know more about the product: Candle Stand with Gold Design. You can view it here: http://localhost:3000/products/candle-stand-with-gold-design-0c4fb199",
+    "timestamp": "2025-08-14T08:41:21.659Z",
+    "source_url": "http://localhost:3000/contact?contact_message=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Candle%20Stand%20with%20Gold%20Design.%20You%20can%20view%20it%20here%3A%20http%3A%2F%2Flocalhost%3A3000%2Fproducts%2Fcandle-stand-with-gold-design-0c4fb199",
+    "status": "New"
+  },
+  {
+    "id": "bedeadb1-715b-402a-b7a2-e79a3ee1cb9c",
+    "name": "josph",
+    "phone": "999999",
+    "query": "I would like to know more about the product: Candle Stand with Gold Design. You can view it here: http://localhost:3000/products/candle-stand-with-gold-design-0c4fb199",
+    "timestamp": "2025-08-14T08:42:16.241Z",
+    "source_url": "http://localhost:3000/contact?contact_message=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Candle%20Stand%20with%20Gold%20Design.%20You%20can%20view%20it%20here%3A%20http%3A%2F%2Flocalhost%3A3000%2Fproducts%2Fcandle-stand-with-gold-design-0c4fb199",
+    "status": "New"
   }
 ]

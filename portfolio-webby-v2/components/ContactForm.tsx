@@ -66,7 +66,7 @@ export default function ContactForm({ initialMessage = '' }: ContactFormProps) {
         // Build WhatsApp link with the message
         const message = `Hello, my name is ${name}. My phone number is: ${phone}. I have a question: ${messageText}`;
         const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/919346851977?text=${encodedMessage}`;
+        const whatsappUrl = `https://wa.me/919848587301?text=${encodedMessage}`;
 
         window.open(whatsappUrl, '_blank');
     };

@@ -1,7 +1,7 @@
 // components/ProductGrid.tsx
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ProductCard from "@/components/ProductCard";
 import Pagination from "@/components/Pagination";
@@ -29,6 +29,7 @@ export default function ProductGrid({ products, ActionButton }: ProductGridProps
     }, [products, pageParam]);
 
     return (
+        <Suspense>
         <div className="flex flex-col gap-6">
             {paginatedProducts.length === 0 ? (
                 <p className="text-center text-lg">
@@ -49,5 +50,6 @@ export default function ProductGrid({ products, ActionButton }: ProductGridProps
                 </>
             )}
         </div>
+        </Suspense>
     );
 }

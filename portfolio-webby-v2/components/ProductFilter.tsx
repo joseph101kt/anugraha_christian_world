@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import SearchBar from '@/components/SearchBar';
 
@@ -59,6 +59,7 @@ export default function ProductFilter({ categoryTagArray }: ProductFilterProps) 
   };
 
   return (
+    <Suspense>
     <div className="w-full">
       {/* Header */}
       <div className="flex  flex-wrap justify-between items-center gap-4 mb-4">
@@ -158,5 +159,6 @@ export default function ProductFilter({ categoryTagArray }: ProductFilterProps) 
         })}
       </div>
     </div>
+    </Suspense>
   );
 }

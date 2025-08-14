@@ -1,6 +1,7 @@
 // components/Pagination.tsx
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 interface PaginationProps {
     totalPages: number;
@@ -38,22 +39,24 @@ export default function Pagination({ totalPages }: PaginationProps) {
     }
 
     return (
-        <div className="flex justify-center my-8">
-            <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage <= 1}
-                className="p-2 mx-1 rounded bg-secondary disabled:opacity-50"
-            >
-                Previous
-            </button>
-            {renderPageButtons()}
-            <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage >= totalPages}
-                className="p-2 mx-1 rounded bg-secondary disabled:opacity-50"
-            >
-                Next
-            </button>
-        </div>
+        <Suspense>
+            <div className="flex justify-center my-8">
+                <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage <= 1}
+                    className="p-2 mx-1 rounded bg-secondary disabled:opacity-50"
+                >
+                    Previous
+                </button>
+                {renderPageButtons()}
+                <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage >= totalPages}
+                    className="p-2 mx-1 rounded bg-secondary disabled:opacity-50"
+                >
+                    Next
+                </button>
+            </div>
+        </Suspense>
     );
 }

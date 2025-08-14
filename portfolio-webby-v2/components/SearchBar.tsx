@@ -1,7 +1,7 @@
 // components/SerachBar.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 export default function SearchBar() {
@@ -46,6 +46,7 @@ export default function SearchBar() {
   };
 
   return (
+    <Suspense>
     <form onSubmit={handleSearch} className="form-control w-full">
       <input
         type="text"
@@ -55,5 +56,6 @@ export default function SearchBar() {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
     </form>
+    </Suspense>
   );
 }

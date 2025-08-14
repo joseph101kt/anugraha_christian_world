@@ -1,144 +1,71 @@
 // components/ProductList.tsx
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ProductFilter from "@/components/ProductFilter";
-import { FaSpinner } from 'react-icons/fa';
-
-import { Product } from '@/lib/types';
 import ProductCard from '@/components/ProductCard';
 import Pagination from '@/components/Pagination';
+import { FaSpinner } from 'react-icons/fa';
+import { Product } from '@/lib/types';
+import {
+    fetchProducts,
+    buildCategoryTagArray,
+    filterAndScoreProducts,
+    CategoryWithTags,
+    ITEMS_PER_PAGE,
+} from '@/utils/products';
 
 interface ProductListProps {
     ActionButton: React.ComponentType<{ product: Product }>;
 }
 
-const ITEMS_PER_PAGE = 20;
-
 export default function ProductList({ ActionButton }: ProductListProps) {
     const [allProducts, setAllProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState(true);
     const [statusMessage, setStatusMessage] = useState({ type: '', message: '' });
+
     const searchParams = useSearchParams();
     const router = useRouter();
 
-    // Extract current params once (to be used in effects and memo)
     const query = searchParams.get('query') || '';
     const tags = searchParams.getAll('tags');
     const pageParam = parseInt(searchParams.get('page') || '1', 10);
 
+    // Fetch products
     useEffect(() => {
-        async function fetchProducts() {
-            setLoading(true);
-            try {
-                const response = await fetch('/api/products');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch products');
-                }
-                const data = await response.json();
-                setAllProducts(data);
-            } catch (error: unknown) {
-                console.error('Error fetching products:', error);
-                const message = error instanceof Error ? error.message : 'An unknown error occurred.';
+        setLoading(true);
+        fetchProducts()
+            .then(setAllProducts)
+            .catch((error: unknown) => {
+                const message = error instanceof Error ? error.message : 'Unknown error';
                 setStatusMessage({ type: 'error', message: `Failed to fetch products: ${message}` });
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchProducts();
+            })
+            .finally(() => setLoading(false));
     }, []);
 
+    // Category -> tags array
+    const categoryTagArray: CategoryWithTags[] = useMemo(
+        () => buildCategoryTagArray(allProducts),
+        [allProducts]
+    );
 
+    // Filtered & scored products
+    const filteredProducts: Product[] = useMemo(
+        () => filterAndScoreProducts(allProducts, query, tags),
+        [allProducts, query, tags]
+    );
 
-
-    // Enhanced filtering and ranking logic with combined search and tag scoring
-    const filteredProducts = useMemo(() => {
-        const activeTags = tags.map(t => t.toLowerCase());
-        const searchTermRaw = query.toLowerCase();
-        const normalizedSearchTerm = searchTermRaw.replace(/-/g, ' ');
-        const searchWords = normalizedSearchTerm.split(/\s+/).filter(Boolean);
-
-        // Show all if no filters/search
-        if (searchWords.length === 0 && activeTags.length === 0) {
-            return allProducts;
-        }
-
-        const scoredProducts = allProducts
-            .map(product => {
-                let score = 0;
-                const name = product.name.toLowerCase();
-                const description = product.description.toLowerCase();
-                const material = (product.material || '').toLowerCase();
-                const tags = product.tags.map(tag => tag.toLowerCase());
-
-                // Search term scoring
-                for (const word of searchWords) {
-                    if (name.includes(word)) score += 3;
-                    if (description.includes(word)) score += 2;
-                    if (material.includes(word)) score += 2;
-                    if (tags.some(tag => tag.includes(word))) score += 1;
-                }
-
-                // Tag matching scoring (5 points per matching tag)
-                if (activeTags.length > 0) {
-                    const matchingTagsCount = activeTags.filter(tag => tags.includes(tag)).length;
-                    score += matchingTagsCount * 5;
-                }
-
-                return { product, score };
-            })
-            // Filter out zero-score products (no match)
-            .filter(({ score }) => score > 0)
-            // Sort descending by score
-            .sort((a, b) => b.score - a.score)
-            .map(({ product }) => product);
-
-        return scoredProducts;
-    }, [allProducts, query, tags]);
-
-
-    const category = searchParams.get('category') || '';
-
-
-    // Pagination logic
+    // Pagination
     const currentPage = pageParam;
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
     const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
 
-    interface CategoryWithTags {
-    category: string;
-    tags: string[];
-    }
-
-function buildCategoryTagArray(products: Product[]): CategoryWithTags[] {
-    const map: Record<string, Set<string>> = {};
-
-    products.forEach(product => {
-    // Assign a fallback category if undefined
-    const category = product.category ?? "Others";
-
-    if (!map[category]) {
-        map[category] = new Set();
-    }
-    product.tags.forEach(tag => map[category].add(tag)); // use 'category' instead of 'product.category'
-    });
-
-    return Object.entries(map).map(([category, tagsSet]) => ({
-        category,
-        tags: Array.from(tagsSet),
-    }));
-}
-    const categoryTagArray = useMemo(() => buildCategoryTagArray(allProducts), [allProducts]);
-
-
-
     return (
         <div className="container mx-auto p-4 md:p-8">
             <div className="flex justify-between mb-6">
                 <ProductFilter categoryTagArray={categoryTagArray} />
-
             </div>
 
             {statusMessage.message && (

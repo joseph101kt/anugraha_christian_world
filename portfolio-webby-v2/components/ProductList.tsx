@@ -13,14 +13,15 @@ import {
     buildCategoryTagArray,
     filterAndScoreProducts,
     CategoryWithTags,
-    ITEMS_PER_PAGE,
+    ITEMS_PER_PAGE as Default_ITEMS_PER_PAGE,
 } from '@/utils/products';
 
 interface ProductListProps {
     ActionButton: React.ComponentType<{ product: Product }>;
+    ITEMS_PER_PAGE?: number;
 }
 
-export default function ProductList({ ActionButton }: ProductListProps) {
+export default function ProductList({ ActionButton, ITEMS_PER_PAGE = Default_ITEMS_PER_PAGE, }: ProductListProps) {
     const [allProducts, setAllProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
     const [statusMessage, setStatusMessage] = useState({ type: '', message: '' });

@@ -9,10 +9,11 @@ import path from 'path';
 import ProductDetails from '@/components/ProductDetails';
 import { Product } from '@/lib/types';
 
+// ✅ Updated to use Promise type for params
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     productId: string;
-  };
+  }>;
 }
 
 async function getProductMeta(productId: string): Promise<Product | undefined> {
@@ -26,8 +27,11 @@ async function getProductMeta(productId: string): Promise<Product | undefined> {
   }
 }
 
+// ✅ Also updated here to await params
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata | undefined> {
-  const product = await getProductMeta(params.productId);
+  const { productId } = await params;
+  const product = await getProductMeta(productId);
+
   if (!product) {
     return {
       title: 'Product Not Found',
@@ -46,9 +50,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   };
 }
 
-// ✅ Make it async and destructure inside
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { productId } = params;
+  const { productId } = await params;
 
   return (
     <div className="h-full p-2 lg:p-8">

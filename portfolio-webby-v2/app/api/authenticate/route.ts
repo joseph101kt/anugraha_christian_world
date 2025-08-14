@@ -1,15 +1,15 @@
-// app/api/authenticate/route.js
-import { NextResponse } from 'next/server';
+// app/api/authenticate/route.ts
+import { NextResponse } from 'next/server'
 
-export async function POST(request: { json: () => PromiseLike<{ password: unknown; }> | { password: unknown; }; }) {
-  const { password } = await request.json();
-  const adminPassword = process.env.ADMIN_PASSWORD;
+export async function POST(request: Request) {
+  const { password } = await request.json() as { password: string }
+  const adminPassword = process.env.ADMIN_PASSWORD
 
-  // Compare the user-provided password with the server-side password.
+  // Compare the user-provided password with the server-side password
   if (password === adminPassword) {
-    // In a real application, you'd generate a session token or cookie here.
-    return NextResponse.json({ authenticated: true });
-  } else {
-    return NextResponse.json({ authenticated: false }, { status: 401 });
+    // Normally, you'd set a session cookie or token here
+    return NextResponse.json({ authenticated: true })
   }
+
+  return NextResponse.json({ authenticated: false }, { status: 401 })
 }

@@ -1505,27 +1505,6 @@
     "additional_info": []
   },
   {
-    "id": "st-raphael-the-archangel--patron-of-healing-guidance-e6703c93",
-    "name": "St. Raphael the Archangel – Patron of Healing & Guidance",
-    "description": "St. Raphael photo frame, symbolizing healing and guidance. Good for homes, churches, or as a gift.",
-    "main_image": "/images/st-raphael-the-archangel-statue-patron-of-healing-guidance-96579250-61d8-43f3-83fc-60b15b5de7e3.webp",
-    "secondary_images": [],
-    "tags": [
-      "st. raphael",
-      "angel",
-      "photo frame",
-      "wall-hanging",
-      "religious-decor"
-    ],
-    "price": 0,
-    "size": "All Sizes Available",
-    "quantity": 11,
-    "reviews": [],
-    "material": "Photo frame",
-    "category": "Photo Frame",
-    "additional_info": []
-  },
-  {
     "id": "st-raphael-the-archangel--patron-of-healing-guidance-7bf14247",
     "name": "St. Raphael the Archangel – Patron of Healing & Guidance",
     "description": "St. Raphael photo frame, symbolizing healing and guidance. Good for homes, churches, or as a gift.",
@@ -1930,7 +1909,7 @@
   },
   {
     "id": "rectangular-tabernacle-chalice-host-grapes-medium-870f8f0f",
-    "name": "Rectangular Tabernacle – Chalice, Host & Grapes (Medium)",
+    "name": "Rectangular Tabernacle – Chalice  & Host (Medium)",
     "description": "Medium rectangular tabernacle with a chalice, host, and grape design. Good for parish use.",
     "main_image": "/images/rectangular-tabernacle-chalice-host-grapes-medium-4ea69681-6bec-4b1c-bc4d-d19b0af10d58.webp",
     "secondary_images": [
@@ -1952,8 +1931,8 @@
   },
   {
     "id": "tabernacle-host-chalice-design-a6049051",
-    "name": "Tabernacle – Host & Chalice Design",
-    "description": "Tabernacle with host and chalice design.",
+    "name": "Tabernacle – Host & Chalice with Grapes Design",
+    "description": "Tabernacle with host and chalice design with star border.",
     "main_image": "/images/tabernacle-host-chalice-design-5689bd2a-ec17-49ba-9bfc-c65f08bc903b.webp",
     "secondary_images": [
       "/images/tabernacle-host-chalice-design-f72aa349-4c27-43f8-be79-09b329331b23.webp"
@@ -1974,7 +1953,7 @@
   {
     "id": "tabernacle-sacred-heart-of-jesus-1084a97a",
     "name": "Tabernacle – Sacred Heart of Jesus",
-    "description": "Tabernacle with the Sacred Heart. Perfect for churches and chapels.",
+    "description": "Tabernacle with the Blazing Sacred Heart. Perfect for churches and chapels.",
     "main_image": "/images/tabernacle-sacred-heart-of-jesus-98093a7b-e499-4891-841d-77f6c9d47cae.webp",
     "secondary_images": [
       "/images/tabernacle-sacred-heart-of-jesus-7ae323d1-178a-4894-949a-87042711b13c.webp"
@@ -2641,7 +2620,7 @@
   {
     "id": "test-d9d92f11",
     "name": "Test",
-    "description": "Test.",
+    "description": "Test",
     "main_image": "/images/test-1850cbd4-267b-44c8-882c-e6ff43a63919.webp",
     "secondary_images": [],
     "tags": [
@@ -2653,6 +2632,63 @@
     "reviews": [],
     "material": "Test",
     "category": "Test",
+    "additional_info": []
+  },
+  {
+    "id": "tabernacle-sacred-heart-of-jesus-b62d0b32",
+    "name": "Tabernacle – Sacred Heart of Jesus",
+    "description": "Tabernacle with the Sacred Heart with wheat Perfect for churches and chapels.\r\n\r\n",
+    "main_image": "/images/tabernacle-sacred-heart-of-jesus-01ab3858-3a44-4d15-821c-e7e3bb96e8fa.webp",
+    "secondary_images": [],
+    "tags": [
+      "tabernacle",
+      "gold-plated",
+      "brass"
+    ],
+    "price": 0,
+    "size": "Large",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Gold plated",
+    "category": "alter",
+    "additional_info": []
+  },
+  {
+    "id": "tabernacle-host-chalice-design-db2bab42",
+    "name": "Tabernacle – Host & Chalice Design",
+    "description": "Tabernacle with host and chalice with wheat Perfect for churches and chapels.\r\n\r\n",
+    "main_image": "/images/tabernacle-host-chalice-design-0fd3dc37-1656-4047-a0db-08161ea5c6f3.webp",
+    "secondary_images": [],
+    "tags": [
+      "tabernacle",
+      "gold-plated",
+      "brass"
+    ],
+    "price": 0,
+    "size": "Large",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Gold plated",
+    "category": "alter",
+    "additional_info": []
+  },
+  {
+    "id": "tabernacles-faaf0472",
+    "name": "Tabernacles",
+    "description": "Tabernacle for church.\r\n\r\n",
+    "main_image": "/images/tabernacles-6b6992d8-1c1d-4f1b-a3ff-20b93cf8cbaf.webp",
+    "secondary_images": [],
+    "tags": [
+      "tabernacle",
+      "gold-plated",
+      "brass"
+    ],
+    "price": 0,
+    "size": "All Sizes Available",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Gold plated",
+    "category": "alter",
     "additional_info": []
   }
 ]

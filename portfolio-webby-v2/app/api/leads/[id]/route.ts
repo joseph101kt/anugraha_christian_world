@@ -18,9 +18,9 @@ const ADMIN_PASSWORD = 'password'
 // DELETE lead
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { params } = context
+  const { id } = await context.params
   const password = req.nextUrl.searchParams.get('password')
 
   if (password !== ADMIN_PASSWORD) {
@@ -33,7 +33,7 @@ export async function DELETE(
     const jsonData = await fs.readFile(filePath, 'utf8')
     const leads: Lead[] = JSON.parse(jsonData)
 
-    const leadIndex = leads.findIndex((l) => l.id === params.id)
+    const leadIndex = leads.findIndex((l) => l.id === id)
     if (leadIndex === -1) {
       return NextResponse.json({ message: 'Lead not found' }, { status: 404 })
     }
@@ -44,23 +44,26 @@ export async function DELETE(
     return NextResponse.json({ message: 'Lead deleted successfully' })
   } catch (error) {
     console.error('Error deleting lead:', error)
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 })
+    return NextResponse.json(
+      { message: 'Internal server error' },
+      { status: 500 }
+    )
   }
 }
 
 // PATCH lead status
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { params } = context
+  const { id } = await context.params
   const password = req.nextUrl.searchParams.get('password')
 
   if (password !== ADMIN_PASSWORD) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
   }
 
-  const { status } = await req.json()
+  const { status } = (await req.json()) as { status?: Lead['status'] }
   if (!status) {
     return NextResponse.json({ message: 'Status is required' }, { status: 400 })
   }
@@ -71,7 +74,7 @@ export async function PATCH(
     const jsonData = await fs.readFile(filePath, 'utf8')
     const leads: Lead[] = JSON.parse(jsonData)
 
-    const leadToUpdate = leads.find((l) => l.id === params.id)
+    const leadToUpdate = leads.find((l) => l.id === id)
     if (!leadToUpdate) {
       return NextResponse.json({ message: 'Lead not found' }, { status: 404 })
     }
@@ -85,6 +88,9 @@ export async function PATCH(
     })
   } catch (error) {
     console.error('Error updating lead status:', error)
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 })
+    return NextResponse.json(
+      { message: 'Internal server error' },
+      { status: 500 }
+    )
   }
 }

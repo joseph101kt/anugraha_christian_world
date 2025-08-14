@@ -1,5 +1,4 @@
 // app/api/products/[id]/reviews/route.ts
-
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import fs from 'fs/promises';
@@ -7,34 +6,37 @@ import { Product, Review } from '@/lib/types';
 
 const DATA_FILE_PATH = path.join(process.cwd(), 'data', 'products.json');
 
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
-  const productId = params.id;
+export async function POST(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> } // FIX: Match Next.js 15 type expectations
+) {
+  const { id: productId } = await context.params; // Await the params
 
   try {
     const body = await request.json();
 
-    // Validate review structure
+    // ✅ Validate review structure
     const newReview: Review = {
       customer_name: body.customer_name,
       rating: body.rating,
       comment: body.comment,
     };
 
-    // Read products from file
+    // 📂 Read products from file
     const fileData = await fs.readFile(DATA_FILE_PATH, 'utf-8');
     const products: Product[] = JSON.parse(fileData);
 
-    // Find the product
+    // 🔍 Find the product
     const productIndex = products.findIndex((p) => p.id === productId);
 
     if (productIndex === -1) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
 
-    // Append the new review
+    // ➕ Append the new review
     products[productIndex].reviews.push(newReview);
 
-    // Save updated data back to file
+    // 💾 Save updated data back to file
     await fs.writeFile(DATA_FILE_PATH, JSON.stringify(products, null, 2), 'utf-8');
 
     return NextResponse.json({ message: 'Review added successfully', review: newReview });

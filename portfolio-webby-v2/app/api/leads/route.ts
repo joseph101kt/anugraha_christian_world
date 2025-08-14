@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 interface Lead {
   id: string;
@@ -13,7 +13,7 @@ interface Lead {
 }
 
 
-export async function GET(req: NextRequest) {
+export async function GET() {
 
 
   const filePath = path.join(process.cwd(), 'data', 'leads.json');

@@ -23,7 +23,7 @@ export default function Home() {
             ANUGRAHA CHRISTIAN WORLD
           </h1>
         </div>
-        <h1 className="lg:text-8xl md:text-6xl sm:text-2xl font-bold ">
+        <h1 className="lg:text-8xl md:text-6xl sm:text-sm font-bold ">
           Telangana and Andhra’s Largest Christian Articles Store
         </h1>
         <p className="mt-2 text-lg ">

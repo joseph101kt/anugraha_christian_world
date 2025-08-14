@@ -40,7 +40,7 @@ export default function ContactPage() {
                 <MdCall className="h-5 w-5" />
                 <span className=' w-full text-center'>Call Now</span>
               </a>
-              <a href="mailto:anugraha@email.com"
+              <a href="mailto:anugrahachristianworld@email.com"
                 className="w-full my-4 flex items-center p-3 justify-center border border-transparent rounded-lg shadow-sm text-base font-bold text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
                 Email Us
               </a>

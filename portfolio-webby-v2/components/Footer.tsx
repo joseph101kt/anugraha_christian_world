@@ -40,7 +40,7 @@ export default function Footer() {
             <li>Opens: 9:30 AM  Closes: 8:30 PM</li>
             <li>
               📞{" "}
-              <a href="tel:+9912888606" className="hover:underline">
+              <a href="tel:+91-9912888606" className="hover:underline">
               </a>
               <a href="9848587301" className="hover:underline">Whatsapp
               </a>

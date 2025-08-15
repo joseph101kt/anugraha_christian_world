@@ -6,7 +6,6 @@
     "main_image": "/images/globes-with-gold-design-0c474f8b-194b-4e9e-a6a1-612a8706f94e.webp",
     "secondary_images": [],
     "tags": [
-      "fiber",
       "candle-stand",
       "globe",
       "church-offering"
@@ -15,7 +14,7 @@
     "size": "Church Candle Size",
     "quantity": 100,
     "reviews": [],
-    "material": "Fiber",
+    "material": "Plastic",
     "additional_info": [],
     "category": "alter"
   },
@@ -28,13 +27,13 @@
     "tags": [
       "candle-stand",
       "church-offering",
-      "fiber"
+      "plastic"
     ],
     "price": 0,
     "size": "Medium",
     "quantity": 100,
     "reviews": [],
-    "material": "Fiber",
+    "material": "plastic",
     "additional_info": [],
     "category": "alter"
   },
@@ -47,20 +46,20 @@
     "tags": [
       "candle-stand",
       "church-offering",
-      "fiber"
+      "plastic"
     ],
     "price": 0,
     "size": "Medium",
     "quantity": 1,
     "reviews": [],
-    "material": "Fiber",
+    "material": "plastic",
     "additional_info": [],
     "category": "alter"
   },
   {
     "id": "gold-plated-chalice-with-silver-exterior-c2b2e6a4",
-    "name": "Gold-Plated Chalice with Silver Exterior",
-    "description": "\"Gold-plated chalice with a silver outside and stone designs. Used for church ceremonies.\"",
+    "name": "Gold-Plated Chalice with Silver Work Exterior",
+    "description": "\"Gold-plated chalice with a silver outside and stone designs. Used in Eucharistic celebration .\"",
     "main_image": "/images/gold-plated-chalice-with-silver-exterior-38bf2f11-f2db-4ebe-8443-42e8dcf06736.webp",
     "secondary_images": [],
     "tags": [
@@ -79,7 +78,7 @@
   {
     "id": "gold-plated-chalice-with-stones-c6824596",
     "name": "Gold-Plated Chalice with Stones",
-    "description": "\"Gold-plated chalice with an extra gold layer and stones. Used for church events.\"",
+    "description": "\"Gold-plated chalice with an extra gold layer and stones. Used in Eucharistic celebration .\"",
     "main_image": "/images/gold-plated-chalice-with-stones-657c258d-a0da-4972-83a1-7c51788095ae.webp",
     "secondary_images": [],
     "tags": [
@@ -98,7 +97,7 @@
   {
     "id": "chalice-with-textured-gold-plating-2b13de5d",
     "name": "Chalice with Textured Gold Plating",
-    "description": "\"Gold-plated chalice with a textured finish. Good for church events.\"",
+    "description": "\"Gold-plated chalice with a textured finish. . Used in Eucharistic celebration .\"",
     "main_image": "/images/chalice-with-textured-gold-plating-06bb7a52-382f-416d-a2e4-0d815a3536f7.webp",
     "secondary_images": [],
     "tags": [
@@ -117,7 +116,7 @@
   {
     "id": "classic-gold-plated-chalice-e49daf9f",
     "name": "Classic Gold-Plated Chalice",
-    "description": "\"Gold-plated chalice with a smooth finish. Used for church services.\"",
+    "description": "\"Gold-plated chalice with a smooth finish. Used in Holy Mass.\"",
     "main_image": "/images/classic-gold-plated-chalice-dd595191-05bf-4a3e-b702-ad49e3bcd733.webp",
     "secondary_images": [],
     "tags": [
@@ -136,7 +135,7 @@
   {
     "id": "gold-plated-ciborium-with-silver-tone-exterior-5c91e542",
     "name": "Gold-Plated Ciborium with Silver-Tone Exterior",
-    "description": "\"Gold-plated ciborium with a silver outside. Used for church services.\"",
+    "description": "\"Gold-plated ciborium with a silver outside. Used in Holy Mass.\"",
     "main_image": "/images/gold-plated-ciborium-with-silver-tone-exterior-03b0fd81-38bc-43d5-8251-e22e436aa75b.webp",
     "secondary_images": [],
     "tags": [
@@ -155,7 +154,7 @@
   {
     "id": "gold-plated-ciborium-with-ornate-layer-and-stone-accents-29e9c7e9",
     "name": "Double Layer Gold-Plated Ciborium",
-    "description": "\"Gold-plated ciborium with an ornate gold layer and stones. Used for church services.\"",
+    "description": "\"Gold-plated ciborium with an ornate gold layer and stones. Used in Holy Mass.\"",
     "main_image": "/images/gold-plated-ciborium-with-ornate-layer-and-stone-accents-85dffc47-14f1-4075-b954-6ac2ae779628.webp",
     "secondary_images": [],
     "tags": [
@@ -174,7 +173,7 @@
   {
     "id": "large-ciborium-with-gold-plating-44237d91",
     "name": "Large Ciborium with Gold Plating",
-    "description": "\"Large gold-plated ciborium with a smooth finish. Used for church services.\"",
+    "description": "\"Large gold-plated ciborium with a smooth finish. Used in Holy Mass.\"",
     "main_image": "/images/large-ciborium-with-gold-plating-7ca1a025-3479-4449-84f2-6663c841a147.webp",
     "secondary_images": [],
     "tags": [
@@ -193,7 +192,7 @@
   {
     "id": "medium-size-gold-plated-ciborium-a074314e",
     "name": "Medium Size Gold-Plated Ciborium",
-    "description": "\"Medium gold-plated ciborium with a plain design. Used for church services.\"",
+    "description": "\"Medium gold-plated ciborium with a plain design. Used in Holy Mass.\"",
     "main_image": "/images/medium-size-gold-plated-ciborium-d3697e56-241a-4acd-bddb-740e712a298d.webp",
     "secondary_images": [],
     "tags": [
@@ -212,7 +211,7 @@
   {
     "id": "double-gold-plated-ciborium-8999a704",
     "name": "Double Gold Plated Ciborium",
-    "description": "\"Small ciborium with double gold plating. Used for church events.\"",
+    "description": "\"Small ciborium with double gold plating. Used in Holy Mass.\"",
     "main_image": "/images/double-gold-plated-ciborium-68959152-482c-4acb-b5bd-74988e2f37cf.webp",
     "secondary_images": [],
     "tags": [
@@ -994,7 +993,7 @@
     "main_image": "/images/candle-stand-on-transparent-pole-17bea89f-75e6-4328-90ad-a96eaaf9343d.webp",
     "secondary_images": [],
     "tags": [
-      "brass",
+      "metal",
       "fiber",
       "candle-stand",
       "religious-decor"
@@ -1003,7 +1002,7 @@
     "size": "Large",
     "quantity": 20,
     "reviews": [],
-    "material": "Brass and fiber",
+    "material": "metal",
     "additional_info": [],
     "category": "alter"
   },
@@ -1223,7 +1222,7 @@
     "size": "Medium",
     "quantity": 19,
     "reviews": [],
-    "material": "Fiber",
+    "material": "plastic",
     "additional_info": [],
     "category": "alter"
   },
@@ -1257,7 +1256,7 @@
     ],
     "tags": [
       "candle-stand",
-      "fiber",
+      "plastic",
       "church-offering",
       "religious-decor"
     ],
@@ -1265,7 +1264,7 @@
     "size": "Small",
     "quantity": 50,
     "reviews": [],
-    "material": "Fiber",
+    "material": "plastic",
     "additional_info": [],
     "category": "alter"
   },
@@ -1277,7 +1276,7 @@
     "secondary_images": [],
     "tags": [
       "candle-stand",
-      "fiber",
+      "plastic",
       "church-offering",
       "religious-decor"
     ],
@@ -1285,7 +1284,7 @@
     "size": "Medium",
     "quantity": 1,
     "reviews": [],
-    "material": "Fiber",
+    "material": "plastic",
     "additional_info": [],
     "category": "alter"
   },
@@ -1298,14 +1297,14 @@
     "tags": [
       "candle-stand",
       "church-offering",
-      "fiber",
+      "plastic",
       "religious-decor"
     ],
     "price": 0,
     "size": "Large",
     "quantity": 20,
     "reviews": [],
-    "material": "Fiber",
+    "material": "plastic",
     "additional_info": [],
     "category": "alter"
   },
@@ -3259,7 +3258,7 @@
     "size": "Medium",
     "quantity": 1,
     "reviews": [],
-    "material": "Fiber",
+    "material": "..",
     "category": "statue",
     "additional_info": []
   },
@@ -3282,7 +3281,7 @@
     "size": "Medium",
     "quantity": 1,
     "reviews": [],
-    "material": "Fiber",
+    "material": "wood",
     "category": "statue",
     "additional_info": []
   }

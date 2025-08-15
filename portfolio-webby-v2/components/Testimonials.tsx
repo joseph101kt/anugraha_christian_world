@@ -42,6 +42,14 @@ const testimonialSlides: Testimonial[][] = [
       image: "/testimonials/fr-Aloysius.jpg",
       size: "col-span-4 row-span-1",
     },
+    {
+      name: "Rev Fr. Dasaia",
+      role: "Priest of Warangal Diocese",
+      quote:
+       "Dear God's people! For the past many years, we have been running the Anugraha Christian Articles Center near Mettuguda St. Antony's shrine, Hyderabad city to make sacred objects available to the Telugu and all people. The people of the Telugu state have supported us. Many people have purchased various sacred images, paintings, spiritual objects, and sacred objects used for Divine Eucharistic Celebrations and which should be in every Christian home. In another innovative way, we have prepared to provide you with information through this  website. We request you to take advantage of this opportunity and encourage us. We hope that God will make our efforts fruitful and that the objects useful for spiritual needs will be available to you through our center in every home and every churches",
+      image: "/testimonials/fr-Aloysius.jpg",
+       size: "col-span-4 row-span-1",
+    },
 
 
   ],

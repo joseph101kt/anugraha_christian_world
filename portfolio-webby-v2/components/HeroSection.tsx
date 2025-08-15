@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     // The section now uses a grid layout, with a single column on small screens and two on medium screens and up.
-    <section className="w-full min-h-[70vh] grid grid-cols-1 md:grid-cols-2 items-center justify-center text-center px-4 py-8">
+    <section className="w-full min-h-[70vh] bg-accent  grid grid-cols-1 md:grid-cols-2 items-center justify-center text-center px-4 py-8">
       {/* Image column */}
       <div className="relative w-full h-[50vh] md:h-full">
         <Image
@@ -12,7 +12,7 @@ export default function Home() {
           alt="Jesus"
           fill
           priority
-          className="object-contain opacity-80 animate-slideUpAndFade"
+          className="object-contain animate-slideUpAndFade"
         />
       </div>
 

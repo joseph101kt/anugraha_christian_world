@@ -52,5 +52,14 @@
     "timestamp": "2025-08-15T02:48:02.149Z",
     "source_url": "http://localhost:3000/products?tags=alter-bell&page=1",
     "status": "New"
+  },
+  {
+    "id": "04b16700-e346-4238-a10b-e02ceffb9b6d",
+    "name": "test",
+    "phone": "test",
+    "query": "asdf",
+    "timestamp": "2025-08-15T03:09:57.535Z",
+    "source_url": "http://localhost:3000/contact",
+    "status": "New"
   }
 ]

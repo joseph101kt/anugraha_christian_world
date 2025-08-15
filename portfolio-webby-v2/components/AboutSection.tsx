@@ -18,6 +18,9 @@ export default function AboutSection() {
             <p>
             At Anugraha, we believe that every symbol of faith has the power to inspire, protect, and bless. Our handpicked collection reflects the beauty of Christian heritage and serves as a bridge between the divine and the everyday.
             </p>
+            <p>
+              We create customized Christian articles according to your choice.
+            </p>
         </div>
         </div>
 

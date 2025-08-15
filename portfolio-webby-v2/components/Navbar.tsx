@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 import SearchBar from "@/components/SearchBar";
+import Logo from "./logo";
 
 
 const Navbar: React.FC = () => {
@@ -13,7 +14,8 @@ const Navbar: React.FC = () => {
         <div className="navbar-start z-50">
 
           {/* 🧠 Site Logo */}
-          <Link href="/" className="font-black rounded-sm text-2xl mx-4">
+          <Link href="/" className="font-black rounded-sm text-2xl mx-4 flex items-center">
+            <Logo/>
             Anugraha
           </Link>
         </div>
@@ -29,7 +31,7 @@ const Navbar: React.FC = () => {
           {/* 🎯 Action Button */}
           <Link
             href="/about"
-            className="inline-block w-25 px-4 py-2 bg-primary font-black rounded-lg shadow mr-8"
+            className="inline-block w-45 px-4 py-2 bg-primary font-black rounded-lg shadow mr-8"
           >
             About Us
           </Link>

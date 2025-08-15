@@ -59,8 +59,7 @@ export default function ContactForm({ initialMessage = '' }: ContactFormProps) {
             setStatus('success');
         } catch (error) {
             setStatus('error');
-            console.error('Submission error:', error);
-            return;
+            console.error('Lead Submission error:', error);
         }
 
         // Build WhatsApp link with the message

@@ -37,11 +37,16 @@ export default function Footer() {
         <div>
           <h4 className="text-lg font-semibold mb-2">Contact</h4>
           <ul className="space-y-1 text-sm">
-            <li>📍 Metuuguda, Beside St. Antony Shrine, Hyderabad, Telangana</li>
-            <li>Opens: 9:30 AM  Closes: 8:30 PM</li>
+            <li>📍12-7-295,shop No: 1, Beside St. Antonys Shrine, Mettuguda, Secundrabad, Hyderabad, Telangana, India</li>
+            <li>Pin code: 500017</li>
+            <li>Opens: Monday - Saturday, 9:30 AM to 8:00 PM</li>
+          
+            <li>Call And WhatsApp</li>
             <li>
               📞{" "}
               <a href="tel:+91-9912888606" className="hover:underline">9912888606
+              </a>
+              <a href="tel:+91-9848587301" className="hover:underline">9912888606
               </a>
               
             </li>
@@ -49,7 +54,7 @@ export default function Footer() {
             <li>
               📧{" "}
               <a href="mailto:anugrahachristianworld@email.com" className="hover:underline">
-                anugrahachristianworld@email.com
+                anugrahachristianworld@gmail.com
               </a>
             </li>
           </ul>

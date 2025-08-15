@@ -38,7 +38,7 @@ const testimonialSlides: Testimonial[][] = [
       name: "Rev Fr.S. Balashowry",
       role: "Parish Priest, Hamsavaram Church, Andhra Pradesh",
       quote:
-        "Dear friends in Jesus Christ I am really happy to tell you about Anugraha Christian world. it's a wonderful place near Mettiguda St. Antotny's Shrine where we get all religious articles it's running by Br. Biju George and I am very happy to introduce him, he so wonderfully provides all religious articles . I am Fr S Balashowry praying for you and I support with my prayers. God bless you.",
+        "Dear friends in Jesus Christ I am really happy to tell you about Anugraha Christian world. it's a wonderful place near Mettuguda St. Antotny's Shrine where we get all religious articles it's running by Br. Biju George and I am very happy to introduce him, he so wonderfully provides all religious articles . I am Fr S Balashowry praying for you and I support with my prayers. God bless you.",
       image: "/testimonials/fr-Aloysius.jpg",
       size: "col-span-4 row-span-1",
     },

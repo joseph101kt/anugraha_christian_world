@@ -68,15 +68,7 @@ h1, h2, h3, h4, h5 {
   margin: 0 0 0.5em;
 }
 
-h1 { font-size: var(--font-size-5); }
-h2 { font-size: var(--font-size-4); }
-h3 { font-size: var(--font-size-3); }
-h4 { font-size: var(--font-size-2); }
-h5 { font-size: var(--font-size-1); }
 
-small {
-  font-size: var(--font-size--1);
-}
 
 /* 🎯 Utility Classes */
 .text-primary   { color: var(--color-primary); }

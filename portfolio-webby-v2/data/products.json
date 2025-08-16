@@ -2053,9 +2053,9 @@
     "additional_info": []
   },
   {
-    "id": "st-antony-statue-23477426",
-    "name": "St. Antony Statue",
-    "description": "Imported St. Antony statue for homes and churches.",
+    "id": "st-Anthony-statue-23477426",
+    "name": "St. Anthony Statue",
+    "description": "Imported St. Anthony statue for homes and churches.",
     "main_image": "/images/st-antony-statue-120548cb-2fe2-48d5-88ae-d850b15861e6.webp",
     "secondary_images": [
       "/images/st-antony-statue-923a2db7-34a8-4078-90d7-7bc327dd7bcb.webp",
@@ -2063,7 +2063,7 @@
     ],
     "tags": [
       "statue",
-      "st antony"
+      "st Anthony"
     ],
     "price": 0,
     "size": "Medium",
@@ -2074,9 +2074,9 @@
     "additional_info": []
   },
   {
-    "id": "st-antony-statue-60e8d25d",
-    "name": "St. Antony Statue",
-    "description": "Imported St. Antony statue for homes and churches.",
+    "id": "st-Anthony-statue-60e8d25d",
+    "name": "St. Anthony Statue",
+    "description": "Imported St. Anthony statue for homes and churches.",
     "main_image": "/images/st-antony-statue-a7844f15-ead0-4593-99f8-21720469d53f.webp",
     "secondary_images": [
       "/images/st-antony-statue-a3f5577a-3b41-4946-a567-4c7acf1c0302.webp",
@@ -2084,7 +2084,7 @@
     ],
     "tags": [
       "statue",
-      "st antony"
+      "st Anthony"
     ],
     "price": 0,
     "size": "Small",
@@ -3223,9 +3223,9 @@
     "additional_info": []
   },
   {
-    "id": "st-antony-with-jesus-statue-8d4ba4be",
-    "name": "St Antony with Jesus Statue",
-    "description": "St Antony with Jesus Statue for home or chaple. Washable statue",
+    "id": "st-Anthony-with-jesus-statue-8d4ba4be",
+    "name": "St Anthony with Jesus Statue",
+    "description": "St Anthony with Jesus Statue for home or chaple. Washable statue",
     "main_image": "/images/st-antony-with-jesus-statue-878a4ae3-5c7f-4e71-a14f-aa0acb30cf8a.webp",
     "secondary_images": [],
     "tags": [
@@ -3280,6 +3280,441 @@
     "reviews": [],
     "material": "wood",
     "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "jesus-staue-28a1b710",
+    "name": "Jesus Staue",
+    "description": "Unbreakable Waterproof Jesus Statue made of Fiber material",
+    "main_image": "/images/jesus-staue-be900bb3-2d23-4a7c-96be-130f2ade8c9c.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "jesus"
+    ],
+    "price": 0,
+    "size": "38 inches",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "mary-staue-32666b4c",
+    "name": "Mary Staue",
+    "description": "Unbreakable Waterproof Mother Mary Statue made of Fiber material",
+    "main_image": "/images/mary-staue-6a876a02-9de0-4881-b558-9accb6961283.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "25 inches",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "st-anthony-staue-24922c5c",
+    "name": "St Anthony Staue",
+    "description": "Unbreakable Waterproof St. Anthony Statue made of Fiber material",
+    "main_image": "/images/st-anthony-staue-38d1c23a-af86-476b-9f4f-dcea28aeda8a.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "st Anthony"
+    ],
+    "price": 0,
+    "size": "30 inches",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "3-feet-mother-mary-staue-0a1b4b67",
+    "name": "3 Feet Mother Mary Staue",
+    "description": "Unbreakable Waterproof Mary Statue made of Fiber material, 3 Feet",
+    "main_image": "/images/3-feet-mother-mary-staue-e14b40a8-4da8-485d-8143-d8dd5a3056ca.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": "36 inches",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "25-feet-jesus-staue-86691409",
+    "name": "2.5 Feet Jesus Staue",
+    "description": "Unbreakable Waterproof Jesus Statue made of Fiber material, 2.5 Feet",
+    "main_image": "/images/25-feet-jesus-staue-57ef53a2-de5f-4b9c-819a-d2aca069a3be.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "jesus"
+    ],
+    "price": 0,
+    "size": "2.5 ft",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "3-feet-st-anthony-staue-fadcb9e2",
+    "name": "3 Feet St. Anthony Staue",
+    "description": "Unbreakable Waterproof St Anthony Statue made of Fiber material, 3 Feet",
+    "main_image": "/images/3-feet-st-anthony-staue-a125393d-0797-4ee0-a990-a221e41c0cfc.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "st antony"
+    ],
+    "price": 0,
+    "size": "3 ft",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "mary-staue-273bff99",
+    "name": "Mary Staue",
+    "description": "Unbreakable Waterproof Mary Statue made of Fiber material",
+    "main_image": "/images/mary-staue-ecbd6593-2f83-46e4-b509-0719e8497e30.webp",
+    "secondary_images": [],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": ".",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "mary-staue-4dff1cca",
+    "name": "Mary Staue",
+    "description": "Unbreakable Waterproof Mary Statue made of Fiber material",
+    "main_image": "/images/mary-staue-eaf1e99c-ffb0-4b07-98d4-4cadb726b7e7.webp",
+    "secondary_images": [
+      "/images/mary-staue-24ff8348-63b2-4d58-95b3-4ddaf2dec241.webp",
+      "/images/mary-staue-1d4e277f-ea2a-4ead-b733-81a73c03a27b.webp"
+    ],
+    "tags": [
+      "statue",
+      "mary"
+    ],
+    "price": 0,
+    "size": ".",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Fiber",
+    "category": "statue",
+    "additional_info": []
+  },
+  {
+    "id": "oil-lamps-c4ce6fa9",
+    "name": "Oil Lamps",
+    "description": "Oil lamps to light in form of altar of in home.",
+    "main_image": "/images/oil-lamps-1fa73bc7-7708-411f-b5d4-c8de13449062.webp",
+    "secondary_images": [],
+    "tags": [
+      "oil lamps"
+    ],
+    "price": 0,
+    "size": "small and medium",
+    "quantity": 10,
+    "reviews": [],
+    "material": ".",
+    "category": "alter",
+    "additional_info": []
+  },
+  {
+    "id": "oil-lamps-flower-shaped-6d6ed7cf",
+    "name": "Oil Lamps Flower shaped",
+    "description": "Oil lamps with flower design used with floating wicks",
+    "main_image": "/images/oil-lamps-flower-shaped-f6c1f4e5-f872-485f-85cc-a6eda4737495.webp",
+    "secondary_images": [],
+    "tags": [
+      "oil lamps"
+    ],
+    "price": 0,
+    "size": "small and medium",
+    "quantity": 10,
+    "reviews": [],
+    "material": ".",
+    "category": "alter",
+    "additional_info": []
+  },
+  {
+    "id": "oil-lamps-cylnder-shaped-37d29b48",
+    "name": "Oil Lamps cylnder shaped",
+    "description": "Oil lamps with cylnder shape used with floating wicks",
+    "main_image": "/images/oil-lamps-cylnder-shaped-660efa83-8de2-45cf-8696-fe379eab4758.webp",
+    "secondary_images": [],
+    "tags": [
+      "oil lamps"
+    ],
+    "price": 0,
+    "size": " medium",
+    "quantity": 10,
+    "reviews": [],
+    "material": ".",
+    "category": "alter",
+    "additional_info": []
+  },
+  {
+    "id": "oil-lamps-56cfaf5e",
+    "name": "Oil Lamps",
+    "description": "Oil lamps with used with floating wicks",
+    "main_image": "/images/oil-lamps-e8e6606c-7135-47c3-accf-a9392cde325f.webp",
+    "secondary_images": [],
+    "tags": [
+      "oil lamps"
+    ],
+    "price": 0,
+    "size": " medium",
+    "quantity": 10,
+    "reviews": [],
+    "material": ".",
+    "category": "alter",
+    "additional_info": []
+  },
+  {
+    "id": "altar-border-6e30efbf",
+    "name": "Altar Border",
+    "description": "Decorative border for altar",
+    "main_image": "/images/altar-border-90aeae3b-3698-44b2-a0db-ef8a3cefeb71.webp",
+    "secondary_images": [
+      "/images/altar-border-03e3f0d8-6092-4c0f-8930-bff0fbc0ab55.webp",
+      "/images/altar-border-ac55cfe0-f569-4c7c-bc49-990dc73d26e9.webp",
+      "/images/altar-border-e9ccfaab-e0a9-4237-8c28-7d6e1a9df5fb.webp"
+    ],
+    "tags": [
+      "altar border"
+    ],
+    "price": 0,
+    "size": "All Sizes Available",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Cloth",
+    "category": "altar",
+    "additional_info": []
+  },
+  {
+    "id": "surplace-cc564fb9",
+    "name": "Surplace",
+    "description": "Church apparel",
+    "main_image": "/images/surplace-ed9f9bb6-993e-4313-9990-56d6ed6a8d93.webp",
+    "secondary_images": [],
+    "tags": [
+      "church-offering"
+    ],
+    "price": 0,
+    "size": "All Sizes Available",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Cloth",
+    "category": "altar",
+    "additional_info": []
+  },
+  {
+    "id": "candles-0069a9b6",
+    "name": "Candles",
+    "description": "Altar Candles",
+    "main_image": "/images/candles-bed44c7c-936d-42a0-8f24-3581ff79bf34.webp",
+    "secondary_images": [],
+    "tags": [
+      "candles"
+    ],
+    "price": 0,
+    "size": "All Sizes Available",
+    "quantity": 100,
+    "reviews": [],
+    "material": "Wax",
+    "category": "altar",
+    "additional_info": []
+  },
+  {
+    "id": "spiral-candles-7e3fbdc8",
+    "name": "Spiral Candles",
+    "description": "Altar Candles for occations",
+    "main_image": "/images/spiral-candles-448e4b4f-5a54-4648-900a-31ad0d94dbc0.webp",
+    "secondary_images": [
+      "/images/spiral-candles-c33cdc63-f4a6-4dfb-8538-d3ceb5c40f2e.webp"
+    ],
+    "tags": [
+      "candles"
+    ],
+    "price": 0,
+    "size": "All Sizes Available",
+    "quantity": 100,
+    "reviews": [],
+    "material": "Wax",
+    "category": "altar",
+    "additional_info": []
+  },
+  {
+    "id": "colored-candles-f932eafd",
+    "name": "Colored Candles",
+    "description": "Colored Candles for occations",
+    "main_image": "/images/colored-candles-aa49b482-cef3-49de-8569-cddf6162f44c.webp",
+    "secondary_images": [
+      "/images/colored-candles-0f4f8724-a04d-4b10-bf9b-a78a2678a378.webp"
+    ],
+    "tags": [
+      "candles"
+    ],
+    "price": 0,
+    "size": "All Sizes Available",
+    "quantity": 100,
+    "reviews": [],
+    "material": "Wax",
+    "category": "altar",
+    "additional_info": []
+  },
+  {
+    "id": "wood-rosaries-94aec898",
+    "name": "Wood Rosaries",
+    "description": "Rosaries to wear and reicte the prayer",
+    "main_image": "/images/wood-rosaries-22d67960-e811-449c-854d-35e65a918083.webp",
+    "secondary_images": [
+      "/images/wood-rosaries-37808630-539d-4bfc-87b3-7a222a847642.webp",
+      "/images/wood-rosaries-cfac7f59-c99a-4821-8cd5-547022e0f771.webp",
+      "/images/wood-rosaries-2220fc32-f66b-43d1-87ad-a2557dc5d06b.webp",
+      "/images/wood-rosaries-b5b0471d-19a0-47cb-b5d0-4475e565e75e.webp"
+    ],
+    "tags": [
+      "rosary",
+      "wood"
+    ],
+    "price": 0,
+    "size": "All Sizes Available",
+    "quantity": 100,
+    "reviews": [],
+    "material": "Beads and Thread",
+    "category": "rosary",
+    "additional_info": []
+  },
+  {
+    "id": "rosaries-for-childern-34065408",
+    "name": "Rosaries For Childern",
+    "description": "Rosaries to wear and reicte the prayer",
+    "main_image": "/images/rosaries-for-childern-7462a3e7-69c8-4b26-900c-c4da7e29165c.webp",
+    "secondary_images": [
+      "/images/rosaries-for-childern-45b8e6f8-239a-43ef-a55f-f3738609de0c.webp"
+    ],
+    "tags": [
+      "rosary",
+      "wood"
+    ],
+    "price": 0,
+    "size": "All Sizes Available",
+    "quantity": 100,
+    "reviews": [],
+    "material": "Beads and Thread",
+    "category": "rosary",
+    "additional_info": []
+  },
+  {
+    "id": "rosaries-with-pearl-like-beads-e2175a7b",
+    "name": "Rosaries with Pearl-like Beads",
+    "description": "Rosaries to wear and reicte the prayer",
+    "main_image": "/images/rosaries-with-pearl-like-beads-9ac07f0d-e5da-4dc9-94a5-9de3746d65bd.webp",
+    "secondary_images": [
+      "/images/rosaries-with-pearl-like-beads-477e7dd6-7dfe-4377-8ff4-7db5088f1cef.webp"
+    ],
+    "tags": [
+      "rosary"
+    ],
+    "price": 0,
+    "size": "All Sizes Available",
+    "quantity": 100,
+    "reviews": [],
+    "material": "Beads and Thread",
+    "category": "rosary",
+    "additional_info": []
+  },
+  {
+    "id": "rosaries-with-pearl-like-beads-93c1d221",
+    "name": "Rosaries with Colorfull Beads",
+    "description": "Rosaries to wear and reicte the prayer",
+    "main_image": "/images/rosaries-with-pearl-like-beads-d448aefa-8f46-4904-bd56-606cd58ab13b.webp",
+    "secondary_images": [
+      "/images/rosaries-with-pearl-like-beads-67e38e0d-78bc-464d-9958-98ce250b3b60.webp",
+      "/images/rosaries-with-pearl-like-beads-ff788885-6339-4246-a864-e6b22e2c7693.webp",
+      "/images/rosaries-with-pearl-like-beads-0763ce6a-b1e8-412b-9fdc-98faadb99268.webp",
+      "/images/rosaries-with-pearl-like-beads-5b64afbe-b892-4d6a-b7ab-a8410550e4cb.webp"
+    ],
+    "tags": [
+      "rosary"
+    ],
+    "price": 0,
+    "size": "All Sizes Available",
+    "quantity": 100,
+    "reviews": [],
+    "material": "Beads and Thread",
+    "category": "rosary",
+    "additional_info": []
+  },
+  {
+    "id": "crystal-rosaries-ba2d4604",
+    "name": "Crystal Rosaries",
+    "description": "Rosaries for prayer",
+    "main_image": "/images/crystal-rosaries-54ed6121-11a5-408e-9243-8f07d56b198f.webp",
+    "secondary_images": [
+      "/images/crystal-rosaries-e81daf8b-3df5-47ec-8e5a-43db608a1bf1.webp",
+      "/images/crystal-rosaries-d878495e-9dd2-48ef-a2bb-5b72a8fd28d1.webp",
+      "/images/crystal-rosaries-d1f74f83-2509-4a9d-8475-5f93136ebba9.webp",
+      "/images/crystal-rosaries-d072cb80-ebae-4d7c-b157-eb7aebdeafb3.webp",
+      "/images/crystal-rosaries-b61b902d-da58-4bf8-b0af-a09cb450f097.webp",
+      "/images/crystal-rosaries-7b32025a-525a-4fba-8ff7-9c24084e5a86.webp",
+      "/images/crystal-rosaries-d68c726c-44ac-46f0-8198-79dc7eafb40d.webp"
+    ],
+    "tags": [
+      "rosary"
+    ],
+    "price": 0,
+    "size": ".",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Beads and Thread",
+    "category": "rosary",
+    "additional_info": []
+  },
+  {
+    "id": "metal-rosaries-7e5668b4",
+    "name": "Metal Rosaries",
+    "description": "Rosaries for prayer",
+    "main_image": "/images/metal-rosaries-195eb414-4ef0-4873-9cb5-1af2e0bae12d.webp",
+    "secondary_images": [],
+    "tags": [
+      "rosary",
+      "metal"
+    ],
+    "price": 0,
+    "size": ".",
+    "quantity": 1,
+    "reviews": [],
+    "material": "Beads and Thread",
+    "category": "rosary",
     "additional_info": []
   }
 ]

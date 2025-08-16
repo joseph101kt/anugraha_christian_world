@@ -14,9 +14,9 @@
     "size": "Church Candle Size",
     "quantity": 100,
     "reviews": [],
-    "material": "Plastic",
+    "material": "Fiber",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "candle-stand-with-gold-design-0c4fb199",
@@ -35,7 +35,7 @@
     "reviews": [],
     "material": "plastic",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "flower-shape-candle-stand-d14db2b9",
@@ -54,7 +54,7 @@
     "reviews": [],
     "material": "plastic",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "gold-plated-chalice-with-silver-exterior-c2b2e6a4",
@@ -73,7 +73,7 @@
     "reviews": [],
     "material": "Brass with gold plating",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "gold-plated-chalice-with-stones-c6824596",
@@ -92,7 +92,7 @@
     "reviews": [],
     "material": "Brass with Gold Plating",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "chalice-with-textured-gold-plating-2b13de5d",
@@ -111,7 +111,7 @@
     "reviews": [],
     "material": "Brass with Gold Plating",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "classic-gold-plated-chalice-e49daf9f",
@@ -130,7 +130,7 @@
     "reviews": [],
     "material": "Brass with Gold Plating",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "gold-plated-ciborium-with-silver-tone-exterior-5c91e542",
@@ -149,7 +149,7 @@
     "reviews": [],
     "material": "Brass with Gold Plating",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "gold-plated-ciborium-with-ornate-layer-and-stone-accents-29e9c7e9",
@@ -168,7 +168,7 @@
     "reviews": [],
     "material": "Brass with Gold plating",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "large-ciborium-with-gold-plating-44237d91",
@@ -187,7 +187,7 @@
     "reviews": [],
     "material": "Brass with Gold Plating",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "medium-size-gold-plated-ciborium-a074314e",
@@ -206,7 +206,7 @@
     "reviews": [],
     "material": "Brass with Gold Plating",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "double-gold-plated-ciborium-8999a704",
@@ -225,7 +225,7 @@
     "reviews": [],
     "material": "Brass with Gold Plated",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "elegant-brass-cross-with-stand-6f0f55b9",
@@ -313,13 +313,13 @@
     "category": "cross-crucifix"
   },
   {
-    "id": "brass-cross-with-12-disciples-9b1a605b",
-    "name": "Brass Cross with 12 disciples",
-    "description": "Medium brass cross with engravings of 12 Apostles. Good for altars.",
+    "id": "Metal-cross-with-12-disciples-9b1a605b",
+    "name": "Metal Cross with 12 disciples",
+    "description": "Medium Metal cross with engravings of 12 Apostles. Good for altars.",
     "main_image": "/images/brass-cross-with-12-disciples-0858bc04-93c8-426c-ac11-0a213598f571.webp",
     "secondary_images": [],
     "tags": [
-      "brass",
+      "Metal",
       "brass-cross",
       "church-cross",
       "disciples"
@@ -328,7 +328,7 @@
     "size": "Medium",
     "quantity": 21,
     "reviews": [],
-    "material": "Brass",
+    "material": "Metal",
     "additional_info": [],
     "category": "cross-crucifix"
   },
@@ -357,9 +357,9 @@
     "category": "cross-crucifix"
   },
   {
-    "id": "blue-metal-cross-with-stand-f17668d9",
-    "name": "Blue Metal Cross with Stand",
-    "description": "Blue metal cross with a stand. Good for modern altars.",
+    "id": "benediction-steel-cross-with-stand-f17668d9",
+    "name": "Benediction steel Cross with Stand",
+    "description": "benediction steel cross with a stand. Good for modern altars.",
     "main_image": "/images/blue-metal-cross-with-stand-58a1effa-de1b-4e4f-852b-3ec2df40a411.webp",
     "secondary_images": [],
     "tags": [
@@ -375,14 +375,14 @@
     "size": "Small",
     "quantity": 31,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
     "category": "cross-crucifix"
   },
   {
     "id": "red-steel-cross-with-stand-7b495ce1",
-    "name": "Red Steel Cross with Stand",
-    "description": "Red metal cross with a stand. Good for altars.",
+    "name": "benediction steel Cross with Stand",
+    "description": "Benediction steel cross with a stand. Good for altars.",
     "main_image": "/images/red-steel-cross-with-stand-9897eaf9-34c2-4bea-aca4-6086a0e29986.webp",
     "secondary_images": [],
     "tags": [
@@ -398,13 +398,13 @@
     "size": "Small",
     "quantity": 32,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
     "category": "cross-crucifix"
   },
   {
     "id": "silver-steel-cross-with-stand-0d996673",
-    "name": "Silver Steel Cross with Stand",
+    "name": "Silver steel Cross with Stand",
     "description": "Silver steel cross with a stand. Good for homes or churches.",
     "main_image": "/images/silver-steel-cross-with-stand-7d8d5f28-d4b1-4db5-89cd-4805022a86ab.webp",
     "secondary_images": [],
@@ -421,7 +421,7 @@
     "size": "Medium",
     "quantity": 31,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
     "category": "cross-crucifix"
   },
@@ -450,8 +450,8 @@
   },
   {
     "id": "hanging-cross-with-wooden-design-ff48b56c",
-    "name": "Hanging Cross with Wooden Design",
-    "description": "Hanging cross with wooden details. Large and small sizes. Good for walls.",
+    "name": "Hanging benediction Cross with Wooden Design",
+    "description": "Hanging benediction cross with wooden details. Large and small sizes. Good for walls.",
     "main_image": "/images/hanging-cross-with-wooden-design-b1f8ff82-65ad-4ae7-bca6-6ca1f3eeea99.webp",
     "secondary_images": [],
     "tags": [
@@ -466,14 +466,14 @@
     "size": "Small and Medium",
     "quantity": 31,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
     "category": "cross-crucifix"
   },
   {
     "id": "red-and-blue-hanging-cross-27e7215c",
-    "name": "Red and Blue Hanging Cross",
-    "description": "Red and blue hanging cross. Adds color to any space. Comes in small and big sizes.",
+    "name": "Benediction Hanging Cross",
+    "description": "Benedictionhanging cross. Adds color to any space. Comes in small and big sizes.",
     "main_image": "/images/red-and-blue-hanging-cross-f069ddcd-4f28-4c99-9e2e-68f39e3aab5b.webp",
     "secondary_images": [],
     "tags": [
@@ -488,7 +488,7 @@
     "size": "Small and Big",
     "quantity": 22,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
     "category": "cross-crucifix"
   },
@@ -587,12 +587,11 @@
   {
     "id": "dark-wooden-cross-0c0c476b",
     "name": "Dark Wooden Cross",
-    "description": "Dark wood cross with a plastic figure. Good for display.",
+    "description": "Dark wood cross with a Wooden figure. Good for display.",
     "main_image": "/images/dark-wooden-cross-e61a2ca3-294b-458f-bc2f-8c7d3f9d65a3.webp",
     "secondary_images": [],
     "tags": [
       "wood",
-      "plastic",
       "religious-decor",
       "cross",
       "gift-item",
@@ -633,7 +632,7 @@
   {
     "id": "chromium-plated-brass-thurible-675553eb",
     "name": "Brass Polished Thurible",
-    "description": "Brass thurible with chromium finish for incense burning.",
+    "description": "Brass thurible with gold-like finish for incense burning.",
     "main_image": "/images/chromium-plated-brass-thurible-5cd5c034-464a-4fa1-931d-434b4ca3880b.webp",
     "secondary_images": [
       "/images/chromium-plated-brass-thurible-f97d2695-3c7a-4409-813f-02d7c60b5021.webp"
@@ -649,7 +648,7 @@
     "reviews": [],
     "material": "Brass Polished",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "chromium-plated-brass-thurible-8a2995d7",
@@ -668,7 +667,7 @@
     "reviews": [],
     "material": "Brass with Chromium Plating",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "chromium-plated-brass-thurible-large-117fa4fe",
@@ -687,7 +686,7 @@
     "reviews": [],
     "material": "Brass with Chromium Plating",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "sprinkler-set-a302bb73",
@@ -706,7 +705,7 @@
     "reviews": [],
     "material": "Brass and Brass with Chromium Plating",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "large-brass-bell-with-cross-design-f719a1a4",
@@ -715,7 +714,7 @@
     "main_image": "/images/large-brass-bell-with-cross-design-64183dbc-76fc-4e51-bef5-9987431e9ce4.webp",
     "secondary_images": [],
     "tags": [
-      "alter-bell",
+      "altar-bell",
       "brass",
       "church-offering"
     ],
@@ -725,16 +724,16 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "steel-double-bell-set-54df092f",
-    "name": "Steel Double Bell Set",
+    "name": "steel Double Bell Set",
     "description": "Two steel bells joined together, for ceremonial or decorative use.",
     "main_image": "/images/steel-double-bell-set-31b78e45-e9bb-4f76-8352-5f2c01c31642.webp",
     "secondary_images": [],
     "tags": [
-      "alter-bell",
+      "altar-bell",
       "steel",
       "church-offering"
     ],
@@ -742,40 +741,40 @@
     "size": "Medium",
     "quantity": 10,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "steel-triple-bell-set-cd1e92c3",
-    "name": "Steel Triple Bell Set",
+    "name": "steel Triple Bell Set",
     "description": "Three-in-one steel bell ensemble for liturgical or decorative use.",
     "main_image": "/images/steel-triple-bell-set-b220b665-c947-4176-b516-b00f5c880084.webp",
     "secondary_images": [
       "/images/steel-triple-bell-set-779423bc-cc80-4e74-886d-a9c69011505b.webp"
     ],
     "tags": [
-      "alter-bell",
+      "altar-bell",
       "steel"
     ],
     "price": 0,
     "size": "Medium",
     "quantity": 9,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "steel-quadruple-bell-set-7d9ac09d",
-    "name": "Steel Quadruple Bell Set",
+    "name": "steel Quadruple Bell Set",
     "description": "Four-in-one steel bell assembly for ceremonial or decorative use.",
     "main_image": "/images/steel-quadruple-bell-set-c28f8672-77f5-4d96-acc3-36c6688ea86b.webp",
     "secondary_images": [
       "/images/steel-quadruple-bell-set-007158c8-15a9-4c99-8ef6-c2b446e24c74.webp"
     ],
     "tags": [
-      "alter-bell",
+      "altar-bell",
       "church-offering",
       "steel"
     ],
@@ -783,13 +782,13 @@
     "size": "Medium",
     "quantity": 1,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
-    "id": "steel-quintuple-bell-set-dda8e225",
-    "name": "Steel Quintuple Bell Set",
+    "id": "steel-six-bell-set-dda8e225",
+    "name": "steel six Bell Set",
     "description": "Five-in-one steel bell for ceremonial or ornamental use.",
     "main_image": "/images/steel-quintuple-bell-set-21526b90-4475-4f45-aeb5-f93b8903c777.webp",
     "secondary_images": [
@@ -797,7 +796,7 @@
       "/images/steel-quintuple-bell-set-5f6bb7db-d746-4c5f-905a-b9c11646c038.webp"
     ],
     "tags": [
-      "alter-bell",
+      "altar-bell",
       "church-offering",
       "steel"
     ],
@@ -805,9 +804,9 @@
     "size": "Medium",
     "quantity": 10,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "5-in-one-bell-2d754652",
@@ -818,7 +817,7 @@
       "/images/5-in-one-bell-c7ec3ba7-f8a7-4895-b6cc-b8169ad1a8b3.webp"
     ],
     "tags": [
-      "alter-bell",
+      "altar-bell",
       "church-offering",
       "steel"
     ],
@@ -826,18 +825,18 @@
     "size": "Medium",
     "quantity": 9,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "six-steel-bell-set-b8bceb77",
-    "name": "Six Steel Bell Set",
+    "name": "Six steel Bell Set",
     "description": "Six-in-one steel bell collection for ceremonial or decorative use.",
     "main_image": "/images/six-steel-bell-set-621fc210-5d76-4fc4-a5da-04ac599a39d0.webp",
     "secondary_images": [],
     "tags": [
-      "alter-bell",
+      "altar-bell",
       "steel",
       "church-offering"
     ],
@@ -845,13 +844,13 @@
     "size": "Medium",
     "quantity": 10,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "steel-candle-stand-medium-size-e14c8e18",
-    "name": "Steel Candle Stand Medium Size",
+    "name": "steel Candle Stand Medium Size",
     "description": "Medium steel candle stand for a minimalist aesthetic.",
     "main_image": "/images/steel-candle-stand-medium-size-a85e2d78-bef3-4b67-a1b3-20ed35854436.webp",
     "secondary_images": [],
@@ -864,13 +863,13 @@
     "size": "Medium",
     "quantity": 20,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "steel-candle-stand-small-24cab2fd",
-    "name": "Steel Candle Stand Small",
+    "name": "steel Candle Stand Small",
     "description": "Small steel candle stand with a minimalist aesthetic.",
     "main_image": "/images/steel-candle-stand-small-07e074f3-9bc9-4297-92d6-b4f73dbc3744.webp",
     "secondary_images": [],
@@ -883,9 +882,9 @@
     "size": "Small",
     "quantity": 8,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "candle-stand-with-flower-design-fbfd4fb5",
@@ -902,9 +901,9 @@
     "size": "small",
     "quantity": 10,
     "reviews": [],
-    "material": "Steel",
+    "material": "steel",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "brass-candle-stand-with-floral-design-49ca34c1",
@@ -924,7 +923,7 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "brass-candlestand-with-heart-design-441fa106",
@@ -944,7 +943,7 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "tall-plain-brass-candle-stand-e3c63438",
@@ -964,7 +963,7 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "tall-brass-candle-stand-with-flower-design-8f85ed9e",
@@ -984,7 +983,7 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "candle-stand-on-transparent-pole-b2cb414c",
@@ -993,7 +992,7 @@
     "main_image": "/images/candle-stand-on-transparent-pole-17bea89f-75e6-4328-90ad-a96eaaf9343d.webp",
     "secondary_images": [],
     "tags": [
-      "metal",
+      "steel",
       "fiber",
       "candle-stand",
       "religious-decor"
@@ -1002,9 +1001,9 @@
     "size": "Large",
     "quantity": 20,
     "reviews": [],
-    "material": "metal",
+    "material": "steel",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "medium-brass-candle-stand-with-flower-design-1d59ffbb",
@@ -1024,7 +1023,7 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "long-brass-candle-stand-plain-design-bff55e5a",
@@ -1046,7 +1045,7 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "small-brass-candle-stand-plain-design-0f75b4bf",
@@ -1065,16 +1064,15 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "brass-candle-stand-set-with-stones-1ed3bcb5",
-    "name": "Gold Plated Candle Stand with Stones",
-    "description": "Gold plated candle stands with sparkling stones. Good for sacred or ceremonial spaces.",
+    "name": "Gold Polished Candle Stand with Stones",
+    "description": "Gold Polished candle stands with sparkling stones. Good for sacred or ceremonial spaces.",
     "main_image": "/images/brass-candle-stand-set-with-stones-24ef8aec-58b0-417f-a0b9-b5973b5f9713.webp",
     "secondary_images": [],
     "tags": [
-      "brass",
       "candle-stand",
       "religious-decor",
       "church-offering"
@@ -1085,16 +1083,15 @@
     "reviews": [],
     "material": "Gold plated",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
-    "id": "brass-candle-stand-large-with-stones-6e0c15e0",
-    "name": "Brass Candle Stand Large with Stones",
-    "description": "Large brass candle stand with stones. Good for religious or decorative use.",
+    "id": "-candle-stand-large-with-stones-6e0c15e0",
+    "name": " Candle Stand Large with Stones",
+    "description": "Large candle stand with stones. Good for religious or decorative use.",
     "main_image": "/images/brass-candle-stand-large-with-stones-60293cfc-4cb9-4928-a3a5-6df263d8f1be.webp",
     "secondary_images": [],
     "tags": [
-      "brass",
       "candle-stand",
       "church-offering",
       "religious-decor"
@@ -1105,7 +1102,7 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "brass-candle-stand-large-with-multicolor-stones-782e54bb",
@@ -1125,7 +1122,7 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "brass-candle-stand-small-with-stones-91745e71",
@@ -1145,7 +1142,7 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "brass-candle-stand-medium-with-stones-067e9244",
@@ -1165,11 +1162,11 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
-    "id": "medium-candle-stand-chromium-plated-301be834",
-    "name": "Medium Candle Stand Chromium Plated",
+    "id": "medium-candle-stand-301be834",
+    "name": "Medium Candle Stands",
     "description": "Medium brass candle stand with chromium plating and stones. Combines modern shine with traditional elegance.",
     "main_image": "/images/medium-candle-stand-chromium-plated-3501e1d4-3357-42ed-9868-34b0b8c610b5.webp",
     "secondary_images": [],
@@ -1185,12 +1182,12 @@
     "reviews": [],
     "material": "Brass",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "fiber-globe-with-elegant-lotus-design-cf40be3c",
-    "name": "Fiber Globe with Elegant Lotus Design",
-    "description": "Fiber globe candle cover with a lotus pattern. Lightweight and durable.",
+    "name": "Candle Stands with Elegant Lotus Design",
+    "description": "Candle Stands with a lotus pattern. Lightweight and durable.",
     "main_image": "/images/fiber-globe-with-elegant-lotus-design-80417777-87fd-4ea6-b66a-fdcf82f4b924.webp",
     "secondary_images": [],
     "tags": [
@@ -1203,14 +1200,14 @@
     "size": "Medium",
     "quantity": 20,
     "reviews": [],
-    "material": "Fiber",
+    "material": "Plastic",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "candle-stand-with-flowerdesign-d139dd2a",
     "name": "Candle Stand with FlowerDesign",
-    "description": "Unbreakable fiber candle stands with flower design.",
+    "description": " candle stands with flower design.",
     "main_image": "/images/candle-stand-with-flowerdesign-bfb86ec0-bec5-4959-9432-10e290b4da5f.webp",
     "secondary_images": [],
     "tags": [
@@ -1224,12 +1221,12 @@
     "reviews": [],
     "material": "plastic",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "fiber-globe-with-elegant-lotus-design-2d25e42c",
-    "name": "Fiber Globe with Elegant Lotus Design",
-    "description": "Fiber globe candle cover with a lotus pattern. Lightweight and durable.",
+    "name": "Candle Stand with Elegant Lotus Design",
+    "description": "Candle Stand  with a lotus pattern. Lightweight and durable.",
     "main_image": "/images/fiber-globe-with-elegant-lotus-design-585ac2b7-d731-421a-8ab7-6bcfa2fbba52.webp",
     "secondary_images": [],
     "tags": [
@@ -1244,7 +1241,7 @@
     "reviews": [],
     "material": "Fiber",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "candle-stands-small-c3270270",
@@ -1266,7 +1263,7 @@
     "reviews": [],
     "material": "plastic",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "medium-size-candle-stand-087c5162",
@@ -1286,7 +1283,7 @@
     "reviews": [],
     "material": "plastic",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "long-flower-model-candle-stand-7a2c4e86",
@@ -1306,7 +1303,7 @@
     "reviews": [],
     "material": "plastic",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "multicolor-globes-flower-design-695043b5",
@@ -1325,7 +1322,7 @@
     "reviews": [],
     "material": "Fiber",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "detachable-flower-style-globe-46919c5b",
@@ -1345,7 +1342,7 @@
     "reviews": [],
     "material": "Fiber",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "detachable-flower-shaped-globes-with-design-567abf16",
@@ -1365,7 +1362,7 @@
     "reviews": [],
     "material": "Fiber",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "tall-globes-with-designs-e933c692",
@@ -1385,7 +1382,7 @@
     "reviews": [],
     "material": "Fiber",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "flower-shaped-globe-eb86a355",
@@ -1407,12 +1404,12 @@
     "reviews": [],
     "material": "Fiber",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "flower-shaped-globe-with-designs-30826012",
     "name": "Flower Shaped Globe with Designs",
-    "description": "Colorful globes for alter candles.",
+    "description": "Colorful globes for altar candles.",
     "main_image": "/images/flower-shaped-globe-with-designs-db372815-79e1-4054-94bc-92dc95544d00.webp",
     "secondary_images": [],
     "tags": [
@@ -1427,7 +1424,7 @@
     "reviews": [],
     "material": "Fiber",
     "additional_info": [],
-    "category": "alter"
+    "category": "altar"
   },
   {
     "id": "last-supper-photo-frames-665ff6cc",
@@ -1671,7 +1668,7 @@
     "quantity": 30,
     "reviews": [],
     "material": "Plastic",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1694,19 +1691,19 @@
     "quantity": 30,
     "reviews": [],
     "material": "Acrylic",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
-    "id": "acrylic-cruet-set-with-metal-caps-premium-church-altarware-61b2e86e",
-    "name": "Acrylic Cruet Set with Metal Caps – Premium Church Altarware",
-    "description": "Durable acrylic cruet set with metal caps for wine and water at the altar.",
-    "main_image": "/images/acrylic-cruet-set-with-metal-caps-premium-church-altarware-9045057e-6357-48b2-a3f5-593b02cae140.webp",
+    "id": "acrylic-cruet-set-with-steel-caps-premium-church-altarware-61b2e86e",
+    "name": "Acrylic Cruet Set with steel Caps – Premium Church Altarware",
+    "description": "Durable acrylic cruet set with steel caps for wine and water at the altar.",
+    "main_image": "/images/acrylic-cruet-set-with-steel-caps-premium-church-altarware-9045057e-6357-48b2-a3f5-593b02cae140.webp",
     "secondary_images": [
-      "/images/acrylic-cruet-set-with-metal-caps-premium-church-altarware-aca68f2e-147d-4b58-bc44-6229d4290202.webp",
-      "/images/acrylic-cruet-set-with-metal-caps-premium-church-altarware-e4a1d03f-f191-4853-9243-a6cbb297ee51.webp",
-      "/images/acrylic-cruet-set-with-metal-caps-premium-church-altarware-17c3f8c5-47df-499a-aafa-11f2dee82f85.webp",
-      "/images/acrylic-cruet-set-with-metal-caps-premium-church-altarware-be9785aa-09f2-4b75-934b-f8b4efd511d1.webp"
+      "/images/acrylic-cruet-set-with-steel-caps-premium-church-altarware-aca68f2e-147d-4b58-bc44-6229d4290202.webp",
+      "/images/acrylic-cruet-set-with-steel-caps-premium-church-altarware-e4a1d03f-f191-4853-9243-a6cbb297ee51.webp",
+      "/images/acrylic-cruet-set-with-steel-caps-premium-church-altarware-17c3f8c5-47df-499a-aafa-11f2dee82f85.webp",
+      "/images/acrylic-cruet-set-with-steel-caps-premium-church-altarware-be9785aa-09f2-4b75-934b-f8b4efd511d1.webp"
     ],
     "tags": [
       "cruets",
@@ -1717,7 +1714,7 @@
     "quantity": 30,
     "reviews": [],
     "material": "Acrylic",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1739,7 +1736,7 @@
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1759,7 +1756,7 @@
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1781,7 +1778,7 @@
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1801,7 +1798,7 @@
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1821,7 +1818,7 @@
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1843,7 +1840,7 @@
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1863,7 +1860,7 @@
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1883,7 +1880,7 @@
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1903,7 +1900,7 @@
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1925,7 +1922,7 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass gold plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1946,7 +1943,7 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass gold plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1967,7 +1964,7 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass gold plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -1988,7 +1985,7 @@
     "quantity": 10,
     "reviews": [],
     "material": "Brass gold plating",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -2370,7 +2367,7 @@
     "quantity": 2,
     "reviews": [],
     "material": "holy cloth",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -2388,7 +2385,7 @@
     "quantity": 2,
     "reviews": [],
     "material": "holy cloth",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -2408,7 +2405,7 @@
     "quantity": 2,
     "reviews": [],
     "material": "holy cloth",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -2430,7 +2427,7 @@
     "quantity": 6,
     "reviews": [],
     "material": "holy cloth",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -2448,7 +2445,7 @@
     "quantity": 6,
     "reviews": [],
     "material": "holy cloth",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -2469,7 +2466,7 @@
     "quantity": 6,
     "reviews": [],
     "material": "holy cloth",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -2487,7 +2484,7 @@
     "quantity": 6,
     "reviews": [],
     "material": "holy cloth",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -2632,7 +2629,7 @@
     "quantity": 1,
     "reviews": [],
     "material": "Gold plated",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -2651,7 +2648,7 @@
     "quantity": 1,
     "reviews": [],
     "material": "Gold plated",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -2670,7 +2667,7 @@
     "quantity": 1,
     "reviews": [],
     "material": "Gold plated",
-    "category": "alter",
+    "category": "altar",
     "additional_info": []
   },
   {
@@ -3263,14 +3260,14 @@
     "additional_info": []
   },
   {
-    "id": "home-alters-ad31c437",
-    "name": "Home Alters",
-    "description": "Home alters to place statues in.",
-    "main_image": "/images/home-alters-f01069e3-917c-46f8-a422-51bb2692aae9.webp",
+    "id": "home-altars-ad31c437",
+    "name": "Home altars",
+    "description": "Home altars to place statues in.",
+    "main_image": "/images/home-altars-f01069e3-917c-46f8-a422-51bb2692aae9.webp",
     "secondary_images": [
-      "/images/home-alters-beeec74e-0779-4fec-9d92-fe5806cf48ca.webp",
-      "/images/home-alters-0c1ed215-f920-4357-aa5d-1d210195b3d6.webp",
-      "/images/home-alters-ff9b5dd9-7f67-4eca-b617-559f3cd53a72.webp"
+      "/images/home-altars-beeec74e-0779-4fec-9d92-fe5806cf48ca.webp",
+      "/images/home-altars-0c1ed215-f920-4357-aa5d-1d210195b3d6.webp",
+      "/images/home-altars-ff9b5dd9-7f67-4eca-b617-559f3cd53a72.webp"
     ],
     "tags": [
       "statue",

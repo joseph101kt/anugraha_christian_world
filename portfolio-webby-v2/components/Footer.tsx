@@ -43,11 +43,17 @@ export default function Footer() {
           
             <li>Call And WhatsApp</li>
             <li>
-              📞{" "}
-              <a href="tel:+91-9912888606" className="hover:underline">9912888606
+              
+              <li>
+                📞{" "}
+                <a href="tel:+91-9912888606" className="hover:underline">9912888606
               </a>
-              <a href="tel:+91-9848587301" className="hover:underline">9912888606
+              </li>
+              <li>
+                📞{" "}
+                <a href="tel:+91-9848587301" className="hover:underline">9848587301
               </a>
+              </li>
               
             </li>
             

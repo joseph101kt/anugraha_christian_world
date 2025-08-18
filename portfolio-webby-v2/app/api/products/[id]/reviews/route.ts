@@ -4,13 +4,14 @@ import path from 'path';
 import fs from 'fs/promises';
 import { Product, Review } from '@/lib/types';
 
+// 📂 Path to your local JSON file
 const DATA_FILE_PATH = path.join(process.cwd(), 'data', 'products.json');
 
 export async function POST(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> } // FIX: Match Next.js 15 type expectations
+  context: { params: { id: string } } // ✅ FIX: plain object, not Promise
 ) {
-  const { id: productId } = await context.params; // Await the params
+  const { id: productId } = context.params;
 
   try {
     const body = await request.json();
@@ -33,13 +34,21 @@ export async function POST(
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
 
+    // Initialize reviews array if missing
+    if (!Array.isArray(products[productIndex].reviews)) {
+      products[productIndex].reviews = [];
+    }
+
     // ➕ Append the new review
     products[productIndex].reviews.push(newReview);
 
     // 💾 Save updated data back to file
     await fs.writeFile(DATA_FILE_PATH, JSON.stringify(products, null, 2), 'utf-8');
 
-    return NextResponse.json({ message: 'Review added successfully', review: newReview });
+    return NextResponse.json({
+      message: 'Review added successfully',
+      review: newReview,
+    });
   } catch (error) {
     console.error('Error adding review:', error);
     return NextResponse.json({ error: 'Failed to add review' }, { status: 500 });

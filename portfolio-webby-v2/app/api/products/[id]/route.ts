@@ -7,6 +7,13 @@ import sharp from 'sharp';
 import { Product, AdditionalInfoItem } from '@/lib/types';
 import { getProductsCache, setProductsCache, invalidateProductsCache } from '@/lib/cache';
 import { v4 as uuidv4 } from 'uuid';
+import { createClient } from '@supabase/supabase-js';
+
+// --- Supabase client ---
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY! // Service key for server-side ops
+);
 
 function createSeoSlug(name: string): string {
   return name
@@ -27,7 +34,6 @@ export async function GET(
   const { id } = await params;
 
   let allProducts: Product[];
-
   const cachedProducts = getProductsCache();
   if (cachedProducts) {
     allProducts = cachedProducts;
@@ -80,18 +86,14 @@ export async function DELETE(
 
     const imagesToDelete = [productToDelete.main_image, ...productToDelete.secondary_images];
 
+    // --- Delete from Supabase Storage ---
     await Promise.all(
-      imagesToDelete.map(async imagePath => {
-        if (imagePath) {
-          const fullPath = path.join(process.cwd(), 'public', imagePath);
-          try {
-            await fs.unlink(fullPath);
-            console.log(`Deleted image: ${fullPath}`);
-          } catch (err) {
-            if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
-              console.error(`Failed to delete image ${fullPath}:`, err);
-            }
-          }
+      imagesToDelete.map(async (imageUrl) => {
+        if (imageUrl) {
+          const parts = imageUrl.split('/');
+          const filename = parts[parts.length - 1];
+          const { error } = await supabase.storage.from('product-images').remove([filename]);
+          if (error) console.error(`Failed to delete image ${filename}:`, error);
         }
       })
     );
@@ -117,21 +119,32 @@ export const config = {
   },
 };
 
+// --- Upload image to Supabase instead of local FS ---
 const processAndSaveImage = async (file: File, productName: string): Promise<string> => {
   const fileBuffer = Buffer.from(await file.arrayBuffer());
   const seoSlug = createSeoSlug(productName);
   const fileId = uuidv4();
-  const webpFilename = `${seoSlug}-${fileId}.webp`;
-  const uploadPath = path.join(process.cwd(), 'public', 'images', webpFilename);
+  const filename = `${seoSlug}-${fileId}.webp`;
 
   try {
-    await sharp(fileBuffer)
-      .webp({ quality: 80 })
-      .toFile(uploadPath);
+    const convertedBuffer = await sharp(fileBuffer).webp({ quality: 80 }).toBuffer();
 
-    return `/images/${webpFilename}`;
+    const { error } = await supabase.storage
+      .from('product-images')
+      .upload(filename, convertedBuffer, {
+        contentType: 'image/webp',
+        upsert: true,
+      });
+
+    if (error) throw error;
+
+    const { data: publicUrlData } = supabase.storage
+      .from('product-images')
+      .getPublicUrl(filename);
+
+    return publicUrlData.publicUrl;
   } catch (error) {
-    console.error('Sharp image conversion failed:', error);
+    console.error('Supabase image upload failed:', error);
     throw new Error('Failed to process image file.');
   }
 };
@@ -146,9 +159,6 @@ export async function PUT(
   const { id } = await params;
 
   try {
-    const imagesDir = path.join(process.cwd(), 'public', 'images');
-    await fs.mkdir(imagesDir, { recursive: true });
-
     const formData = await req.formData();
 
     const filePath = path.join(process.cwd(), 'data', 'products.json');
@@ -165,35 +175,37 @@ export async function PUT(
 
     const newMainImageFile = formData.get('main_image') as File | null;
     const newSecondaryImageFiles = formData.getAll('secondary_images') as File[];
+
     let mainImagePath = existingProduct.main_image;
     let secondaryImagePaths = [...existingProduct.secondary_images];
-
     const imagesToDelete: string[] = [];
 
     if (newMainImageFile && newMainImageFile.size > 0) {
-      if (existingProduct.main_image.startsWith('/images/')) {
-        imagesToDelete.push(existingProduct.main_image);
-      }
+      imagesToDelete.push(existingProduct.main_image);
       mainImagePath = await processAndSaveImage(newMainImageFile, newProductName);
     }
 
     if (newSecondaryImageFiles && newSecondaryImageFiles.some(f => f.size > 0)) {
-      existingProduct.secondary_images.forEach(imagePath => {
-        if (imagePath.startsWith('/images/')) {
-          imagesToDelete.push(imagePath);
-        }
-      });
+      imagesToDelete.push(...existingProduct.secondary_images);
       secondaryImagePaths = await Promise.all(
         newSecondaryImageFiles.map(file => processAndSaveImage(file, newProductName))
       );
     } else if (formData.get('delete_secondary_images') === 'true') {
-      existingProduct.secondary_images.forEach(imagePath => {
-        if (imagePath.startsWith('/images/')) {
-          imagesToDelete.push(imagePath);
-        }
-      });
+      imagesToDelete.push(...existingProduct.secondary_images);
       secondaryImagePaths = [];
     }
+
+    // --- Remove old images from Supabase ---
+    await Promise.all(
+      imagesToDelete.map(async (imageUrl) => {
+        if (imageUrl) {
+          const parts = imageUrl.split('/');
+          const filename = parts[parts.length - 1];
+          const { error } = await supabase.storage.from('product-images').remove([filename]);
+          if (error) console.error(`Failed to delete old image ${filename}:`, error);
+        }
+      })
+    );
 
     let additionalInfo: AdditionalInfoItem[] = [];
     const additionalInfoString = formData.get('additional_info') as string;
@@ -224,17 +236,6 @@ export async function PUT(
 
     products[productIndex] = updatedProduct;
     await fs.writeFile(filePath, JSON.stringify(products, null, 2));
-
-    await Promise.all(
-      imagesToDelete.map(async imagePath => {
-        const fullPath = path.join(process.cwd(), 'public', imagePath);
-        try {
-          await fs.unlink(fullPath);
-        } catch {
-          console.warn(`Could not delete old image: ${fullPath}`);
-        }
-      })
-    );
 
     invalidateProductsCache();
     revalidatePath('/dashboard');

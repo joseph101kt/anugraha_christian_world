@@ -1,3 +1,4 @@
+// api/leads/[id]/route.ts
 import fs from 'fs/promises'
 import path from 'path'
 import { NextRequest, NextResponse } from 'next/server'
@@ -13,16 +14,14 @@ interface Lead {
   status: 'New' | 'Contacted' | 'Closed'
 }
 
+const filePath = path.join(process.cwd(), 'data', 'leads.json')
 
 // DELETE lead
 export async function DELETE(
   req: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  context: { params: { id: string } } // ✅ Not a Promise
 ) {
-  const { id } = await context.params
-
-
-  const filePath = path.join(process.cwd(), 'data', 'leads.json')
+  const { id } = context.params
 
   try {
     const jsonData = await fs.readFile(filePath, 'utf8')
@@ -49,17 +48,14 @@ export async function DELETE(
 // PATCH lead status
 export async function PATCH(
   req: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  context: { params: { id: string } } // ✅ Not a Promise
 ) {
-  const { id } = await context.params
-
+  const { id } = context.params
 
   const { status } = (await req.json()) as { status?: Lead['status'] }
   if (!status) {
     return NextResponse.json({ message: 'Status is required' }, { status: 400 })
   }
-
-  const filePath = path.join(process.cwd(), 'data', 'leads.json')
 
   try {
     const jsonData = await fs.readFile(filePath, 'utf8')

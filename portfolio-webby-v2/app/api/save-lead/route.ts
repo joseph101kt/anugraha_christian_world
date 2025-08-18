@@ -1,6 +1,7 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+// api/save-lead
+
 import { NextResponse } from 'next/server';
+import { supabase } from '@/lib/supabaseClient'; // Make sure this points to your initialized Supabase client
 
 // Define the structure for a single lead
 interface Lead {
@@ -19,31 +20,39 @@ export async function POST(req: Request) {
     const { name, phone, query } = body;
 
     if (!name || !phone || !query) {
-      return NextResponse.json({ error: 'Missing required fields: name, phone, or query' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Missing required fields: name, phone, or query' },
+        { status: 400 }
+      );
     }
 
-    // UPDATED: Define the new path to the leads.json file
-    const filePath = path.join(process.cwd(), 'data', 'leads.json');
-
-    const fileContents = await fs.readFile(filePath, 'utf-8');
-    const leads: Lead[] = JSON.parse(fileContents);
-
-    const newLead: Lead = {
-      id: crypto.randomUUID(),
+    const newLead: Omit<Lead, 'id'> = {
       name,
       phone,
       query,
       timestamp: new Date().toISOString(),
-      source_url: req.headers.get('Referer'),
+      source_url: req.headers.get('referer') || null,
       status: 'New',
     };
 
-    leads.push(newLead);
+    // Insert into Supabase
+    const { data, error } = await supabase
+      .from('leads')
+      .insert([newLead])
+      .select(); // Returns the inserted row(s)
 
-    await fs.writeFile(filePath, JSON.stringify(leads, null, 2));
+    if (error) {
+      console.error('Supabase insert error:', error);
+      return NextResponse.json(
+        { error: 'Failed to save lead to database' },
+        { status: 500 }
+      );
+    }
 
-    return NextResponse.json({ message: 'Lead saved successfully', lead: newLead }, { status: 200 });
-
+    return NextResponse.json(
+      { message: 'Lead saved successfully', lead: data?.[0] },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Error saving lead:', error);
     return NextResponse.json({ error: 'Failed to save lead.' }, { status: 500 });

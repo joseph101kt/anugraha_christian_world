@@ -51,6 +51,7 @@ export default function ContactForm({ initialMessage = '' }: ContactFormProps) {
             setStatus('error');
             return;
         }
+        if (!/^\d{10}$/.test(phone)) { alert('Enter a valid 10-digit phone number'); return; }
 
         setStatus('sending');
 

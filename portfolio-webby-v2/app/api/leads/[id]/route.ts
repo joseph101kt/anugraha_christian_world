@@ -1,83 +1,68 @@
-// api/leads/[id]/route.ts
-import fs from 'fs/promises'
-import path from 'path'
-import { NextRequest, NextResponse } from 'next/server'
+// app/api/leads/[id]/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { supabase } from "@/lib/supabaseClient"; // ✅ server-side Supabase client
+import type { Database } from "@/lib/database.types";
 
-interface Lead {
-  id: string
-  name: string
-  email: string
-  message: string
-  phone: string
-  timestamp: string
-  source_url: string | null
-  status: 'New' | 'Contacted' | 'Closed'
-}
+type LeadRow = Database["public"]["Tables"]["leads"]["Row"];
 
-const filePath = path.join(process.cwd(), 'data', 'leads.json')
-
-// DELETE lead
+// DELETE /api/leads/[id]
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } } // ✅ Not a Promise
+  context: { params: { id: string } }
 ) {
-  const { id } = context.params
+  const { id } = context.params;
 
   try {
-    const jsonData = await fs.readFile(filePath, 'utf8')
-    const leads: Lead[] = JSON.parse(jsonData)
+    const { error } = await supabase.from("leads").delete().eq("id", id);
 
-    const leadIndex = leads.findIndex((l) => l.id === id)
-    if (leadIndex === -1) {
-      return NextResponse.json({ message: 'Lead not found' }, { status: 404 })
+    if (error) {
+      console.error("❌ Error deleting lead:", error);
+      return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
 
-    leads.splice(leadIndex, 1)
-    await fs.writeFile(filePath, JSON.stringify(leads, null, 2))
-
-    return NextResponse.json({ message: 'Lead deleted successfully' })
-  } catch (error) {
-    console.error('Error deleting lead:', error)
-    return NextResponse.json(
-      { message: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ message: "Lead deleted successfully" });
+  } catch (err) {
+    console.error("❌ Unexpected error deleting lead:", err);
+    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
   }
 }
 
-// PATCH lead status
+
+// PATCH /api/leads/[id] - update lead status
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } } // ✅ Not a Promise
+  context: { params: { id: string } }
 ) {
-  const { id } = context.params
+  const { id } = context.params;
 
-  const { status } = (await req.json()) as { status?: Lead['status'] }
+  const { status } = (await req.json()) as { status?: LeadRow["status"] };
   if (!status) {
-    return NextResponse.json({ message: 'Status is required' }, { status: 400 })
+    return NextResponse.json({ message: "Status is required" }, { status: 400 });
   }
 
   try {
-    const jsonData = await fs.readFile(filePath, 'utf8')
-    const leads: Lead[] = JSON.parse(jsonData)
+    const { data, error } = await supabase
+      .from("leads")
+      .update({ status })
+      .eq("id", id)
+      .select()
+      .single();
 
-    const leadToUpdate = leads.find((l) => l.id === id)
-    if (!leadToUpdate) {
-      return NextResponse.json({ message: 'Lead not found' }, { status: 404 })
+    if (error) {
+      console.error("❌ Error updating lead status:", error);
+      return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
 
-    leadToUpdate.status = status
-    await fs.writeFile(filePath, JSON.stringify(leads, null, 2))
+    if (!data) {
+      return NextResponse.json({ message: "Lead not found" }, { status: 404 });
+    }
 
     return NextResponse.json({
-      message: 'Lead status updated successfully',
-      lead: leadToUpdate
-    })
-  } catch (error) {
-    console.error('Error updating lead status:', error)
-    return NextResponse.json(
-      { message: 'Internal server error' },
-      { status: 500 }
-    )
+      message: "Lead status updated successfully",
+      lead: data,
+    });
+  } catch (err) {
+    console.error("❌ Unexpected error updating lead:", err);
+    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
   }
 }

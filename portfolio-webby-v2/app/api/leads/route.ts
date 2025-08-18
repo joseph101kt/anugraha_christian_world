@@ -1,49 +1,29 @@
 // app/api/leads/route.ts
-import fs from "fs/promises";
-import path from "path";
 import { NextResponse } from "next/server";
-
-// 🔖 Lead type definition
-interface Lead {
-  id: string;
-  name: string;
-  phone: string;
-  query: string;
-  timestamp: string; // ISO timestamp string
-  source_url: string | null;
-  status: "New" | "Contacted" | "Closed";
-}
-
-// Absolute path to leads.json
-const DATA_FILE_PATH = path.join(process.cwd(), "data", "leads.json");
+import { supabase } from "@/lib/supabaseClient";
 
 /**
  * GET /api/leads
- * Returns all leads stored in data/leads.json
+ * Returns all leads from Supabase (Postgres)
  */
 export async function GET() {
   try {
-    // 📂 Try reading the leads file
-    const fileData = await fs.readFile(DATA_FILE_PATH, "utf8");
+    const { data, error } = await supabase
+      .from("leads") // type inferred automatically from Database
+      .select("*")
+      .order("timestamp", { ascending: false });
 
-    // 📝 Parse into array of Lead objects
-    const leads: Lead[] = JSON.parse(fileData);
-
-    return NextResponse.json(leads);
-  } catch (error: unknown) {
-    // 🔍 Handle missing file separately
-    if (
-      error &&
-      typeof error === "object" &&
-      "code" in error &&
-      (error as { code: string }).code === "ENOENT"
-    ) {
-      console.warn("⚠️ leads.json not found. Returning empty array.");
-      return NextResponse.json([]); // no file → no leads
+    if (error) {
+      console.error("❌ Supabase query error:", error.message);
+      return NextResponse.json(
+        { message: "Failed to fetch leads" },
+        { status: 500 }
+      );
     }
 
-    // 🚨 Catch-all for unexpected errors
-    console.error("❌ Error reading leads data:", error);
+    return NextResponse.json(data ?? []);
+  } catch (error) {
+    console.error("❌ Unexpected error in GET /api/leads:", error);
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }

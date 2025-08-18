@@ -8,55 +8,37 @@ interface Lead {
   name: string;
   phone: string;
   query: string;
-  message: string;
-  timestamp: string;
+  timestamp: string | null;
   source_url: string | null;
   status: 'New' | 'Contacted' | 'Closed';
 }
 
 export default function LeadsList() {
-  // State variables for managing component data and UI
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [modalQuery, setModalQuery] = useState<string | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [leadToDelete, setLeadToDelete] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
-  // This state variable is used to manually trigger the useEffect hook to re-fetch data.
   const [refreshTrigger, setRefreshTrigger] = useState<number>(0);
 
-  // Function to show a status message in a custom modal
-  const showStatusModal = (message: string) => {
-    setStatusMessage(message);
-  };
-
-  // Function to close the status message modal
-  const closeStatusModal = () => {
-    setStatusMessage(null);
-  };
-
-  // Function to show the delete confirmation modal and set the lead to be deleted
+  const showStatusModal = (message: string) => setStatusMessage(message);
+  const closeStatusModal = () => setStatusMessage(null);
   const confirmDelete = (leadId: string) => {
     setLeadToDelete(leadId);
     setShowDeleteModal(true);
   };
 
-  // Function to handle the actual deletion after user confirmation
   const handleDeleteConfirmed = async () => {
-    setShowDeleteModal(false); // Close the modal immediately
-    if (!leadToDelete) return; // Guard clause in case of unexpected state
+    setShowDeleteModal(false);
+    if (!leadToDelete) return;
 
     try {
-      const response = await fetch(`/api/leads/${leadToDelete}`, {
-        method: 'DELETE',
-      });
-
+      const response = await fetch(`/api/leads/${leadToDelete}`, { method: 'DELETE' });
       if (!response.ok) {
         showStatusModal('Failed to delete lead.');
         return;
       }
-
-      // Instead of manually filtering, we trigger a full data re-fetch
       showStatusModal('Lead deleted successfully!');
       setRefreshTrigger(prev => prev + 1);
     } catch (error) {
@@ -67,34 +49,6 @@ export default function LeadsList() {
     }
   };
 
-  // The core useEffect hook for fetching data from the API
-  useEffect(() => {
-    async function fetchLeads() {
-      setLoading(true);
-      try {
-        const response = await fetch(`/api/leads`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch leads');
-        }
-        const data = await response.json();
-        
-        // Sort the leads by timestamp in descending order (newest first)
-        const sortedLeads = data.sort((a: Lead, b: Lead) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-        
-        setLeads(sortedLeads);
-      } catch (error) {
-        console.error('Error fetching leads:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    
-    // Call the fetch function when the component mounts or when refreshTrigger changes
-    fetchLeads();
-    
-  }, [refreshTrigger]); // Corrected dependency array: re-run effect when refreshTrigger changes
-
-  // Function to handle status changes
   const handleStatusChange = async (leadId: string, newStatus: Lead['status']) => {
     try {
       const response = await fetch(`/api/leads/${leadId}`, {
@@ -107,23 +61,46 @@ export default function LeadsList() {
         showStatusModal('Failed to update lead status.');
         return;
       }
-      
+
       const updatedLead = await response.json();
-      
-      // We directly update the local state for a smoother UI without a full re-fetch
-      setLeads(prevLeads => prevLeads.map(lead => lead.id === leadId ? updatedLead.lead : lead));
+      setLeads(prevLeads =>
+        prevLeads.map(lead => (lead.id === leadId ? updatedLead.lead : lead))
+      );
     } catch (error) {
       console.error('Error updating lead status:', error);
       showStatusModal('An unexpected error occurred.');
     }
   };
 
+  useEffect(() => {
+    async function fetchLeads() {
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/leads`);
+        if (!response.ok) throw new Error('Failed to fetch leads');
+
+        const data: Lead[] = await response.json();
+
+        // Sort safely with null timestamp fallback
+        const sortedLeads = data.sort(
+          (a, b) => new Date(b.timestamp ?? 0).getTime() - new Date(a.timestamp ?? 0).getTime()
+        );
+
+        setLeads(sortedLeads);
+      } catch (error) {
+        console.error('Error fetching leads:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchLeads();
+  }, [refreshTrigger]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <div className="text-xl font-medium text-gray-500 animate-pulse">
-          Loading leads...
-        </div>
+        <div className="text-xl font-medium text-gray-500 animate-pulse">Loading leads...</div>
       </div>
     );
   }
@@ -132,6 +109,7 @@ export default function LeadsList() {
     <div className="min-h-screen bg-gray-100 flex items-start justify-center p-4 sm:p-8">
       <div className="w-full max-w-7xl bg-white p-6 rounded-3xl shadow-2xl">
         <h2 className="text-4xl font-extrabold mb-8 text-center text-gray-800">Manage Leads</h2>
+
         {leads.length === 0 ? (
           <p className="text-center text-xl text-gray-500">No leads found.</p>
         ) : (
@@ -146,18 +124,17 @@ export default function LeadsList() {
                   <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
+
               <tbody className="bg-white divide-y divide-gray-200">
                 {leads.map(lead => (
                   <tr key={lead.id} className="hover:bg-gray-50 transition-colors duration-200">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{lead.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{lead.phone}</td>
-                    <td 
-                      onClick={() => setModalQuery(lead.query)} 
+                    <td
+                      onClick={() => setModalQuery(lead.query)}
                       className="px-6 py-4 whitespace-nowrap text-sm text-blue-500 hover:text-blue-700 cursor-pointer"
                     >
-                      <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
-                        {lead.query}
-                      </div>
+                      <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">{lead.query}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <select
@@ -190,63 +167,37 @@ export default function LeadsList() {
           </div>
         )}
 
-        {/* The Modal for displaying the full message */}
+        {/* Modals for full message, delete, and status */}
         {modalQuery && (
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
             <div className="relative bg-white p-6 rounded-2xl shadow-xl max-w-md w-full mx-4">
-              <button
-                onClick={() => setModalQuery(null)}
-                className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xl"
-              >
-                ✕
-              </button>
+              <button onClick={() => setModalQuery(null)} className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xl">✕</button>
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Full Message</h3>
-              <textarea
-                className="w-full h-48 p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 bg-gray-50"
-                value={modalQuery || ''}
-                readOnly
-              />
+              <textarea className="w-full h-48 p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 bg-gray-50" value={modalQuery} readOnly />
             </div>
           </div>
         )}
 
-        {/* Custom confirmation modal for delete operation */}
         {showDeleteModal && (
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
             <div className="relative bg-white p-6 rounded-2xl shadow-xl max-w-sm w-full mx-4 text-center">
               <h3 className="text-xl font-bold mb-4 text-gray-900">Confirm Deletion</h3>
               <p className="mb-6 text-gray-600">Are you sure you want to delete this lead? This action cannot be undone.</p>
               <div className="flex justify-center space-x-4">
-                <button 
-                  onClick={() => setShowDeleteModal(false)} 
-                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition-colors duration-200"
-                >
-                  Cancel
-                </button>
-                <button 
-                  onClick={handleDeleteConfirmed} 
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200"
-                >
-                  Delete
-                </button>
+                <button onClick={() => setShowDeleteModal(false)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition-colors duration-200">Cancel</button>
+                <button onClick={handleDeleteConfirmed} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">Delete</button>
               </div>
             </div>
           </div>
         )}
 
-        {/* Custom modal for status messages */}
         {statusMessage && (
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
             <div className="relative bg-white p-6 rounded-2xl shadow-xl max-w-sm w-full mx-4 text-center">
               <h3 className="text-xl font-bold mb-4 text-gray-900">Status</h3>
               <p className="mb-6 text-gray-600">{statusMessage}</p>
               <div className="flex justify-center">
-                <button 
-                  onClick={closeStatusModal} 
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200"
-                >
-                  OK
-                </button>
+                <button onClick={closeStatusModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">OK</button>
               </div>
             </div>
           </div>

@@ -24,6 +24,7 @@ export default function WhatsAppFAB() {
       alert('Please fill out  your name, phone number and query.');
       return;
     }
+    if (!/^\d{10}$/.test(phone)) { alert('Enter a valid 10-digit phone number'); return; }
     try {
       await saveLead({ name, phone, query });
     } catch (error) {

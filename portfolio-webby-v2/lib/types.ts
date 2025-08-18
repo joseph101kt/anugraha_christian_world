@@ -1,5 +1,13 @@
 // lib/types.ts
 
+import { Database } from "./database.types";
+
+// Type for reading rows
+export type Lead = Database["public"]["Tables"]["leads"]["Row"];
+
+// Type for inserting new leads
+export type NewLead = Database["public"]["Tables"]["leads"]["Insert"];
+
 // interface for a single review
 export interface Review {
   customer_name: string;

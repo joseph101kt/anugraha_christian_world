@@ -7,7 +7,7 @@ import { revalidatePath } from 'next/cache';
 import { v4 as uuidv4 } from 'uuid';
 import sharp from 'sharp';
 
-import { supabase } from '@/lib/supabaseClient'; // ✅ Supabase client
+import { supabase } from '@/lib/supabaseClient'; // Supabase client
 import { Database, Json } from "@/lib/database.types";
 
 import { Product, AdditionalInfoItem } from '@/lib/types';
@@ -132,10 +132,13 @@ export async function POST(req: Request) {
     );
 
     // Build product object
-    const seoSlug = createSeoSlug(name);
-    const uniqueId = `${seoSlug}-${uuidv4().substring(0, 8)}`;
+    // Generate a proper UUID for the database's ID column
+    const productId = uuidv4();
+    const productSlug = createSeoSlug(name);
+    
+    // The product object for the local JSON uses the slug as the ID
     const newProduct: Product = {
-      id: uniqueId,
+      id: productSlug, // Store slug as ID for local JSON consistency
       name,
       description,
       main_image: mainImage.localPath, // local path for Next.js
@@ -173,7 +176,8 @@ export async function POST(req: Request) {
      */
     const { error: dbError } = await supabase.from('products').insert([
       {
-        id: uniqueId,
+        id: productId, // Use the proper UUID for the ID column
+        slug: productSlug, // Use the SEO-friendly slug for the slug column
         name,
         description,
         main_image: mainImage.supabasePath, // supabase path
@@ -185,7 +189,7 @@ export async function POST(req: Request) {
         reviews: [],
         material: newProduct.material,
         category: newProduct.category,
-      additional_info: newProduct.additional_info as unknown as Json,
+        additional_info: newProduct.additional_info as unknown as Json,
       },
     ]);
 
@@ -194,9 +198,9 @@ export async function POST(req: Request) {
       throw dbError;
     }
 
-    // Invalidate cache + revalidate
+    // Invalidate cache + revalidate using the slug
     invalidateProductsCache();
-    revalidatePath(`/products/${newProduct.id}`);
+    revalidatePath(`/products/${productSlug}`);
     revalidatePath('/products');
 
     return NextResponse.json({

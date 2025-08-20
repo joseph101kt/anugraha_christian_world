@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 
 type Product = {
@@ -13,7 +13,8 @@ type Product = {
 export async function GET() {
   try {
     const filePath = path.join(process.cwd(), 'data', 'products.json');
-    const data = fs.readFileSync(filePath, 'utf-8');
+    // Use fs.promises.readFile for async file operations
+    const data = await fs.readFile(filePath, 'utf-8');
     const products: Product[] = JSON.parse(data);
 
     const tagSet = new Set<string>();

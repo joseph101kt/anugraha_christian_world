@@ -6,6 +6,7 @@ import { Product, Review } from '@/lib/types';
 import { createClient } from '@supabase/supabase-js';
 import { invalidateProductsCache } from '@/lib/cache';
 import { revalidatePath } from 'next/cache';
+
 // Supabase client
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -19,7 +20,8 @@ export async function POST(
   request: NextRequest,
   context: { params: { id: string } }
 ) {
-  const { id: productId } = context.params;
+  // Use a more descriptive name, since the URL segment is the slug
+  const { id: productSlug } = context.params;
 
   try {
     const body = await request.json();
@@ -32,9 +34,10 @@ export async function POST(
     };
 
     // --- Update local JSON ---
+    // The local JSON uses 'id' as the unique slug, which is fine here
     const fileData = await fs.readFile(DATA_FILE_PATH, 'utf-8');
     const products: Product[] = JSON.parse(fileData);
-    const productIndex = products.findIndex((p) => p.id === productId);
+    const productIndex = products.findIndex((p) => p.id === productSlug);
 
     if (productIndex === -1) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
@@ -48,10 +51,11 @@ export async function POST(
     await fs.writeFile(DATA_FILE_PATH, JSON.stringify(products, null, 2), 'utf-8');
 
     // --- Update Supabase ---
+    // Change .eq('id', productId) to .eq('slug', productSlug) to match the database
     const { data: existing, error: fetchError } = await supabase
       .from('products')
       .select('reviews')
-      .eq('id', productId)
+      .eq('slug', productSlug) // Key change: query by 'slug'
       .single();
 
     if (fetchError) {
@@ -64,14 +68,14 @@ export async function POST(
       const { error: updateError } = await supabase
         .from('products')
         .update({ reviews: updatedReviews })
-        .eq('id', productId);
+        .eq('slug', productSlug); // Key change: update by 'slug'
 
       if (updateError) console.error('Supabase update failed:', updateError);
     }
 
     // --- Invalidate cache + revalidate pages ---
     invalidateProductsCache();
-    revalidatePath(`/products/${productId}`);
+    revalidatePath(`/products/${productSlug}`);
     revalidatePath('/products');
 
     return NextResponse.json({

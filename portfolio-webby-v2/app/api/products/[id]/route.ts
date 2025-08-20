@@ -125,8 +125,8 @@ export async function DELETE(
     revalidatePath('/products');
     revalidatePath(`/products/${id}`);
 
-    // Supabase DB deletion
-    const { error: dbError } = await supabase.from('products').delete().eq('id', id);
+    // Supabase DB deletion: Change .eq('id', id) to .eq('slug', id) to query the correct column
+    const { error: dbError } = await supabase.from('products').delete().eq('slug', id);
     if (dbError) console.error('Supabase deletion failed:', dbError);
 
     return NextResponse.json({ message: 'Product deleted successfully' });
@@ -210,7 +210,7 @@ export async function PUT(
     products[index] = updated;
     await fs.writeFile(filePath, JSON.stringify(products, null, 2));
 
-    // --- Supabase update ---
+    // Supabase update: Change .eq('id', id) to .eq('slug', id) to query the correct column
     const { error: dbError } = await supabase
       .from('products')
       .update({
@@ -226,7 +226,7 @@ export async function PUT(
         category: updated.category,
         additional_info: updated.additional_info as unknown as Json,
       })
-      .eq('id', id);
+      .eq('slug', id); // Key change: update by 'slug'
 
     if (dbError) console.error('Supabase update failed:', dbError);
 

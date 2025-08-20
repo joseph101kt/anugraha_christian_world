@@ -42,20 +42,19 @@ export default function Footer() {
             <li>Opens: Monday - Saturday, 9:30 AM to 8:00 PM</li>
           
             <li>Call And WhatsApp</li>
-            <li>
-              
-              <li>
-                📞{" "}
-                <a href="tel:+91-9912888606" className="hover:underline">9912888606
-              </a>
-              </li>
-              <li>
-                📞{" "}
-                <a href="tel:+91-9848587301" className="hover:underline">9848587301
-              </a>
-              </li>
-              
-            </li>
+<li>
+  {/* Content for the outer list item */}
+  <div className="space-y-1">
+    <li>
+      📞{" "}
+      <a href="tel:+91-9912888606" className="hover:underline">9912888606</a>
+    </li>
+    <li>
+      📞{" "}
+      <a href="tel:+91-9848587301" className="hover:underline">9848587301</a>
+    </li>
+  </div>
+</li>
             
             <li>
               📧{" "}

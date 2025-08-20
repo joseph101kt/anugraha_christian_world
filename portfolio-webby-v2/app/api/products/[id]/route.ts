@@ -8,13 +8,15 @@ import { Product, AdditionalInfoItem } from '@/lib/types';
 import { getProductsCache, setProductsCache, invalidateProductsCache } from '@/lib/cache';
 import { v4 as uuidv4 } from 'uuid';
 import { createClient } from '@supabase/supabase-js';
+import { Database, Json } from '@/lib/database.types';
 
 // --- Supabase client ---
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY! // Service key for server-side ops
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+// --- Helpers ---
 function createSeoSlug(name: string): string {
   return name
     .toLowerCase()
@@ -24,103 +26,7 @@ function createSeoSlug(name: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
-/**
- * Handles GET requests to retrieve a single product and its related products.
- */
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  const { id } = await params;
-
-  let allProducts: Product[];
-  const cachedProducts = getProductsCache();
-  if (cachedProducts) {
-    allProducts = cachedProducts;
-  } else {
-    try {
-      const filePath = path.join(process.cwd(), 'data', 'products.json');
-      const jsonData = await fs.readFile(filePath, 'utf8');
-      allProducts = JSON.parse(jsonData);
-      setProductsCache(allProducts);
-    } catch (error) {
-      console.error('Error fetching product data:', error);
-      return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-    }
-  }
-
-  const mainProduct = allProducts.find(p => p.id === id);
-
-  if (!mainProduct) {
-    return NextResponse.json({ error: 'Product not found' }, { status: 404 });
-  }
-
-  const suggestedProducts = allProducts
-    .filter(p => p.id !== mainProduct.id && mainProduct.tags.some(tag => p.tags.includes(tag)))
-    .slice(0, 4);
-
-  return NextResponse.json({
-    product: mainProduct,
-    suggested: suggestedProducts,
-  });
-}
-
-/**
- * Handles DELETE requests to delete a single product.
- */
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  const { id } = await params;
-  const filePath = path.join(process.cwd(), 'data', 'products.json');
-
-  try {
-    const jsonData = await fs.readFile(filePath, 'utf8');
-    const products: Product[] = JSON.parse(jsonData);
-
-    const productToDelete = products.find(p => p.id === id);
-    if (!productToDelete) {
-      return NextResponse.json({ message: 'Product not found' }, { status: 404 });
-    }
-
-    const imagesToDelete = [productToDelete.main_image, ...productToDelete.secondary_images];
-
-    // --- Delete from Supabase Storage ---
-    await Promise.all(
-      imagesToDelete.map(async (imageUrl) => {
-        if (imageUrl) {
-          const parts = imageUrl.split('/');
-          const filename = parts[parts.length - 1];
-          const { error } = await supabase.storage.from('product-images').remove([filename]);
-          if (error) console.error(`Failed to delete image ${filename}:`, error);
-        }
-      })
-    );
-
-    const updatedProducts = products.filter(p => p.id !== id);
-    await fs.writeFile(filePath, JSON.stringify(updatedProducts, null, 2));
-
-    invalidateProductsCache();
-    revalidatePath('/products');
-    revalidatePath(`/products/${id}`);
-
-    return NextResponse.json({ message: 'Product deleted successfully' });
-  } catch (error) {
-    console.error('Error deleting product:', error);
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
-  }
-}
-
-// Next.js requires these options for FormData to work
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-// --- Upload image to Supabase instead of local FS ---
-const processAndSaveImage = async (file: File, productName: string): Promise<string> => {
+async function processAndSaveImage(file: File, productName: string): Promise<string> {
   const fileBuffer = Buffer.from(await file.arrayBuffer());
   const seoSlug = createSeoSlug(productName);
   const fileId = uuidv4();
@@ -135,7 +41,6 @@ const processAndSaveImage = async (file: File, productName: string): Promise<str
         contentType: 'image/webp',
         upsert: true,
       });
-
     if (error) throw error;
 
     const { data: publicUrlData } = supabase.storage
@@ -147,11 +52,91 @@ const processAndSaveImage = async (file: File, productName: string): Promise<str
     console.error('Supabase image upload failed:', error);
     throw new Error('Failed to process image file.');
   }
-};
+}
 
-/**
- * Handles PUT requests to update a single product.
- */
+async function deleteImagesFromSupabase(imageUrls: string[]) {
+  await Promise.all(
+    imageUrls.map(async (url) => {
+      if (!url) return;
+      try {
+        const pathname = new URL(url).pathname;
+        const filename = pathname.split('/').pop();
+        if (!filename) return;
+        const { error } = await supabase.storage.from('product-images').remove([filename]);
+        if (error) console.error(`Failed to delete image ${filename}:`, error);
+      } catch (err) {
+        console.error('Error deleting image URL:', url, err);
+      }
+    })
+  );
+}
+
+// --- GET ---
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+
+  let allProducts: Product[];
+  const cached = getProductsCache();
+  if (cached) {
+    allProducts = cached;
+  } else {
+    try {
+      const jsonData = await fs.readFile(path.join(process.cwd(), 'data/products.json'), 'utf8');
+      allProducts = JSON.parse(jsonData);
+      setProductsCache(allProducts);
+    } catch (err) {
+      console.error(err);
+      return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    }
+  }
+
+  const product = allProducts.find((p) => p.id === id);
+  if (!product) return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+
+  const suggested = allProducts
+    .filter((p) => p.id !== product.id && product.tags.some((t) => p.tags.includes(t)))
+    .slice(0, 4);
+
+  return NextResponse.json({ product, suggested });
+}
+
+// --- DELETE ---
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  const filePath = path.join(process.cwd(), 'data/products.json');
+
+  try {
+    const jsonData = await fs.readFile(filePath, 'utf8');
+    const products: Product[] = JSON.parse(jsonData);
+    const product = products.find((p) => p.id === id);
+    if (!product) return NextResponse.json({ message: 'Product not found' }, { status: 404 });
+
+    await deleteImagesFromSupabase([product.main_image, ...product.secondary_images]);
+
+    const updatedProducts = products.filter((p) => p.id !== id);
+    await fs.writeFile(filePath, JSON.stringify(updatedProducts, null, 2));
+    invalidateProductsCache();
+    revalidatePath('/products');
+    revalidatePath(`/products/${id}`);
+
+    // Supabase DB deletion
+    const { error: dbError } = await supabase.from('products').delete().eq('id', id);
+    if (dbError) console.error('Supabase deletion failed:', dbError);
+
+    return NextResponse.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+  }
+}
+
+// --- PUT ---
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -160,94 +145,102 @@ export async function PUT(
 
   try {
     const formData = await req.formData();
-
-    const filePath = path.join(process.cwd(), 'data', 'products.json');
+    const filePath = path.join(process.cwd(), 'data/products.json');
     const jsonData = await fs.readFile(filePath, 'utf8');
     const products: Product[] = JSON.parse(jsonData);
-    const productIndex = products.findIndex(p => p.id === id);
+    const index = products.findIndex((p) => p.id === id);
+    if (index === -1) return NextResponse.json({ message: 'Product not found' }, { status: 404 });
 
-    if (productIndex === -1) {
-      return NextResponse.json({ message: 'Product not found' }, { status: 404 });
-    }
+    const existing = products[index];
+    const newName = (formData.get('name') as string) || existing.name;
 
-    const existingProduct = products[productIndex];
-    const newProductName = formData.get('name') as string;
+    // --- Handle images ---
+    const newMainFile = formData.get('main_image') as File | null;
+    const newSecondaryFiles = formData.getAll('secondary_images') as File[];
 
-    const newMainImageFile = formData.get('main_image') as File | null;
-    const newSecondaryImageFiles = formData.getAll('secondary_images') as File[];
-
-    let mainImagePath = existingProduct.main_image;
-    let secondaryImagePaths = [...existingProduct.secondary_images];
+    let mainImagePath = existing.main_image;
+    let secondaryPaths = [...existing.secondary_images];
     const imagesToDelete: string[] = [];
 
-    if (newMainImageFile && newMainImageFile.size > 0) {
-      imagesToDelete.push(existingProduct.main_image);
-      mainImagePath = await processAndSaveImage(newMainImageFile, newProductName);
+    if (newMainFile && newMainFile.size > 0) {
+      imagesToDelete.push(existing.main_image);
+      mainImagePath = await processAndSaveImage(newMainFile, newName);
     }
 
-    if (newSecondaryImageFiles && newSecondaryImageFiles.some(f => f.size > 0)) {
-      imagesToDelete.push(...existingProduct.secondary_images);
-      secondaryImagePaths = await Promise.all(
-        newSecondaryImageFiles.map(file => processAndSaveImage(file, newProductName))
+    if (newSecondaryFiles.length && newSecondaryFiles.some((f) => f.size > 0)) {
+      imagesToDelete.push(...existing.secondary_images);
+      secondaryPaths = await Promise.all(
+        newSecondaryFiles.map((f) => processAndSaveImage(f, newName))
       );
     } else if (formData.get('delete_secondary_images') === 'true') {
-      imagesToDelete.push(...existingProduct.secondary_images);
-      secondaryImagePaths = [];
+      imagesToDelete.push(...existing.secondary_images);
+      secondaryPaths = [];
     }
 
-    // --- Remove old images from Supabase ---
-    await Promise.all(
-      imagesToDelete.map(async (imageUrl) => {
-        if (imageUrl) {
-          const parts = imageUrl.split('/');
-          const filename = parts[parts.length - 1];
-          const { error } = await supabase.storage.from('product-images').remove([filename]);
-          if (error) console.error(`Failed to delete old image ${filename}:`, error);
-        }
-      })
-    );
+    await deleteImagesFromSupabase(imagesToDelete);
 
+    // --- Parse additional info ---
     let additionalInfo: AdditionalInfoItem[] = [];
-    const additionalInfoString = formData.get('additional_info') as string;
-    if (additionalInfoString) {
+    const additionalStr = formData.get('additional_info') as string;
+    if (additionalStr) {
       try {
-        additionalInfo = JSON.parse(additionalInfoString) as AdditionalInfoItem[];
-      } catch (jsonError) {
-        console.error('Failed to parse additional_info JSON:', jsonError);
+        additionalInfo = JSON.parse(additionalStr);
+      } catch {
         return NextResponse.json({ message: 'Invalid format for additional info.' }, { status: 400 });
       }
     }
 
-    const updatedProduct: Product = {
-      ...existingProduct,
-      name: newProductName,
-      description: formData.get('description') as string,
-      tags: (formData.get('tags') as string).split(',').map(tag => tag.trim()),
+    // --- Updated product ---
+    const updated: Product = {
+      ...existing,
+      name: newName,
+      description: (formData.get('description') as string) || existing.description,
+      tags: ((formData.get('tags') as string) || '').split(',').map((t) => t.trim()) || existing.tags,
       main_image: mainImagePath,
-      secondary_images: secondaryImagePaths,
-      size: formData.get('size') as string,
-      quantity: parseInt(formData.get('quantity') as string, 10),
-      price: parseFloat(formData.get('price') as string),
-      material: formData.get('material') as string,
-      category: formData.get('category') as string,
+      secondary_images: secondaryPaths,
+      size: (formData.get('size') as string) || existing.size,
+      quantity: parseInt(formData.get('quantity') as string, 10) || existing.quantity,
+      price: parseFloat(formData.get('price') as string) || existing.price,
+      material: (formData.get('material') as string) || existing.material,
+      category: (formData.get('category') as string) || existing.category,
       additional_info: additionalInfo,
-      reviews: existingProduct.reviews,
+      reviews: existing.reviews,
     };
 
-    products[productIndex] = updatedProduct;
+    products[index] = updated;
     await fs.writeFile(filePath, JSON.stringify(products, null, 2));
+
+    // --- Supabase update ---
+    const { error: dbError } = await supabase
+      .from('products')
+      .update({
+        name: updated.name,
+        description: updated.description,
+        main_image: updated.main_image,
+        secondary_images: updated.secondary_images,
+        tags: updated.tags,
+        size: updated.size,
+        quantity: updated.quantity,
+        price: updated.price,
+        material: updated.material,
+        category: updated.category,
+        additional_info: updated.additional_info as unknown as Json,
+      })
+      .eq('id', id);
+
+    if (dbError) console.error('Supabase update failed:', dbError);
 
     invalidateProductsCache();
     revalidatePath('/dashboard');
     revalidatePath('/products');
     revalidatePath(`/products/${id}`);
 
-    return NextResponse.json({ message: 'Product updated successfully' });
-  } catch (error) {
-    console.error('Error updating product:', error);
-    return NextResponse.json(
-      { message: 'Internal server error', details: (error as Error).message },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: 'Product updated successfully', product: updated });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ message: 'Internal server error', details: (err as Error).message }, { status: 500 });
   }
 }
+
+// --- Config for FormData ---
+export const config = { api: { bodyParser: false } };

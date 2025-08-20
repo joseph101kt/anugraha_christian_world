@@ -8,7 +8,9 @@ import { v4 as uuidv4 } from 'uuid';
 import sharp from 'sharp';
 
 import { supabase } from '@/lib/supabaseClient'; // ✅ Supabase client
-import { Product } from '@/lib/types';
+import { Database, Json } from "@/lib/database.types";
+
+import { Product, AdditionalInfoItem } from '@/lib/types';
 import {
   getProductsCache,
   setProductsCache,
@@ -183,7 +185,7 @@ export async function POST(req: Request) {
         reviews: [],
         material: newProduct.material,
         category: newProduct.category,
-        additional_info: newProduct.additional_info,
+      additional_info: newProduct.additional_info as unknown as Json,
       },
     ]);
 

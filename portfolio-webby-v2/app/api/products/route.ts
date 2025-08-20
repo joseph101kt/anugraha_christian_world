@@ -63,44 +63,51 @@ export async function GET() {
 }
 
 /**
- * Helper → Upload image to local /public/images + Supabase Storage
+ * Helper → Process and upload image to local filesystem and Supabase Storage.
  */
 async function processAndUploadImage(
   file: File,
   productName: string
 ): Promise<{ localPath: string; supabasePath: string }> {
-  const fileId = uuidv4();
-  const seoSlug = createSeoSlug(productName);
-  const webpFileName = `${seoSlug}-${fileId}.webp`;
+  try {
+    const fileId = uuidv4();
+    const seoSlug = createSeoSlug(productName);
+    const webpFileName = `${seoSlug}-${fileId}.webp`;
 
-  // Paths
-  const localPath = path.join(process.cwd(), 'public', 'images', webpFileName);
-  const supabasePath = `products/${webpFileName}`;
+    // Paths
+    const localPath = path.join(process.cwd(), 'public', 'images', webpFileName);
+    const supabasePath = `products/${webpFileName}`;
 
-  // Convert with sharp
-  const fileBuffer = Buffer.from(await file.arrayBuffer());
-  const processedBuffer = await sharp(fileBuffer)
-    .webp({ quality: 80 })
-    .toBuffer();
+    // Convert with sharp
+    const fileBuffer = Buffer.from(await file.arrayBuffer());
+    const processedBuffer = await sharp(fileBuffer)
+      .webp({ quality: 80 })
+      .toBuffer();
 
-  // Save locally
-  await fs.mkdir(path.dirname(localPath), { recursive: true });
-  await fs.writeFile(localPath, processedBuffer);
+    // Save locally
+    await fs.mkdir(path.dirname(localPath), { recursive: true });
+    await fs.writeFile(localPath, processedBuffer);
 
-  // Upload to Supabase Storage
-  const { error } = await supabase.storage
-    .from('product-images')
-    .upload(supabasePath, processedBuffer, {
-      contentType: 'image/webp',
-      upsert: false,
-    });
+    // Upload to Supabase Storage
+    const { error } = await supabase.storage
+      .from('product-images')
+      .upload(supabasePath, processedBuffer, {
+        contentType: 'image/webp',
+        upsert: false,
+      });
 
-  if (error) {
-    console.error('Supabase Storage upload failed:', error.message);
-    throw error;
+    if (error) {
+      console.error('Supabase Storage upload failed:', error.message);
+      // It's crucial to throw the error here to be caught by the main handler
+      throw new Error(`Supabase Storage upload failed: ${error.message}`);
+    }
+
+    return { localPath: `/images/${webpFileName}`, supabasePath };
+
+  } catch (error) {
+    console.error('Image processing or upload failed:', (error as Error).message);
+    throw error; // Re-throw to be caught by the main POST handler
   }
-
-  return { localPath: `/images/${webpFileName}`, supabasePath };
 }
 
 /**
@@ -125,18 +132,26 @@ export async function POST(req: Request) {
     );
     const secondaryImagesFiles = formData.getAll('secondary_images') as File[];
 
-    // Process images (both local + supabase)
-    const mainImage = await processAndUploadImage(mainImageFile, name);
-    const secondaryImages = await Promise.all(
-      secondaryImagesFiles.map((file) => processAndUploadImage(file, name))
-    );
-
     // Build product object
     // Generate a proper UUID for the database's ID column
     const productId = uuidv4();
     const productSlug = createSeoSlug(name);
     
-    // The product object for the local JSON uses the slug as the ID
+    // Process and upload images
+    let mainImage, secondaryImages;
+    try {
+      mainImage = await processAndUploadImage(mainImageFile, name);
+      secondaryImages = await Promise.all(
+        secondaryImagesFiles.map((file) => processAndUploadImage(file, name))
+      );
+    } catch (imageError) {
+      console.error('Image processing step failed.', imageError);
+      return NextResponse.json({
+        message: 'Failed to process images.',
+        details: (imageError as Error).message,
+      }, { status: 500 });
+    }
+
     const newProduct: Product = {
       id: productSlug, // Store slug as ID for local JSON consistency
       name,
@@ -158,44 +173,62 @@ export async function POST(req: Request) {
     /**
      * 1️⃣ Save locally → products.json
      */
-    const filePath = path.join(process.cwd(), 'data', 'products.json');
-    let products: Product[] = [];
     try {
-      const jsonData = await fs.readFile(filePath, 'utf8');
-      products = JSON.parse(jsonData);
-    } catch (err) {
-      if ((err as NodeJS.ErrnoException).code !== 'ENOENT') throw err;
+      const filePath = path.join(process.cwd(), 'data', 'products.json');
+      let products: Product[] = [];
+      try {
+        const jsonData = await fs.readFile(filePath, 'utf8');
+        products = JSON.parse(jsonData);
+      } catch (err) {
+        if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
+          throw err;
+        }
+      }
+      await fs.writeFile(
+        filePath,
+        JSON.stringify(products.concat(newProduct), null, 2)
+      );
+    } catch (localFileError) {
+      console.error('Failed to save product to local JSON file:', localFileError);
+      return NextResponse.json({
+        message: 'Failed to save product locally.',
+        details: (localFileError as Error).message,
+      }, { status: 500 });
     }
-    await fs.writeFile(
-      filePath,
-      JSON.stringify(products.concat(newProduct), null, 2)
-    );
 
     /**
      * 2️⃣ Save remotely → Supabase Postgres
      */
-    const { error: dbError } = await supabase.from('products').insert([
-      {
-        id: productId, // Use the proper UUID for the ID column
-        slug: productSlug, // Use the SEO-friendly slug for the slug column
-        name,
-        description,
-        main_image: mainImage.supabasePath, // supabase path
-        secondary_images: secondaryImages.map((img) => img.supabasePath),
-        tags: newProduct.tags,
-        price: newProduct.price,
-        size: newProduct.size,
-        quantity: newProduct.quantity,
-        reviews: [],
-        material: newProduct.material,
-        category: newProduct.category,
-        additional_info: newProduct.additional_info as unknown as Json,
-      },
-    ]);
+    try {
+      const { error: dbError } = await supabase.from('products').insert([
+        {
+          id: productId, // Use the proper UUID for the ID column
+          slug: productSlug, // Use the SEO-friendly slug for the slug column
+          name,
+          description,
+          main_image: mainImage.supabasePath, // supabase path
+          secondary_images: secondaryImages.map((img) => img.supabasePath),
+          tags: newProduct.tags,
+          price: newProduct.price,
+          size: newProduct.size,
+          quantity: newProduct.quantity,
+          reviews: [],
+          material: newProduct.material,
+          category: newProduct.category,
+          additional_info: newProduct.additional_info as unknown as Json,
+        },
+      ]);
 
-    if (dbError) {
-      console.error('Supabase DB insert failed:', dbError.message);
-      throw dbError;
+      if (dbError) {
+        console.error('Supabase DB insert failed:', dbError.message);
+        throw new Error(`Supabase DB insert failed: ${dbError.message}`);
+      }
+    } catch (dbError) {
+      console.error('Database insertion step failed.', dbError);
+      return NextResponse.json({
+        message: 'Failed to insert product into database.',
+        details: (dbError as Error).message,
+      }, { status: 500 });
     }
 
     // Invalidate cache + revalidate using the slug
@@ -206,9 +239,10 @@ export async function POST(req: Request) {
     return NextResponse.json({
       message: 'Product added successfully!',
       product: newProduct,
-    });
+    }, { status: 201 });
+
   } catch (error) {
-    console.error('POST /api/products failed:', error);
+    console.error('Unhandled error in POST /api/products:', error);
     return NextResponse.json(
       {
         message: 'Internal server error',

@@ -69,12 +69,8 @@ export default function Footer() {
       </div>
 
       <div className=" border-t border-neutral-300 dark:border-neutral-600 mt-8 pt-4 text-center text-sm">
-          <div className="mx=5">
             &copy; {new Date().getFullYear()} Anugraha Christian World. All rights reserved.
-          </div>
-          <div >
-            <Link href={"https://josephkakkassery.netlify.app/"} className="mx-auto">  Developed by Joseph Kakkassery</Link>
-          </div>
+
       </div>
 
     </footer>

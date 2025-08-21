@@ -30,30 +30,50 @@ async function processAndSaveImage(file: File, productName: string): Promise<str
   const fileBuffer = Buffer.from(await file.arrayBuffer());
   const seoSlug = createSeoSlug(productName);
   const fileId = uuidv4();
-  const filename = `${seoSlug}-${fileId}.webp`;
+  
+  let bufferToUpload: Buffer;
+  let filename: string;
+  let contentType: string;
 
   try {
     const convertedBuffer = await sharp(fileBuffer).webp({ quality: 80 }).toBuffer();
+    
+    // If successful, use the converted buffer and .webp filename
+    bufferToUpload = convertedBuffer;
+    filename = `${seoSlug}-${fileId}.webp`;
+    contentType = 'image/webp';
 
-    const { error } = await supabase.storage
-      .from('product-images')
-      .upload(filename, convertedBuffer, {
-        contentType: 'image/webp',
-        upsert: true,
-      });
-    if (error) throw error;
-
-    const { data: publicUrlData } = supabase.storage
-      .from('product-images')
-      .getPublicUrl(filename);
-
-    return publicUrlData.publicUrl;
-  } catch (error) {
-    console.error('Supabase image upload failed:', error);
-    throw new Error('Failed to process image file.');
+  } catch (sharpError) {
+    // If sharp fails, use the original buffer and filename
+    console.warn('Sharp processing failed, uploading original file instead.');
+    bufferToUpload = fileBuffer;
+    filename = `${seoSlug}-${fileId}.${file.name.split('.').pop()}`;
+    contentType = file.type;
   }
-}
 
+  // Upload the chosen buffer
+  const { error } = await supabase.storage
+    .from('product-images')
+    .upload(filename, bufferToUpload, {
+      contentType,
+      upsert: true,
+    });
+  
+  if (error) {
+    console.error('Supabase image upload failed:', error);
+    throw new Error('Failed to upload image file to Supabase.');
+  }
+
+  const { data: publicUrlData } = supabase.storage
+    .from('product-images')
+    .getPublicUrl(filename);
+  
+  if (!publicUrlData) {
+      throw new Error('Failed to get public URL for the uploaded file.');
+  }
+
+  return publicUrlData.publicUrl;
+}
 async function deleteImagesFromSupabase(imageUrls: string[]) {
   await Promise.all(
     imageUrls.map(async (url) => {

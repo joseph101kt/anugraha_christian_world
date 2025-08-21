@@ -8,9 +8,9 @@ type LeadRow = Database["public"]["Tables"]["leads"]["Row"];
 // DELETE /api/leads/[id]
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = context.params;
+  const { id } = await context.params;
 
   try {
     const { error } = await supabase.from("leads").delete().eq("id", id);
@@ -31,9 +31,9 @@ export async function DELETE(
 // PATCH /api/leads/[id] - update lead status
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = context.params;
+  const { id } = await context.params;
 
   const { status } = (await req.json()) as { status?: LeadRow["status"] };
   if (!status) {

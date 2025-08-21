@@ -18,10 +18,10 @@ const DATA_FILE_PATH = path.join(process.cwd(), 'data', 'products.json');
 
 export async function POST(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   // Use a more descriptive name, since the URL segment is the slug
-  const { id: productSlug } = context.params;
+  const { id: productSlug } = await context.params;
 
   try {
     const body = await request.json();

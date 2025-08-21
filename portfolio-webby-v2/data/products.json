@@ -3716,25 +3716,5 @@
     "material": "Beads and Thread",
     "category": "rosary",
     "additional_info": []
-  },
-  {
-    "id": "test2",
-    "name": "Test2",
-    "description": "Test2",
-    "main_image": "/images/test2-1dc66adb-ca13-4bdf-905f-672da4e0d720.webp",
-    "secondary_images": [
-      "/images/test2-5590170b-21fe-4b6b-a995-bcc927e9d7e5.webp",
-      "/images/test2-683e00bd-0491-419d-8efd-5a995f4e5a6c.webp"
-    ],
-    "tags": [
-      "test2"
-    ],
-    "price": 0,
-    "size": "Test2",
-    "quantity": 1,
-    "reviews": [],
-    "material": "Test2",
-    "category": "Test2",
-    "additional_info": []
   }
 ]

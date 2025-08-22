@@ -1752,7 +1752,7 @@
       "monstrance"
     ],
     "price": 0,
-    "size": "Large",
+    "size": "Six inch Host size, 30 inch height",
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
@@ -1774,7 +1774,7 @@
       "monstrance"
     ],
     "price": 0,
-    "size": "Large",
+    "size": "28 inch height, 4 inch host",
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
@@ -1794,7 +1794,7 @@
       "monstrance"
     ],
     "price": 0,
-    "size": "Large",
+    "size": "28 inch height, 4 inch host",
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
@@ -1814,7 +1814,7 @@
       "monstrance"
     ],
     "price": 0,
-    "size": "Large",
+    "size": "4 inch host, 29 inches height",
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
@@ -1856,7 +1856,7 @@
       "monstrance"
     ],
     "price": 0,
-    "size": "Large",
+    "size": "20 inches height, 3.5 inch host",
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
@@ -1876,7 +1876,7 @@
       "monstrance"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "16 inches height, 3 inches host",
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
@@ -1896,7 +1896,7 @@
       "monstrance"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "12 inches size , 3 inch host",
     "quantity": 30,
     "reviews": [],
     "material": "Brass with Gold Plating",
@@ -2004,7 +2004,7 @@
       "jesus"
     ],
     "price": 0,
-    "size": "Large",
+    "size": "12 inches",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2025,7 +2025,7 @@
       "cross"
     ],
     "price": 0,
-    "size": "Large",
+    "size": "12 inches",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2045,7 +2045,7 @@
       "holy-family"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "14.5 inches",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2066,7 +2066,7 @@
       "st Anthony"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "13 inches",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2087,7 +2087,7 @@
       "st Anthony"
     ],
     "price": 0,
-    "size": "Small",
+    "size": "8 inches",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2107,7 +2107,7 @@
       "joseph"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "24 inches",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2161,7 +2161,7 @@
       "jesus"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "16 inches",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2197,7 +2197,7 @@
       "angel"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "8 inch and 5 inch",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2233,7 +2233,7 @@
       "st. michael"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "12 inches",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2251,7 +2251,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "1 Ft",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2271,7 +2271,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "16 inches",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2289,7 +2289,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "1 Ft",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2307,7 +2307,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "24 inches",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2327,7 +2327,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "21 inches",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2345,7 +2345,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "20 inches",
     "quantity": 10,
     "reviews": [],
     "material": "marble finished",
@@ -2534,7 +2534,7 @@
       "jesus"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "16 inches",
     "quantity": 6,
     "reviews": [],
     "material": "Imported",
@@ -2552,25 +2552,7 @@
       "jesus"
     ],
     "price": 0,
-    "size": "Medium",
-    "quantity": 6,
-    "reviews": [],
-    "material": "Imported",
-    "category": "statue",
-    "additional_info": []
-  },
-  {
-    "id": "st-anne-statue-16a83a2a",
-    "name": "St. Anne Statue",
-    "description": "Imported St. Anne statue for churches, prayer rooms, or home décor.",
-    "main_image": "/images/st-anne-statue-7aad5b00-1381-43ed-8c7a-2f480418cc5d.webp",
-    "secondary_images": [],
-    "tags": [
-      "statue",
-      "jesus"
-    ],
-    "price": 0,
-    "size": "Medium",
+    "size": "12 inches",
     "quantity": 6,
     "reviews": [],
     "material": "Imported",
@@ -2588,7 +2570,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "16.5 inches",
     "quantity": 6,
     "reviews": [],
     "material": "Imported",
@@ -2606,7 +2588,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "medium",
+    "size": "18 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Imported",
@@ -2685,7 +2667,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "24 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2707,7 +2689,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "24 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2725,7 +2707,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "16 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2743,7 +2725,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "1 Ft",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2761,7 +2743,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "1 Ft",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2779,7 +2761,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "18 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2797,7 +2779,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "15 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2815,7 +2797,7 @@
       "mary"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "24 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2833,7 +2815,7 @@
       "jesus"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "15 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2856,7 +2838,7 @@
       "holy-family"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "12 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2880,7 +2862,7 @@
       "holy-family"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "20 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2903,7 +2885,7 @@
       "holy-family"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "11 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2924,7 +2906,7 @@
       "holy-family"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "11 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2945,7 +2927,7 @@
       "holy-family"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "13.5 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2966,7 +2948,7 @@
       "holy-family"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "15 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -2987,7 +2969,7 @@
       "holy-family"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "15 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -3008,7 +2990,7 @@
       "holy-family"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "20 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Poly marble",
@@ -3142,7 +3124,7 @@
       "joseph"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "8 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Fiber",
@@ -3161,7 +3143,7 @@
       "jesus"
     ],
     "price": 0,
-    "size": "Medium",
+    "size": "5.5 inches",
     "quantity": 1,
     "reviews": [],
     "material": "Fiber",
@@ -3256,29 +3238,6 @@
     "quantity": 1,
     "reviews": [],
     "material": "..",
-    "category": "statue",
-    "additional_info": []
-  },
-  {
-    "id": "home-altars-ad31c437",
-    "name": "Home altars",
-    "description": "Home altars to place statues in.",
-    "main_image": "/images/home-altars-f01069e3-917c-46f8-a422-51bb2692aae9.webp",
-    "secondary_images": [
-      "/images/home-altars-beeec74e-0779-4fec-9d92-fe5806cf48ca.webp",
-      "/images/home-altars-0c1ed215-f920-4357-aa5d-1d210195b3d6.webp",
-      "/images/home-altars-ff9b5dd9-7f67-4eca-b617-559f3cd53a72.webp"
-    ],
-    "tags": [
-      "statue",
-      "wall-hanging",
-      "gift-item"
-    ],
-    "price": 0,
-    "size": "Medium",
-    "quantity": 1,
-    "reviews": [],
-    "material": "wood",
     "category": "statue",
     "additional_info": []
   },
@@ -3401,7 +3360,7 @@
       "mary"
     ],
     "price": 0,
-    "size": ".",
+    "size": "3 Ft",
     "quantity": 1,
     "reviews": [],
     "material": "Fiber",
@@ -3422,7 +3381,7 @@
       "mary"
     ],
     "price": 0,
-    "size": ".",
+    "size": "3 Ft",
     "quantity": 1,
     "reviews": [],
     "material": "Fiber",

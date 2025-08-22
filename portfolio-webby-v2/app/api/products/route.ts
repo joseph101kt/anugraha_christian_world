@@ -34,7 +34,10 @@ function createSeoSlug(name: string): string {
  * GET handler → Returns products from local cache or products.json
  */
 export async function GET() {
+  console.log('GET /api/products called');
   let allProducts: Product[] | null = getProductsCache();
+
+  
 
   if (!allProducts) {
     try {
@@ -42,11 +45,14 @@ export async function GET() {
       const jsonData = await fs.readFile(filePath, 'utf8');
       allProducts = JSON.parse(jsonData);
       setProductsCache(allProducts!);
+      console.log(`Loaded ${allProducts!.length} products from local JSON`);
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
         allProducts = [];
         setProductsCache([]);
+        console.warn('products.json not found, returning empty array');
       } else {
+        console.error('Failed to read products.json:', error);
         return NextResponse.json(
           {
             message: 'Internal Server Error',
@@ -59,7 +65,7 @@ export async function GET() {
     }
   }
 
-  return NextResponse.json(allProducts || []);
+  return NextResponse.json(allProducts ?? []);
 }
 
 /**
@@ -72,45 +78,47 @@ async function processAndUploadImage(
   const fileId = uuidv4();
   const seoSlug = createSeoSlug(productName);
 
-  // Paths will now be dynamic based on success of sharp processing
   let webpFileName = '';
   let localPath = '';
   let supabasePath = '';
   let bufferToUpload: Buffer;
   let contentType = file.type;
-  
+
+  console.log(`Processing image: ${file?.name} for product: ${productName}`);
+
   try {
     const fileBuffer = Buffer.from(await file.arrayBuffer());
+    console.log('File buffer length:', fileBuffer.length);
+
     const processedBuffer = await sharp(fileBuffer)
       .webp({ quality: 80 })
       .toBuffer();
 
-    // If sharp is successful, use the processed buffer and webp paths
+    console.log('Sharp processing successful, buffer length:', processedBuffer.length);
+
     webpFileName = `${seoSlug}-${fileId}.webp`;
     localPath = path.join(process.cwd(), 'public', 'images', webpFileName);
     supabasePath = `products/${webpFileName}`;
     bufferToUpload = processedBuffer;
     contentType = 'image/webp';
 
-    // Save the processed image locally
     await fs.mkdir(path.dirname(localPath), { recursive: true });
     await fs.writeFile(localPath, bufferToUpload);
-
+    console.log(`Saved processed image locally at: ${localPath}`);
   } catch (sharpError) {
-    console.warn('Sharp processing failed. Uploading original file instead.');
-    // If sharp fails, use the original file and its properties
+    console.warn('Sharp processing failed. Uploading original file instead.', sharpError);
+
     const originalFileName = `${seoSlug}-${fileId}${path.extname(file.name)}`;
     localPath = path.join(process.cwd(), 'public', 'images', originalFileName);
     supabasePath = `products/${originalFileName}`;
     bufferToUpload = Buffer.from(await file.arrayBuffer());
     contentType = file.type;
 
-    // Save the original file locally as a fallback
     await fs.mkdir(path.dirname(localPath), { recursive: true });
     await fs.writeFile(localPath, bufferToUpload);
+    console.log(`Saved original image locally at: ${localPath}`);
   }
 
-  // Upload the chosen buffer to Supabase Storage
   const { error } = await supabase.storage
     .from('product-images')
     .upload(supabasePath, bufferToUpload, {
@@ -123,7 +131,8 @@ async function processAndUploadImage(
     throw new Error(`Supabase Storage upload failed: ${error.message}`);
   }
 
-  // The localPath returned will match the one saved (either processed or original)
+  console.log(`Uploaded image to Supabase at: ${supabasePath}`);
+
   return { localPath: `/images/${path.basename(localPath)}`, supabasePath };
 }
 
@@ -131,30 +140,37 @@ async function processAndUploadImage(
  * POST handler → Adds new product to BOTH local JSON + Supabase
  */
 export async function POST(req: Request) {
+  console.log('POST /api/products called');
   try {
     const formData = await req.formData();
+    console.log('FormData keys:', Array.from(formData.keys()));
 
-    // Extract fields
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
     const tagsString = formData.get('tags') as string;
     const mainImageFile = formData.get('main_image') as File;
+    if (!mainImageFile || !(mainImageFile instanceof File)) {
+      return NextResponse.json({ message: 'Main image is required' }, { status: 400 });
+    }
     const priceString = formData.get('price') as string;
     const sizeString = formData.get('size') as string;
     const quantityString = formData.get('quantity') as string;
     const material = formData.get('material') as string;
     const category = formData.get('category') as string;
-    const additionalInfo = JSON.parse(
-      (formData.get('additional_info') as string) || '[]'
-    );
+let additionalInfo: AdditionalInfoItem[] = [];
+try {
+  const raw = formData.get('additional_info') as string;
+  additionalInfo = raw ? JSON.parse(raw) : [];
+} catch (err) {
+  return NextResponse.json({ message: 'Invalid additional_info JSON' }, { status: 400 });
+}
     const secondaryImagesFiles = formData.getAll('secondary_images') as File[];
 
-    // Build product object
-    // Generate a proper UUID for the database's ID column
+    console.log({ name, description, tagsString, mainImageFile, priceString });
+
     const productId = uuidv4();
     const productSlug = createSeoSlug(name);
-    
-    // Process and upload images
+
     let mainImage, secondaryImages;
     try {
       mainImage = await processAndUploadImage(mainImageFile, name);
@@ -170,10 +186,10 @@ export async function POST(req: Request) {
     }
 
     const newProduct: Product = {
-      id: productSlug, // Store slug as ID for local JSON consistency
+      id: productSlug,
       name,
       description,
-      main_image: mainImage.localPath, // local path for Next.js
+      main_image: mainImage.localPath,
       secondary_images: secondaryImages.map((img) => img.localPath),
       tags: tagsString
         ? tagsString.split(',').map((tag) => tag.trim().toLowerCase())
@@ -187,9 +203,7 @@ export async function POST(req: Request) {
       additional_info: additionalInfo,
     };
 
-    /**
-     * 1️⃣ Save locally → products.json
-     */
+    // Save locally
     try {
       const filePath = path.join(process.cwd(), 'data', 'products.json');
       let products: Product[] = [];
@@ -197,14 +211,13 @@ export async function POST(req: Request) {
         const jsonData = await fs.readFile(filePath, 'utf8');
         products = JSON.parse(jsonData);
       } catch (err) {
-        if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
-          throw err;
-        }
+        if ((err as NodeJS.ErrnoException).code !== 'ENOENT') throw err;
       }
       await fs.writeFile(
         filePath,
         JSON.stringify(products.concat(newProduct), null, 2)
       );
+      console.log(`Saved product locally. Total products: ${products.length + 1}`);
     } catch (localFileError) {
       console.error('Failed to save product to local JSON file:', localFileError);
       return NextResponse.json({
@@ -213,17 +226,16 @@ export async function POST(req: Request) {
       }, { status: 500 });
     }
 
-    /**
-     * 2️⃣ Save remotely → Supabase Postgres
-     */
+    // Save remotely → Supabase Postgres
     try {
+      console.log('Inserting product into Supabase DB...');
       const { error: dbError } = await supabase.from('products').insert([
         {
-          id: productId, // Use the proper UUID for the ID column
-          slug: productSlug, // Use the SEO-friendly slug for the slug column
+          id: productId,
+          slug: productSlug,
           name,
           description,
-          main_image: mainImage.supabasePath, // supabase path
+          main_image: mainImage.supabasePath,
           secondary_images: secondaryImages.map((img) => img.supabasePath),
           tags: newProduct.tags,
           price: newProduct.price,
@@ -235,11 +247,11 @@ export async function POST(req: Request) {
           additional_info: newProduct.additional_info as unknown as Json,
         },
       ]);
-
       if (dbError) {
         console.error('Supabase DB insert failed:', dbError.message);
         throw new Error(`Supabase DB insert failed: ${dbError.message}`);
       }
+      console.log('Inserted product into Supabase DB successfully.');
     } catch (dbError) {
       console.error('Database insertion step failed.', dbError);
       return NextResponse.json({
@@ -248,7 +260,6 @@ export async function POST(req: Request) {
       }, { status: 500 });
     }
 
-    // Invalidate cache + revalidate using the slug
     invalidateProductsCache();
     revalidatePath(`/products/${productSlug}`);
     revalidatePath('/products');
@@ -260,12 +271,9 @@ export async function POST(req: Request) {
 
   } catch (error) {
     console.error('Unhandled error in POST /api/products:', error);
-    return NextResponse.json(
-      {
-        message: 'Internal server error',
-        details: (error as Error).message,
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({
+      message: 'Internal server error',
+      details: error instanceof Error ? error.stack || error.message : String(error),
+    }, { status: 500 });
   }
 }

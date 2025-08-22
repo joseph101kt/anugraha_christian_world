@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
           {/* 🎯 Action Button */}
           <Link
             href="/about"
-            className="hidden md:inline-block lg:inline-block w-35 px-4 py-2 bg-primary font-black rounded-lg shadow mr-8"
+            className="hidden md:inline-block lg:inline-block w-25 px-4 py-2 bg-primary font-black rounded-lg shadow mr-8"
           >
             About Us
           </Link>

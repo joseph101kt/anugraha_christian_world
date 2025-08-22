@@ -44,15 +44,15 @@ export default function Footer() {
             <li>Call And WhatsApp</li>
 <li>
   {/* Content for the outer list item */}
-  <div className="space-y-1">
-    <li>
+  <div className="flex flex-col">
+    <div>
       📞{" "}
       <a href="tel:+91-9912888606" className="hover:underline">9912888606</a>
-    </li>
-    <li>
+    </div>
+    <div>
       📞{" "}
       <a href="tel:+91-9848587301" className="hover:underline">9848587301</a>
-    </li>
+    </div>
   </div>
 </li>
             
@@ -70,7 +70,9 @@ export default function Footer() {
 
       <div className=" border-t border-neutral-300 dark:border-neutral-600 mt-8 pt-4 text-center text-sm">
             &copy; {new Date().getFullYear()} Anugraha Christian World. All rights reserved.
-
+      </div>
+      <div className="text-center">
+        Developed by <a>Joseph Kakkassery</a>
       </div>
 
     </footer>

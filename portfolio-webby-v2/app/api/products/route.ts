@@ -71,70 +71,88 @@ export async function GET() {
 /**
  * Helper → Process and upload image to local filesystem and Supabase Storage.
  */
+
 async function processAndUploadImage(
   file: File,
   productName: string
 ): Promise<{ localPath: string; supabasePath: string }> {
-  const fileId = uuidv4();
-  const seoSlug = createSeoSlug(productName);
-
-  let webpFileName = '';
-  let localPath = '';
-  let supabasePath = '';
-  let bufferToUpload: Buffer;
-  let contentType = file.type;
-
-  console.log(`Processing image: ${file?.name} for product: ${productName}`);
-
   try {
-    const fileBuffer = Buffer.from(await file.arrayBuffer());
-    console.log('File buffer length:', fileBuffer.length);
+    if (!file) {
+      throw new Error("No file provided to processAndUploadImage.");
+    }
+    if (!productName || productName.trim().length === 0) {
+      throw new Error("Invalid product name.");
+    }
 
-    const processedBuffer = await sharp(fileBuffer)
-      .webp({ quality: 80 })
-      .toBuffer();
+    const fileId: string = uuidv4();
+    const seoSlug: string = createSeoSlug(productName);
 
-    console.log('Sharp processing successful, buffer length:', processedBuffer.length);
+    console.log(`[INFO] Processing image: ${file.name} for product: "${productName}"`);
+    console.log(`[DEBUG] File type: ${file.type}, File size: ${file.size} bytes`);
 
-    webpFileName = `${seoSlug}-${fileId}.webp`;
-    localPath = path.join(process.cwd(), 'public', 'images', webpFileName);
-    supabasePath = `products/${webpFileName}`;
-    bufferToUpload = processedBuffer;
-    contentType = 'image/webp';
+    // Step 1: Convert File -> Buffer
+    let bufferToUpload: Buffer;
+    try {
+      bufferToUpload = Buffer.from(await file.arrayBuffer());
+      console.log(`[DEBUG] Converted file to buffer. Size: ${bufferToUpload.byteLength} bytes`);
+    } catch (err) {
+      console.error("[ERROR] Failed converting File to Buffer:", err);
+      throw new Error("Could not convert file to buffer.");
+    }
 
-    await fs.mkdir(path.dirname(localPath), { recursive: true });
-    await fs.writeFile(localPath, bufferToUpload);
-    console.log(`Saved processed image locally at: ${localPath}`);
-  } catch (sharpError) {
-    console.warn('Sharp processing failed. Uploading original file instead.', sharpError);
+    // Step 2: Ensure extension is preserved
+    const extension: string = path.extname(file.name) || "";
+    if (!extension) {
+      console.warn("[WARN] File has no extension. Defaulting to empty string.");
+    }
+    const finalFileName: string = `${seoSlug}-${fileId}${extension}`;
+    console.log(`[DEBUG] Final file name generated: ${finalFileName}`);
 
-    const originalFileName = `${seoSlug}-${fileId}${path.extname(file.name)}`;
-    localPath = path.join(process.cwd(), 'public', 'images', originalFileName);
-    supabasePath = `products/${originalFileName}`;
-    bufferToUpload = Buffer.from(await file.arrayBuffer());
-    contentType = file.type;
+    // Step 3: Paths
+    const localPath: string = path.join(process.cwd(), "public", "images", finalFileName);
+    const supabasePath: string = `products/${finalFileName}`;
+    const contentType: string = file.type || "application/octet-stream";
 
-    await fs.mkdir(path.dirname(localPath), { recursive: true });
-    await fs.writeFile(localPath, bufferToUpload);
-    console.log(`Saved original image locally at: ${localPath}`);
+    // Step 4: Save locally
+    try {
+      await fs.mkdir(path.dirname(localPath), { recursive: true });
+      await fs.writeFile(localPath, bufferToUpload);
+      console.log(`[INFO] Saved original image locally at: ${localPath}`);
+    } catch (err) {
+      console.error("[ERROR] Failed saving file locally:", err);
+      throw new Error(`Failed to save file locally at ${localPath}`);
+    }
+
+    // Step 5: Upload to Supabase
+    try {
+      const { error } = await supabase.storage
+        .from("product-images")
+        .upload(supabasePath, bufferToUpload, {
+          contentType,
+          upsert: false,
+        });
+
+      if (error) {
+        console.error("[ERROR] Supabase Storage upload failed:", error.message);
+        throw new Error(`Supabase upload failed: ${error.message}`);
+      }
+      console.log(`[INFO] Uploaded image to Supabase at: ${supabasePath}`);
+    } catch (err) {
+      console.error("[ERROR] Unexpected issue during Supabase upload:", err);
+      throw new Error("Supabase upload encountered an unexpected error.");
+    }
+
+    // Final return
+    const localPublicPath = `/images/${path.basename(localPath)}`;
+    console.log(`[SUCCESS] Image processed. Local: ${localPublicPath}, Supabase: ${supabasePath}`);
+
+    return { localPath: localPublicPath, supabasePath };
+  } catch (err) {
+    console.error("[FATAL] processAndUploadImage failed:", err);
+    throw err; // Re-throw so the caller can handle it
   }
-
-  const { error } = await supabase.storage
-    .from('product-images')
-    .upload(supabasePath, bufferToUpload, {
-      contentType,
-      upsert: false,
-    });
-
-  if (error) {
-    console.error('Supabase Storage upload failed:', error.message);
-    throw new Error(`Supabase Storage upload failed: ${error.message}`);
-  }
-
-  console.log(`Uploaded image to Supabase at: ${supabasePath}`);
-
-  return { localPath: `/images/${path.basename(localPath)}`, supabasePath };
 }
+
 
 /**
  * POST handler → Adds new product to BOTH local JSON + Supabase

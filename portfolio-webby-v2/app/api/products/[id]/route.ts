@@ -26,54 +26,75 @@ function createSeoSlug(name: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
-async function processAndSaveImage(file: File, productName: string): Promise<string> {
-  const fileBuffer = Buffer.from(await file.arrayBuffer());
-  const seoSlug = createSeoSlug(productName);
-  const fileId = uuidv4();
-  
+async function processAndSaveImage(
+  file: File,
+  productName: string
+): Promise<string> {
+  console.log(`🔄 Starting image process for product: "${productName}", file: "${file.name}"`);
+
+  const fileBuffer: Buffer = Buffer.from(await file.arrayBuffer());
+  const seoSlug: string = createSeoSlug(productName);
+  const fileId: string = uuidv4();
+
   let bufferToUpload: Buffer;
   let filename: string;
   let contentType: string;
 
   try {
-    const convertedBuffer = await sharp(fileBuffer).webp({ quality: 80 }).toBuffer();
-    
-    // If successful, use the converted buffer and .webp filename
+    console.log("⚡ Attempting to convert image to WebP using sharp...");
+    const convertedBuffer: Buffer = await sharp(fileBuffer)
+      .webp({ quality: 80 })
+      .toBuffer();
+
     bufferToUpload = convertedBuffer;
     filename = `${seoSlug}-${fileId}.webp`;
-    contentType = 'image/webp';
+    contentType = "image/webp";
 
+    console.log(`✅ Sharp conversion successful. Using WebP format. File: ${filename}`);
   } catch (sharpError) {
-    // If sharp fails, use the original buffer and filename
-    console.warn('Sharp processing failed, uploading original file instead.');
+    console.warn("⚠️ Sharp processing failed. Falling back to original file.", sharpError);
+
     bufferToUpload = fileBuffer;
-    filename = `${seoSlug}-${fileId}.${file.name.split('.').pop()}`;
-    contentType = file.type;
+
+    // Keep the original extension
+    const extension = path.extname(file.name) || "bin";
+    filename = `${seoSlug}-${fileId}${extension.startsWith(".") ? extension : `.${extension}`}`;
+    contentType = file.type || "application/octet-stream";
+
+    console.log(`➡️ Using original file. Filename: ${filename}, ContentType: ${contentType}`);
   }
 
-  // Upload the chosen buffer
+  console.log(`📤 Uploading image to Supabase: ${filename} (ContentType: ${contentType})`);
+
   const { error } = await supabase.storage
-    .from('product-images')
+    .from("product-images")
     .upload(filename, bufferToUpload, {
       contentType,
       upsert: true,
     });
-  
+
   if (error) {
-    console.error('Supabase image upload failed:', error);
-    throw new Error('Failed to upload image file to Supabase.');
+    console.error("❌ Supabase image upload failed:", error);
+    throw new Error(`Failed to upload image file to Supabase. Details: ${error.message}`);
   }
 
+  console.log("✅ Image successfully uploaded to Supabase.");
+
   const { data: publicUrlData } = supabase.storage
-    .from('product-images')
+    .from("product-images")
     .getPublicUrl(filename);
-  
-  if (!publicUrlData) {
-      throw new Error('Failed to get public URL for the uploaded file.');
+
+  if (!publicUrlData || !publicUrlData.publicUrl) {
+    console.error("❌ Failed to retrieve public URL for uploaded file.");
+    throw new Error("Failed to get public URL for the uploaded file.");
   }
+
+  console.log(`🌍 Public URL generated: ${publicUrlData.publicUrl}`);
 
   return publicUrlData.publicUrl;
 }
+
+
 async function deleteImagesFromSupabase(imageUrls: string[]) {
   await Promise.all(
     imageUrls.map(async (url) => {

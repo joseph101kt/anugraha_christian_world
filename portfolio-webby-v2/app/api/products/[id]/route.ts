@@ -3,114 +3,8 @@ import { NextResponse, NextRequest } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import { revalidatePath } from 'next/cache';
-import sharp from 'sharp';
 import { Product, AdditionalInfoItem } from '@/lib/types';
 import { getProductsCache, setProductsCache, invalidateProductsCache } from '@/lib/cache';
-import { v4 as uuidv4 } from 'uuid';
-import { createClient } from '@supabase/supabase-js';
-import { Database, Json } from '@/lib/database.types';
-
-// --- Supabase client ---
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
-// --- Helpers ---
-function createSeoSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-async function processAndSaveImage(
-  file: File,
-  productName: string
-): Promise<string> {
-  console.log(`🔄 Starting image process for product: "${productName}", file: "${file.name}"`);
-
-  const fileBuffer: Buffer = Buffer.from(await file.arrayBuffer());
-  const seoSlug: string = createSeoSlug(productName);
-  const fileId: string = uuidv4();
-
-  let bufferToUpload: Buffer;
-  let filename: string;
-  let contentType: string;
-
-  try {
-    console.log("⚡ Attempting to convert image to WebP using sharp...");
-    const convertedBuffer: Buffer = await sharp(fileBuffer)
-      .webp({ quality: 80 })
-      .toBuffer();
-
-    bufferToUpload = convertedBuffer;
-    filename = `${seoSlug}-${fileId}.webp`;
-    contentType = "image/webp";
-
-    console.log(`✅ Sharp conversion successful. Using WebP format. File: ${filename}`);
-  } catch (sharpError) {
-    console.warn("⚠️ Sharp processing failed. Falling back to original file.", sharpError);
-
-    bufferToUpload = fileBuffer;
-
-    // Keep the original extension
-    const extension = path.extname(file.name) || "bin";
-    filename = `${seoSlug}-${fileId}${extension.startsWith(".") ? extension : `.${extension}`}`;
-    contentType = file.type || "application/octet-stream";
-
-    console.log(`➡️ Using original file. Filename: ${filename}, ContentType: ${contentType}`);
-  }
-
-  console.log(`📤 Uploading image to Supabase: ${filename} (ContentType: ${contentType})`);
-
-  const { error } = await supabase.storage
-    .from("product-images")
-    .upload(filename, bufferToUpload, {
-      contentType,
-      upsert: true,
-    });
-
-  if (error) {
-    console.error("❌ Supabase image upload failed:", error);
-    throw new Error(`Failed to upload image file to Supabase. Details: ${error.message}`);
-  }
-
-  console.log("✅ Image successfully uploaded to Supabase.");
-
-  const { data: publicUrlData } = supabase.storage
-    .from("product-images")
-    .getPublicUrl(filename);
-
-  if (!publicUrlData || !publicUrlData.publicUrl) {
-    console.error("❌ Failed to retrieve public URL for uploaded file.");
-    throw new Error("Failed to get public URL for the uploaded file.");
-  }
-
-  console.log(`🌍 Public URL generated: ${publicUrlData.publicUrl}`);
-
-  return publicUrlData.publicUrl;
-}
-
-
-async function deleteImagesFromSupabase(imageUrls: string[]) {
-  await Promise.all(
-    imageUrls.map(async (url) => {
-      if (!url) return;
-      try {
-        const pathname = new URL(url).pathname;
-        const filename = pathname.split('/').pop();
-        if (!filename) return;
-        const { error } = await supabase.storage.from('product-images').remove([filename]);
-        if (error) console.error(`Failed to delete image ${filename}:`, error);
-      } catch (err) {
-        console.error('Error deleting image URL:', url, err);
-      }
-    })
-  );
-}
 
 // --- GET ---
 export async function GET(
@@ -158,17 +52,14 @@ export async function DELETE(
     const product = products.find((p) => p.id === id);
     if (!product) return NextResponse.json({ message: 'Product not found' }, { status: 404 });
 
-    await deleteImagesFromSupabase([product.main_image, ...product.secondary_images]);
+    // Supabase image deletion functions are removed
+    // since we're no longer using Supabase Storage.
 
     const updatedProducts = products.filter((p) => p.id !== id);
     await fs.writeFile(filePath, JSON.stringify(updatedProducts, null, 2));
     invalidateProductsCache();
     revalidatePath('/products');
     revalidatePath(`/products/${id}`);
-
-    // Supabase DB deletion: Change .eq('id', id) to .eq('slug', id) to query the correct column
-    const { error: dbError } = await supabase.from('products').delete().eq('slug', id);
-    if (dbError) console.error('Supabase deletion failed:', dbError);
 
     return NextResponse.json({ message: 'Product deleted successfully' });
   } catch (error) {
@@ -195,30 +86,11 @@ export async function PUT(
     const existing = products[index];
     const newName = (formData.get('name') as string) || existing.name;
 
-    // --- Handle images ---
-    const newMainFile = formData.get('main_image') as File | null;
-    const newSecondaryFiles = formData.getAll('secondary_images') as File[];
-
-    let mainImagePath = existing.main_image;
-    let secondaryPaths = [...existing.secondary_images];
-    const imagesToDelete: string[] = [];
-
-    if (newMainFile && newMainFile.size > 0) {
-      imagesToDelete.push(existing.main_image);
-      mainImagePath = await processAndSaveImage(newMainFile, newName);
-    }
-
-    if (newSecondaryFiles.length && newSecondaryFiles.some((f) => f.size > 0)) {
-      imagesToDelete.push(...existing.secondary_images);
-      secondaryPaths = await Promise.all(
-        newSecondaryFiles.map((f) => processAndSaveImage(f, newName))
-      );
-    } else if (formData.get('delete_secondary_images') === 'true') {
-      imagesToDelete.push(...existing.secondary_images);
-      secondaryPaths = [];
-    }
-
-    await deleteImagesFromSupabase(imagesToDelete);
+    // --- Image handling is removed ---
+    // The code assumes images are not being updated or managed.
+    // mainImagePath and secondaryPaths will remain as existing values.
+    const mainImagePath = existing.main_image;
+    const secondaryPaths = [...existing.secondary_images];
 
     // --- Parse additional info ---
     let additionalInfo: AdditionalInfoItem[] = [];
@@ -250,26 +122,6 @@ export async function PUT(
 
     products[index] = updated;
     await fs.writeFile(filePath, JSON.stringify(products, null, 2));
-
-    // Supabase update: Change .eq('id', id) to .eq('slug', id) to query the correct column
-    const { error: dbError } = await supabase
-      .from('products')
-      .update({
-        name: updated.name,
-        description: updated.description,
-        main_image: updated.main_image,
-        secondary_images: updated.secondary_images,
-        tags: updated.tags,
-        size: updated.size,
-        quantity: updated.quantity,
-        price: updated.price,
-        material: updated.material,
-        category: updated.category,
-        additional_info: updated.additional_info as unknown as Json,
-      })
-      .eq('slug', id); // Key change: update by 'slug'
-
-    if (dbError) console.error('Supabase update failed:', dbError);
 
     invalidateProductsCache();
     revalidatePath('/dashboard');

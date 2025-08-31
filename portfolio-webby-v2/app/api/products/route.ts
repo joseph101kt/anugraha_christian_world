@@ -6,16 +6,8 @@ import path from 'path';
 import { revalidatePath } from 'next/cache';
 import { v4 as uuidv4 } from 'uuid';
 import sharp from 'sharp';
-
-import { supabase } from '@/lib/supabaseClient'; // Supabase client
-import { Database, Json } from "@/lib/database.types";
-
 import { Product, AdditionalInfoItem } from '@/lib/types';
-import {
-  getProductsCache,
-  setProductsCache,
-  invalidateProductsCache,
-} from '@/lib/cache';
+import { getProductsCache, setProductsCache, invalidateProductsCache } from '@/lib/cache';
 
 /**
  * Utility: Create an SEO-friendly slug from product name
@@ -36,8 +28,6 @@ function createSeoSlug(name: string): string {
 export async function GET() {
   console.log('GET /api/products called');
   let allProducts: Product[] | null = getProductsCache();
-
-  
 
   if (!allProducts) {
     try {
@@ -64,105 +54,61 @@ export async function GET() {
       }
     }
   }
-
   return NextResponse.json(allProducts ?? []);
 }
 
 /**
- * Helper → Process and upload image to local filesystem and Supabase Storage.
+ * Helper → Process and save image to local filesystem
  */
-
-async function processAndUploadImage(
+async function processAndSaveImageLocally(
   file: File,
   productName: string
-): Promise<{ localPath: string; supabasePath: string }> {
+): Promise<string> {
   try {
-    if (!file) {
-      throw new Error("No file provided to processAndUploadImage.");
+    if (!file || !(file instanceof File)) {
+      throw new Error('Invalid file provided.');
     }
-    if (!productName || productName.trim().length === 0) {
-      throw new Error("Invalid product name.");
-    }
-
     const fileId: string = uuidv4();
     const seoSlug: string = createSeoSlug(productName);
+    let bufferToSave: Buffer;
+    let finalFileName: string;
+    const extension: string = path.extname(file.name) || '';
 
-    console.log(`[INFO] Processing image: ${file.name} for product: "${productName}"`);
-    console.log(`[DEBUG] File type: ${file.type}, File size: ${file.size} bytes`);
-
-    // Step 1: Convert File -> Buffer
-    let bufferToUpload: Buffer;
     try {
-      bufferToUpload = Buffer.from(await file.arrayBuffer());
-      console.log(`[DEBUG] Converted file to buffer. Size: ${bufferToUpload.byteLength} bytes`);
-    } catch (err) {
-      console.error("[ERROR] Failed converting File to Buffer:", err);
-      throw new Error("Could not convert file to buffer.");
+      // Use sharp to convert to a WebP buffer for optimization
+      bufferToSave = await sharp(Buffer.from(await file.arrayBuffer()))
+        .webp({ quality: 80 })
+        .toBuffer();
+      finalFileName = `${seoSlug}-${fileId}.webp`;
+      console.log(`[INFO] Converted to WebP and will save as: ${finalFileName}`);
+    } catch (sharpError) {
+      console.warn('[WARN] Sharp conversion failed, falling back to original file:', sharpError);
+      bufferToSave = Buffer.from(await file.arrayBuffer());
+      finalFileName = `${seoSlug}-${fileId}${extension}`;
     }
 
-    // Step 2: Ensure extension is preserved
-    const extension: string = path.extname(file.name) || "";
-    if (!extension) {
-      console.warn("[WARN] File has no extension. Defaulting to empty string.");
-    }
-    const finalFileName: string = `${seoSlug}-${fileId}${extension}`;
-    console.log(`[DEBUG] Final file name generated: ${finalFileName}`);
+    // Path to save the image in the public directory
+    const localPath: string = path.join(process.cwd(), 'public', 'images', finalFileName);
+    await fs.mkdir(path.dirname(localPath), { recursive: true });
+    await fs.writeFile(localPath, bufferToSave);
 
-    // Step 3: Paths
-    const localPath: string = path.join(process.cwd(), "public", "images", finalFileName);
-    const supabasePath: string = `products/${finalFileName}`;
-    const contentType: string = file.type || "application/octet-stream";
-
-    // Step 4: Save locally
-    try {
-      await fs.mkdir(path.dirname(localPath), { recursive: true });
-      await fs.writeFile(localPath, bufferToUpload);
-      console.log(`[INFO] Saved original image locally at: ${localPath}`);
-    } catch (err) {
-      console.error("[ERROR] Failed saving file locally:", err);
-      throw new Error(`Failed to save file locally at ${localPath}`);
-    }
-
-    // Step 5: Upload to Supabase
-    try {
-      const { error } = await supabase.storage
-        .from("product-images")
-        .upload(supabasePath, bufferToUpload, {
-          contentType,
-          upsert: false,
-        });
-
-      if (error) {
-        console.error("[ERROR] Supabase Storage upload failed:", error.message);
-        throw new Error(`Supabase upload failed: ${error.message}`);
-      }
-      console.log(`[INFO] Uploaded image to Supabase at: ${supabasePath}`);
-    } catch (err) {
-      console.error("[ERROR] Unexpected issue during Supabase upload:", err);
-      throw new Error("Supabase upload encountered an unexpected error.");
-    }
-
-    // Final return
-    const localPublicPath = `/images/${path.basename(localPath)}`;
-    console.log(`[SUCCESS] Image processed. Local: ${localPublicPath}, Supabase: ${supabasePath}`);
-
-    return { localPath: localPublicPath, supabasePath };
+    // Return the public path
+    const localPublicPath = `/images/${finalFileName}`;
+    console.log(`[SUCCESS] Image saved locally at: ${localPublicPath}`);
+    return localPublicPath;
   } catch (err) {
-    console.error("[FATAL] processAndUploadImage failed:", err);
-    throw err; // Re-throw so the caller can handle it
+    console.error('[FATAL] processAndSaveImageLocally failed:', err);
+    throw new Error('Failed to process and save image locally.');
   }
 }
 
-
 /**
- * POST handler → Adds new product to BOTH local JSON + Supabase
+ * POST handler → Adds new product to local JSON + saves images locally
  */
 export async function POST(req: Request) {
   console.log('POST /api/products called');
   try {
     const formData = await req.formData();
-    console.log('FormData keys:', Array.from(formData.keys()));
-
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
     const tagsString = formData.get('tags') as string;
@@ -175,25 +121,24 @@ export async function POST(req: Request) {
     const quantityString = formData.get('quantity') as string;
     const material = formData.get('material') as string;
     const category = formData.get('category') as string;
-let additionalInfo: AdditionalInfoItem[] = [];
-try {
-  const raw = formData.get('additional_info') as string;
-  additionalInfo = raw ? JSON.parse(raw) : [];
-} catch (err) {
-  return NextResponse.json({ message: 'Invalid additional_info JSON' }, { status: 400 });
-}
+
+    let additionalInfo: AdditionalInfoItem[] = [];
+    try {
+      const raw = formData.get('additional_info') as string;
+      additionalInfo = raw ? JSON.parse(raw) : [];
+    } catch (err) {
+      return NextResponse.json({ message: 'Invalid additional_info JSON' }, { status: 400 });
+    }
+
     const secondaryImagesFiles = formData.getAll('secondary_images') as File[];
-
-    console.log({ name, description, tagsString, mainImageFile, priceString });
-
-    const productId = uuidv4();
     const productSlug = createSeoSlug(name);
 
-    let mainImage, secondaryImages;
+    let mainImage: string;
+    let secondaryImages: string[];
     try {
-      mainImage = await processAndUploadImage(mainImageFile, name);
+      mainImage = await processAndSaveImageLocally(mainImageFile, name);
       secondaryImages = await Promise.all(
-        secondaryImagesFiles.map((file) => processAndUploadImage(file, name))
+        secondaryImagesFiles.map((file) => processAndSaveImageLocally(file, name))
       );
     } catch (imageError) {
       console.error('Image processing step failed.', imageError);
@@ -207,8 +152,8 @@ try {
       id: productSlug,
       name,
       description,
-      main_image: mainImage.localPath,
-      secondary_images: secondaryImages.map((img) => img.localPath),
+      main_image: mainImage,
+      secondary_images: secondaryImages,
       tags: tagsString
         ? tagsString.split(',').map((tag) => tag.trim().toLowerCase())
         : [],
@@ -222,61 +167,16 @@ try {
     };
 
     // Save locally
+    const filePath = path.join(process.cwd(), 'data', 'products.json');
+    let products: Product[] = [];
     try {
-      const filePath = path.join(process.cwd(), 'data', 'products.json');
-      let products: Product[] = [];
-      try {
-        const jsonData = await fs.readFile(filePath, 'utf8');
-        products = JSON.parse(jsonData);
-      } catch (err) {
-        if ((err as NodeJS.ErrnoException).code !== 'ENOENT') throw err;
-      }
-      await fs.writeFile(
-        filePath,
-        JSON.stringify(products.concat(newProduct), null, 2)
-      );
-      console.log(`Saved product locally. Total products: ${products.length + 1}`);
-    } catch (localFileError) {
-      console.error('Failed to save product to local JSON file:', localFileError);
-      return NextResponse.json({
-        message: 'Failed to save product locally.',
-        details: (localFileError as Error).message,
-      }, { status: 500 });
+      const jsonData = await fs.readFile(filePath, 'utf8');
+      products = JSON.parse(jsonData);
+    } catch (err) {
+      if ((err as NodeJS.ErrnoException).code !== 'ENOENT') throw err;
     }
-
-    // Save remotely → Supabase Postgres
-    try {
-      console.log('Inserting product into Supabase DB...');
-      const { error: dbError } = await supabase.from('products').insert([
-        {
-          id: productId,
-          slug: productSlug,
-          name,
-          description,
-          main_image: mainImage.supabasePath,
-          secondary_images: secondaryImages.map((img) => img.supabasePath),
-          tags: newProduct.tags,
-          price: newProduct.price,
-          size: newProduct.size,
-          quantity: newProduct.quantity,
-          reviews: [],
-          material: newProduct.material,
-          category: newProduct.category,
-          additional_info: newProduct.additional_info as unknown as Json,
-        },
-      ]);
-      if (dbError) {
-        console.error('Supabase DB insert failed:', dbError.message);
-        throw new Error(`Supabase DB insert failed: ${dbError.message}`);
-      }
-      console.log('Inserted product into Supabase DB successfully.');
-    } catch (dbError) {
-      console.error('Database insertion step failed.', dbError);
-      return NextResponse.json({
-        message: 'Failed to insert product into database.',
-        details: (dbError as Error).message,
-      }, { status: 500 });
-    }
+    await fs.writeFile(filePath, JSON.stringify(products.concat(newProduct), null, 2));
+    console.log(`Saved product locally. Total products: ${products.length + 1}`);
 
     invalidateProductsCache();
     revalidatePath(`/products/${productSlug}`);

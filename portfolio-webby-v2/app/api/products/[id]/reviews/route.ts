@@ -3,15 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import fs from 'fs/promises';
 import { Product, Review } from '@/lib/types';
-import { createClient } from '@supabase/supabase-js';
-import { invalidateProductsCache } from '@/lib/cache';
 import { revalidatePath } from 'next/cache';
-
-// Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 
 // Path to local JSON
 const DATA_FILE_PATH = path.join(process.cwd(), 'data', 'products.json');
@@ -20,13 +12,11 @@ export async function POST(
   request: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
-  // Use a more descriptive name, since the URL segment is the slug
   const { id: productSlug } = await context.params;
 
   try {
     const body = await request.json();
 
-    // Validate review structure
     const newReview: Review = {
       customer_name: body.customer_name,
       rating: body.rating,
@@ -34,7 +24,6 @@ export async function POST(
     };
 
     // --- Update local JSON ---
-    // The local JSON uses 'id' as the unique slug, which is fine here
     const fileData = await fs.readFile(DATA_FILE_PATH, 'utf-8');
     const products: Product[] = JSON.parse(fileData);
     const productIndex = products.findIndex((p) => p.id === productSlug);
@@ -50,31 +39,8 @@ export async function POST(
     products[productIndex].reviews.push(newReview);
     await fs.writeFile(DATA_FILE_PATH, JSON.stringify(products, null, 2), 'utf-8');
 
-    // --- Update Supabase ---
-    // Change .eq('id', productId) to .eq('slug', productSlug) to match the database
-    const { data: existing, error: fetchError } = await supabase
-      .from('products')
-      .select('reviews')
-      .eq('slug', productSlug) // Key change: query by 'slug'
-      .single();
-
-    if (fetchError) {
-      console.error('Supabase fetch failed:', fetchError);
-    } else {
-      const updatedReviews = Array.isArray(existing?.reviews)
-        ? [...existing.reviews, newReview]
-        : [newReview];
-
-      const { error: updateError } = await supabase
-        .from('products')
-        .update({ reviews: updatedReviews })
-        .eq('slug', productSlug); // Key change: update by 'slug'
-
-      if (updateError) console.error('Supabase update failed:', updateError);
-    }
-
-    // --- Invalidate cache + revalidate pages ---
-    invalidateProductsCache();
+    // --- Revalidate pages ---
+    // Note: Since Supabase isn't used, the custom invalidateProductsCache() is removed
     revalidatePath(`/products/${productSlug}`);
     revalidatePath('/products');
 

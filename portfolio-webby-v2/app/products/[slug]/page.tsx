@@ -69,7 +69,7 @@ async function getProductBySlug(slug: string): Promise<Product | null> {
 
   if (error || !data) return null;
 
-  return mapRowToProduct(data);
+  return mapRowToProduct(data); 
 }
 
 // Generate metadata

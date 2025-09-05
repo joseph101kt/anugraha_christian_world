@@ -1,3 +1,5 @@
+// lib/imageProcessor
+
 import { supabase } from "./supabaseClient";
 import { ImageUploadResult, ImageVariant } from "./types";
 

@@ -29,9 +29,9 @@ export default function ProductCard({ product, ActionButton }: ProductCardProps)
                 transition-transform duration-200 ease-in-out hover:shadow-xl hover:-translate-y-2 
                 bg-secondary h-[450px]'
         >
-            <Link href={`/products/${product.id}`}></Link>
+            <Link href={`/products/${product.slug}`}></Link>
 
-            <Link href={`/products/${product.id}`} className='relative w-full h-[200px]'>
+            <Link href={`/products/${product.slug}`} className='relative w-full h-[200px]'>
                 <Image
                     src={product.main_image}
                     alt={product.name}
@@ -43,7 +43,7 @@ export default function ProductCard({ product, ActionButton }: ProductCardProps)
             </Link>
 
             <div style={{ padding: '20px', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                <Link href={`/products/${product.id}`}>
+                <Link href={`/products/${product.slug}`}>
                     <h2 style={{ fontSize: '1.4em', marginBottom: '8px' }}>{product.name}</h2>
                     <p
                         className='text-sm leading-tight mb-4 flex-grow overflow-hidden text-ellipsis line-clamp-3'

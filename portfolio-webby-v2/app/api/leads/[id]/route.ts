@@ -1,43 +1,64 @@
 // app/api/leads/[id]/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/lib/supabaseClient"; // ✅ server-side Supabase client
+import { supabase } from "@/lib/supabaseClient";
 import type { Database } from "@/lib/database.types";
 
 type LeadRow = Database["public"]["Tables"]["leads"]["Row"];
+type LeadStatus = NonNullable<LeadRow["status"]>; // "New" | "Contacted" | "Closed"
+type Params = { params: { id: string } };
 
 // DELETE /api/leads/[id]
 export async function DELETE(
-  req: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  _req: NextRequest,
+  { params }: Params
 ) {
-  const { id } = await context.params;
+  const { id } = params;
 
   try {
     const { error } = await supabase.from("leads").delete().eq("id", id);
 
     if (error) {
       console.error("❌ Error deleting lead:", error);
-      return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+      return NextResponse.json(
+        { message: "Internal server error" },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ message: "Lead deleted successfully" });
   } catch (err) {
     console.error("❌ Unexpected error deleting lead:", err);
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
-
 
 // PATCH /api/leads/[id] - update lead status
 export async function PATCH(
   req: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  { params }: Params
 ) {
-  const { id } = await context.params;
+  const { id } = params;
 
-  const { status } = (await req.json()) as { status?: LeadRow["status"] };
+  const body = (await req.json()) as { status?: LeadStatus };
+  const { status } = body;
+
   if (!status) {
-    return NextResponse.json({ message: "Status is required" }, { status: 400 });
+    return NextResponse.json(
+      { message: "Status is required" },
+      { status: 400 }
+    );
+  }
+
+  // Optional: Validate status against allowed values
+  const allowed: LeadStatus[] = ["New", "Contacted", "Closed"];
+  if (!allowed.includes(status)) {
+    return NextResponse.json(
+      { message: `Invalid status: must be one of ${allowed.join(", ")}` },
+      { status: 400 }
+    );
   }
 
   try {
@@ -50,7 +71,10 @@ export async function PATCH(
 
     if (error) {
       console.error("❌ Error updating lead status:", error);
-      return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+      return NextResponse.json(
+        { message: "Internal server error" },
+        { status: 500 }
+      );
     }
 
     if (!data) {
@@ -63,6 +87,9 @@ export async function PATCH(
     });
   } catch (err) {
     console.error("❌ Unexpected error updating lead:", err);
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

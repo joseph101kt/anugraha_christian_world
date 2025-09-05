@@ -11,8 +11,15 @@ export async function fetchProducts(): Promise<Product[]> {
     if (!response.ok) {
         throw new Error('Failed to fetch products');
     }
-    const data: Product[] = await response.json();
-    return data;
+
+    const data = await response.json();
+
+    // Ensure data is always an array
+    if (Array.isArray(data)) return data;
+    if ('products' in data && Array.isArray(data.products)) return data.products;
+
+    console.warn('[fetchProducts] API returned non-array data:', data);
+    return [];
 }
 
 /**
@@ -24,15 +31,19 @@ export interface CategoryWithTags {
 }
 
 export function buildCategoryTagArray(products: Product[]): CategoryWithTags[] {
+    if (!Array.isArray(products)) return [];
+
     const map: Record<string, Set<string>> = {};
 
     products.forEach(product => {
-        const category = product.category ?? "Others";
+        const category = product.category ?? 'Others';
+        if (!map[category]) map[category] = new Set();
 
-        if (!map[category]) {
-            map[category] = new Set();
+        if (Array.isArray(product.tags)) {
+            product.tags.forEach(tag => {
+                if (tag) map[category].add(tag);
+            });
         }
-        product.tags.forEach(tag => map[category].add(tag));
     });
 
     return Object.entries(map).map(([category, tagsSet]) => ({
@@ -49,6 +60,8 @@ export function filterAndScoreProducts(
     query: string,
     activeTags: string[]
 ): Product[] {
+    if (!Array.isArray(products) || products.length === 0) return [];
+
     const normalizedQuery = query.toLowerCase().replace(/-/g, ' ');
     const searchWords = normalizedQuery.split(/\s+/).filter(Boolean);
     const tagsLower = activeTags.map(t => t.toLowerCase());
@@ -58,10 +71,10 @@ export function filterAndScoreProducts(
     return products
         .map(product => {
             let score = 0;
-            const name = product.name.toLowerCase();
-            const description = product.description.toLowerCase();
+            const name = product.name?.toLowerCase() ?? '';
+            const description = product.description?.toLowerCase() ?? '';
             const material = (product.material ?? '').toLowerCase();
-            const tags = product.tags.map(t => t.toLowerCase());
+            const tags = Array.isArray(product.tags) ? product.tags.map(t => t.toLowerCase()) : [];
 
             // Search term scoring
             for (const word of searchWords) {

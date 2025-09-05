@@ -1,3 +1,5 @@
+// lib/imageProcessor
+
 import { supabase } from "./supabaseClient";
 import { ImageUploadResult, ImageVariant } from "./types";
 
@@ -25,7 +27,7 @@ export async function processAndUploadImage(
       ? 90_000
       : 800_000;
 
-  const scaleFactor =
+  const scaleFactor = 
     origArea <= targetArea ? 1 : Math.sqrt(targetArea / origArea);
 
   const newWidth = Math.round(origWidth * scaleFactor);

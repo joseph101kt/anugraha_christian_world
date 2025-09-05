@@ -1,18 +1,10 @@
-// api/save-lead
-
+// app/api/save-lead/route.ts
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabaseClient'; // Make sure this points to your initialized Supabase client
+import { supabase } from '@/lib/supabaseClient';
+import type { Database } from '@/lib/database.types'; // ✅ Supabase types
 
-// Define the structure for a single lead
-interface Lead {
-  id: string;
-  name: string;
-  phone: string;
-  query: string;
-  timestamp: string;
-  source_url: string | null;
-  status: 'New' | 'Contacted' | 'Closed';
-}
+type LeadRow = Database['public']['Tables']['leads']['Row'];
+type LeadInsert = Database['public']['Tables']['leads']['Insert'];
 
 export async function POST(req: Request) {
   try {
@@ -26,23 +18,25 @@ export async function POST(req: Request) {
       );
     }
 
-    const newLead: Omit<Lead, 'id'> = {
+    const newLead: LeadInsert = {
       name,
       phone,
       query,
+      // ✅ these can be optional in DB, but we set them manually
       timestamp: new Date().toISOString(),
-      source_url: req.headers.get('referer') || null,
+      source_url: req.headers.get('referer'),
       status: 'New',
     };
 
     // Insert into Supabase
     const { data, error } = await supabase
       .from('leads')
-      .insert([newLead])
-      .select(); // Returns the inserted row(s)
+      .insert(newLead)
+      .select()
+      .single<LeadRow>(); // ✅ returns one row with correct typing
 
     if (error) {
-      console.error('Supabase insert error:', error);
+      console.error('❌ Supabase insert error:', error.message);
       return NextResponse.json(
         { error: 'Failed to save lead to database' },
         { status: 500 }
@@ -50,11 +44,14 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json(
-      { message: 'Lead saved successfully', lead: data?.[0] },
+      { message: 'Lead saved successfully', lead: data },
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error saving lead:', error);
-    return NextResponse.json({ error: 'Failed to save lead.' }, { status: 500 });
+    console.error('❌ Error saving lead:', error);
+    return NextResponse.json(
+      { error: 'Failed to save lead.' },
+      { status: 500 }
+    );
   }
 }

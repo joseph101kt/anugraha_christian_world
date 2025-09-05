@@ -219,6 +219,7 @@ try {
       material,
       category,
       additional_info: additionalInfo,
+      createdAt: ''
     };
 
     // Save locally
@@ -245,38 +246,40 @@ try {
     }
 
     // Save remotely → Supabase Postgres
-    try {
-      console.log('Inserting product into Supabase DB...');
-      const { error: dbError } = await supabase.from('products').insert([
-        {
-          id: productId,
-          slug: productSlug,
-          name,
-          description,
-          main_image: mainImage.supabasePath,
-          secondary_images: secondaryImages.map((img) => img.supabasePath),
-          tags: newProduct.tags,
-          price: newProduct.price,
-          size: newProduct.size,
-          quantity: newProduct.quantity,
-          reviews: [],
-          material: newProduct.material,
-          category: newProduct.category,
-          additional_info: newProduct.additional_info as unknown as Json,
-        },
-      ]);
-      if (dbError) {
-        console.error('Supabase DB insert failed:', dbError.message);
-        throw new Error(`Supabase DB insert failed: ${dbError.message}`);
-      }
-      console.log('Inserted product into Supabase DB successfully.');
-    } catch (dbError) {
-      console.error('Database insertion step failed.', dbError);
-      return NextResponse.json({
-        message: 'Failed to insert product into database.',
-        details: (dbError as Error).message,
-      }, { status: 500 });
-    }
+// Save remotely → Supabase Postgres
+try {
+  console.log('Inserting product into Supabase DB...');
+  const { error: dbError } = await supabase.from('products').insert([
+    {
+      id: productId,
+      slug: productSlug,
+      name,
+      description,
+      main_image: mainImage.supabasePath,
+      secondary_images: secondaryImages.map((img) => img.supabasePath),
+      tags: newProduct.tags,
+      price: newProduct.price,
+      size: newProduct.size,
+      quantity: newProduct.quantity,
+      reviews: [] as unknown as Json,  // ✅ cast reviews too
+      material: newProduct.material,
+      category: newProduct.category,
+      additional_info: newProduct.additional_info as unknown as Json, // ✅ safe cast
+    },
+  ]);
+  if (dbError) {
+    console.error('Supabase DB insert failed:', dbError.message);
+    throw new Error(`Supabase DB insert failed: ${dbError.message}`);
+  }
+  console.log('Inserted product into Supabase DB successfully.');
+} catch (dbError) {
+  console.error('Database insertion step failed.', dbError);
+  return NextResponse.json({
+    message: 'Failed to insert product into database.',
+    details: (dbError as Error).message,
+  }, { status: 500 });
+}
+
 
     invalidateProductsCache();
     revalidatePath(`/products/${productSlug}`);

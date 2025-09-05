@@ -25,7 +25,7 @@ export interface AdditionalInfoItem {
 export interface Product {
   id: string;
   name: string;
-  description: string;
+  description?: string | null;
   tags: string[];
   main_image: string;
   secondary_images: string[];
@@ -36,4 +36,30 @@ export interface Product {
   material: string;
   additional_info: AdditionalInfoItem[]; // now a list of title-description pairs
   category?: string;
+}
+
+
+
+export type ImageVariant = "main" | "thumb" | `secondary-${number}`;
+
+export interface ImageUploadResult {
+  bucketPath: string;
+  publicUrl: string;
+  width: number;
+  height: number;
+  pixelArea: number;
+  filesizeBytes: number;
+  variant: ImageVariant;
+  originalFilename: string;
+  uploadResult: unknown;
+  error?: string;
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  description?: string | null;
+  tags: string[];
+  mainImage?: string | null;
+  createdAt: string;
 }

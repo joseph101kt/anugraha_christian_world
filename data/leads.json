@@ -1,0 +1,65 @@
+[
+  {
+    "id": "c138664d-3e86-4249-87ab-b0907538c5e6",
+    "name": "Test",
+    "phone": "Test",
+    "query": "asd",
+    "timestamp": "2025-08-02T13:31:14.682Z",
+    "source_url": "http://localhost:3000/products?query=h",
+    "status": "New"
+  },
+  {
+    "id": "00294d54-5131-4e59-a858-4c904a4f415d",
+    "name": "Test",
+    "phone": "hi",
+    "query": "adfasdfsd",
+    "timestamp": "2025-08-03T17:52:39.121Z",
+    "source_url": "http://localhost:3000/dashboard",
+    "status": "Contacted"
+  },
+  {
+    "id": "dc5201f7-2e25-4e3e-9c85-f6fd8c1a3173",
+    "name": "josph",
+    "phone": "999999",
+    "query": "I would like to know more about the product: Candle Stand with Gold Design. You can view it here: http://localhost:3000/products/candle-stand-with-gold-design-0c4fb199",
+    "timestamp": "2025-08-14T18:19:21.932Z",
+    "source_url": "http://localhost:3000/contact?contact_message=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Candle%20Stand%20with%20Gold%20Design.%20You%20can%20view%20it%20here%3A%20http%3A%2F%2Flocalhost%3A3000%2Fproducts%2Fcandle-stand-with-gold-design-0c4fb199",
+    "status": "New"
+  },
+  {
+    "id": "0269ab98-d2b9-4375-a4d4-ed9d931167ff",
+    "name": "josph",
+    "phone": "999999",
+    "query": "I would like to know more about the product: Candle Stand with Gold Design. You can view it here: http://localhost:3000/products/candle-stand-with-gold-design-0c4fb199",
+    "timestamp": "2025-08-14T18:24:22.877Z",
+    "source_url": "http://localhost:3000/contact?contact_message=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Candle%20Stand%20with%20Gold%20Design.%20You%20can%20view%20it%20here%3A%20http%3A%2F%2Flocalhost%3A3000%2Fproducts%2Fcandle-stand-with-gold-design-0c4fb199",
+    "status": "New"
+  },
+  {
+    "id": "b45bafd4-05a4-495e-9538-656dfc600c11",
+    "name": "josph",
+    "phone": "ok",
+    "query": "asdsfsdfsadfasfd",
+    "timestamp": "2025-08-14T18:30:24.815Z",
+    "source_url": "http://localhost:3000/contact?contact_message=I%20would%20like%20to%20know%20more%20about%20the%20product%3A%20Globes%20with%20Gold%20Design.%20You%20can%20view%20it%20here%3A%20http%3A%2F%2Flocalhost%3A3000%2Fproducts%2Fglobes-with-gold-design-67c64cdf",
+    "status": "New"
+  },
+  {
+    "id": "abd666ed-e376-426c-9585-ab73343224f9",
+    "name": "joseph",
+    "phone": "sd",
+    "query": "sdsd",
+    "timestamp": "2025-08-15T02:48:02.149Z",
+    "source_url": "http://localhost:3000/products?tags=alter-bell&page=1",
+    "status": "New"
+  },
+  {
+    "id": "04b16700-e346-4238-a10b-e02ceffb9b6d",
+    "name": "test",
+    "phone": "test",
+    "query": "asdf",
+    "timestamp": "2025-08-15T03:09:57.535Z",
+    "source_url": "http://localhost:3000/contact",
+    "status": "New"
+  }
+]

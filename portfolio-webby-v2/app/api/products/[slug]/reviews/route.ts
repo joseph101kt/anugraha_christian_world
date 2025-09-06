@@ -1,3 +1,4 @@
+// app/api/products/[slug]/reviews/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabaseClient";
 import type { Database } from "@/lib/database.types";
@@ -10,10 +11,22 @@ type Review = {
   comment: string;
 };
 
-type Params = { params: { slug: string } };
+// Runtime type guard for params
+function assertParams(
+  params: unknown
+): asserts params is { slug: string } {
+  if (
+    !params ||
+    typeof (params as any).slug !== "string" ||
+    !(params as any).slug.trim()
+  ) {
+    throw new Error("Invalid params: slug must be a string");
+  }
+}
 
-export async function POST(req: NextRequest, { params }: Params) {
-  const { slug } = params;
+export async function POST(req: NextRequest, context: { params: unknown }) {
+  assertParams(context.params); // ✅ runtime check
+  const { slug } = context.params;
 
   try {
     const body = (await req.json()) as Partial<Review>;

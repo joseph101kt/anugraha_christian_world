@@ -2,6 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@supabase/supabase-js";
 import { Database, Json } from "@/lib/database.types";
+import { uploadImage } from "@/lib/uploadImage";
 
 // -------------------------
 // Supabase client
@@ -108,25 +109,6 @@ type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 
 
 // ------------------ IMAGE UPLOAD ------------------
-async function uploadImage(file: File, productSlug: string): Promise<string | null> {
-  try {
-    const arrayBuffer = await file.arrayBuffer();
-    const fileBytes = new Uint8Array(arrayBuffer);
-    const bucketPath = `${productSlug}/${Date.now()}-${file.name}`;
-
-    const { error } = await supabase.storage
-      .from("products")
-      .upload(bucketPath, fileBytes, { cacheControl: "3600", upsert: true });
-
-    if (error) throw error;
-
-    const publicUrl = supabase.storage.from("products").getPublicUrl(bucketPath).data.publicUrl;
-    return publicUrl || null;
-  } catch (err) {
-    console.error(`❌ Failed to upload image ${file.name} for product ${productSlug}:`, err);
-    return null;
-  }
-}
 
 // ---------------- POST ----------------
 export async function POST(req: NextRequest) {

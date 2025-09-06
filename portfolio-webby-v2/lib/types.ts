@@ -14,6 +14,23 @@ export interface AdditionalInfoItem {
   description: string;
 }
 
+// Image variant types
+export type ImageVariant = "main" | "thumb" | "secondary";
+
+// Image upload result type
+export interface ImageUploadResult {
+  bucketPath: string;
+  publicUrl: string;
+  width: number;
+  height: number;
+  pixelArea: number;
+  filesizeBytes: number;
+  variant: ImageVariant;
+  originalFilename: string;
+  uploadResult: { path: string } | null;
+  error?: string;
+}
+
 // Product type aligned with Supabase `products` table
 export interface Product {
   id: string;                     // maps to uuid

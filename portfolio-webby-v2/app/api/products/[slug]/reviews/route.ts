@@ -10,30 +10,11 @@ type Review = {
   comment: string;
 };
 
-type Params = { slug: string };
-
-// Runtime type guard
-function isParams(params: unknown): params is Params {
-  return (
-    typeof params === "object" &&
-    params !== null &&
-    "slug" in params &&
-    typeof (params as Record<string, unknown>).slug === "string"
-  );
-}
-
 export async function POST(
   req: NextRequest,
-  context: { params: unknown }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
-  if (!isParams(context.params)) {
-    return NextResponse.json(
-      { error: "Invalid params: slug must be a string" },
-      { status: 400 }
-    );
-  }
-
-  const { slug } = context.params;
+  const { slug } = await params;
 
   try {
     const body = (await req.json()) as Partial<Review>;

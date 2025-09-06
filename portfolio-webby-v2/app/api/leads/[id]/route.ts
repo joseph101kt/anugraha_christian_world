@@ -1,20 +1,15 @@
+// app/api/leads/[id]/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabaseClient";
 import type { Database } from "@/lib/database.types";
 
-// Define the shape of the dynamic route parameters
-type RouteParams = {
-  id: string;
-};
-
-// Define the shape of a Lead from the database
 type LeadRow = Database["public"]["Tables"]["leads"]["Row"];
 type LeadStatus = NonNullable<LeadRow["status"]>; // "New" | "Contacted" | "Closed"
 
 // DELETE /api/leads/[id]
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: RouteParams } // Corrected type signature
+  { params }: { params: { id: string } }
 ) {
   const { id } = params;
 
@@ -42,7 +37,7 @@ export async function DELETE(
 // PATCH /api/leads/[id] - update lead status
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: RouteParams } // Corrected type signature
+  { params }: { params: { id: string } }
 ) {
   const { id } = params;
 
@@ -56,7 +51,6 @@ export async function PATCH(
     );
   }
 
-  // Optional: Validate status against allowed values
   const allowed: LeadStatus[] = ["New", "Contacted", "Closed"];
   if (!allowed.includes(status)) {
     return NextResponse.json(

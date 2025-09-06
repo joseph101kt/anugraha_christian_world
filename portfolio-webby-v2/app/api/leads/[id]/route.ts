@@ -7,10 +7,7 @@ type LeadRow = Database["public"]["Tables"]["leads"]["Row"];
 type LeadStatus = NonNullable<LeadRow["status"]>; // "New" | "Contacted" | "Closed"
 
 // DELETE /api/leads/[id]
-export async function DELETE(
-  _req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(_req: NextRequest, { params }: any) {
   const { id } = params;
 
   try {
@@ -35,10 +32,7 @@ export async function DELETE(
 }
 
 // PATCH /api/leads/[id] - update lead status
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PATCH(req: NextRequest, { params }: any) {
   const { id } = params;
 
   const body = (await req.json()) as { status?: LeadStatus };
@@ -91,3 +85,4 @@ export async function PATCH(
     );
   }
 }
+

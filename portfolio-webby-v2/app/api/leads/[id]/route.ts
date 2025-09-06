@@ -5,16 +5,14 @@ import type { Database } from "@/lib/database.types";
 type LeadRow = Database["public"]["Tables"]["leads"]["Row"];
 type LeadStatus = NonNullable<LeadRow["status"]>; // "New" | "Contacted" | "Closed"
 
-// DELETE /api/leads/[id]
-
-
 // PATCH /api/leads/[id]
 export async function PATCH(
   req: NextRequest,
   context: { params: { id: string } }
 ) {
   const { id } = context.params;
-  const body = (await req.json()) as { status?: LeadStatus };
+
+  const body: { status?: LeadStatus } = await req.json();
   const { status } = body;
 
   if (!status) {

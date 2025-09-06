@@ -30,85 +30,32 @@ function logError(
   }
 }
 
+type ProductRow = Database["public"]["Tables"]["products"]["Row"];
+
 // -------------------------
-// GET products
+// GET all products
 // -------------------------
-export async function GET(
-  _req: NextRequest,
-  { params }: { params?: { slug?: string } } = {}
-) {
-  const slug = params?.slug;
-  console.log("[GET] Fetching products", slug ? `slug=${slug}` : "(all)");
+export async function GET(_req: NextRequest) {
+  console.log("[GET] Fetching all products");
 
   try {
-    if (slug) {
-      // Fetch single product by slug
-      const { data: product, error } = await supabase
-        .from("products")
-        .select("*")
-        .eq("slug", slug)
-        .single();
-
-      if (error) {
-        logError("GET product query failed", error, { slug });
-        return NextResponse.json({ error: "Database error" }, { status: 500 });
-      }
-
-      if (!product) {
-        console.warn("[GET] Product not found for slug:", slug);
-        return NextResponse.json({ error: "Not found" }, { status: 404 });
-      }
-
-      // Suggested products
-      let suggested: typeof product[] = [];
-      if (product.tags && product.tags.length > 0) {
-        try {
-          const tags = product.tags.filter(Boolean) as string[];
-          const { data, error: suggestedError } = await supabase
-            .from("products")
-            .select("*")
-            .contains("tags", tags)
-            .neq("slug", slug)
-            .limit(4);
-
-          if (suggestedError) {
-            logError("GET suggested products query failed", suggestedError, {
-              slug,
-              tags,
-            });
-          }
-
-          suggested = data ?? [];
-        } catch (err) {
-          logError("Unexpected error fetching suggested products", err, { slug });
-        }
-      }
-
-      return NextResponse.json({ product, suggested });
-    } else {
-      // Fetch all products
-      const { data: products, error } = await supabase.from("products").select("*");
-      if (error) {
-        logError("GET all products query failed", error);
-        return NextResponse.json({ error: "Database error" }, { status: 500 });
-      }
-
-      return NextResponse.json({ products });
+    // Fetch all products
+    const { data: products, error } = await supabase.from("products").select("*");
+    
+    if (error) {
+      logError("GET all products query failed", error);
+      return NextResponse.json({ error: "Database error" }, { status: 500 });
     }
+
+    return NextResponse.json({ products });
   } catch (err) {
-    logError("GET endpoint unexpected error", err, { slug });
+    logError("GET endpoint unexpected error", err);
     return NextResponse.json(
       { error: "Internal server error", details: (err as Error).message },
       { status: 500 }
     );
   }
 }
-
-
-type ProductRow = Database["public"]["Tables"]["products"]["Row"];
-
-
-// ------------------ IMAGE UPLOAD ------------------
 
 // ---------------- POST ----------------
 export async function POST(req: NextRequest) {
@@ -148,26 +95,24 @@ export async function POST(req: NextRequest) {
     }
 
     // ---------- INSERT PRODUCT ----------
-    // ---------- INSERT PRODUCT ----------
-  const { data: inserted, error } = await supabase
-    .from("products")
-    .insert([{
-      name: name, // required
-      description: description ?? null,
-      size: size ?? null,
-      material: material ?? null,
-      category: category ?? null,
-      price: price ?? 0, // required, default to 0 if not provided
-      quantity: quantity ?? 1,
-      tags: tags.length > 0 ? tags : null,
-      additional_info: additional_info ?? null,
-      slug,
-      main_image: main_image ?? null,
-      secondary_images: secondary_images.length > 0 ? secondary_images : null,
-    }])
-    .select()
-    .single();
-
+    const { data: inserted, error } = await supabase
+      .from("products")
+      .insert([{
+        name: name, // required
+        description: description ?? null,
+        size: size ?? null,
+        material: material ?? null,
+        category: category ?? null,
+        price: price ?? 0, // required, default to 0 if not provided
+        quantity: quantity ?? 1,
+        tags: tags.length > 0 ? tags : null,
+        additional_info: additional_info ?? null,
+        slug,
+        main_image: main_image ?? null,
+        secondary_images: secondary_images.length > 0 ? secondary_images : null,
+      }])
+      .select()
+      .single();
 
     if (error)
       return NextResponse.json(
@@ -187,7 +132,6 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-
 
 // -------------------------
 // Disable body parser for FormData

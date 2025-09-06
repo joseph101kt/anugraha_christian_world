@@ -14,8 +14,8 @@ type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 
 
 // ---------------- GET ----------------
-export async function GET(_req: NextRequest, { params }: { params: { slug: string } }) {
-  const { slug } = params;
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
   const { data: product, error } = await supabase
     .from("products")
@@ -41,8 +41,8 @@ export async function GET(_req: NextRequest, { params }: { params: { slug: strin
 }
 
 // ---------------- DELETE ----------------
-export async function DELETE(_req: NextRequest, { params }: { params: { slug: string } }) {
-  const { slug } = params;
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
   const { error } = await supabase.from("products").delete().eq("slug", slug);
 
@@ -59,8 +59,8 @@ export async function DELETE(_req: NextRequest, { params }: { params: { slug: st
 }
 
 // ---------------- PUT ----------------
-export async function PUT(req: NextRequest, { params }: { params: { slug: string } }) {
-  const { slug } = params;
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
   try {
     const formData = await req.formData();

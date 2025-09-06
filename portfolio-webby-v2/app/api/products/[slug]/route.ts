@@ -10,11 +10,29 @@ const supabase = createClient<Database>(
 
 type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 
-// ✅ GET by slug (Supabase only)
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: { slug: string } }
-) {
+// ------------------ IMAGE UPLOAD ------------------
+async function uploadImage(file: File, productSlug: string): Promise<string | null> {
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const fileBytes = new Uint8Array(arrayBuffer);
+    const bucketPath = `${productSlug}/${file.name}`;
+
+    const { error } = await supabase.storage
+      .from("products")
+      .upload(bucketPath, fileBytes, { cacheControl: "3600", upsert: true });
+
+    if (error) throw error;
+
+    const publicUrl = supabase.storage.from("products").getPublicUrl(bucketPath).data.publicUrl;
+    return publicUrl || null;
+  } catch (err) {
+    console.error(`❌ Failed to upload image ${file.name} for product ${productSlug}:`, err);
+    return null;
+  }
+}
+
+// ---------------- GET ----------------
+export async function GET(_req: NextRequest, { params }: { params: { slug: string } }) {
   const { slug } = params;
 
   const { data: product, error } = await supabase
@@ -23,18 +41,15 @@ export async function GET(
     .eq("slug", slug)
     .single();
 
-  if (error || !product) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
-  }
+  if (error || !product) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-  // Suggested products: overlap on at least one tag, exclude current
   let suggested: ProductRow[] = [];
   if (product.tags && product.tags.length > 0) {
     const { data: suggestedData } = await supabase
       .from("products")
       .select("*")
       .neq("slug", slug)
-      .overlaps("tags", product.tags) // Postgres array overlap
+      .overlaps("tags", product.tags)
       .limit(4);
 
     suggested = suggestedData || [];
@@ -43,21 +58,17 @@ export async function GET(
   return NextResponse.json({ product, suggested });
 }
 
-// ✅ DELETE by slug (Supabase only)
-export async function DELETE(
-  _req: NextRequest,
-  { params }: { params: { slug: string } }
-) {
+// ---------------- DELETE ----------------
+export async function DELETE(_req: NextRequest, { params }: { params: { slug: string } }) {
   const { slug } = params;
 
   const { error } = await supabase.from("products").delete().eq("slug", slug);
 
-  if (error) {
+  if (error)
     return NextResponse.json(
       { message: "Internal server error", details: error.message },
       { status: 500 }
     );
-  }
 
   revalidatePath("/products");
   revalidatePath(`/products/${slug}`);
@@ -65,11 +76,8 @@ export async function DELETE(
   return NextResponse.json({ message: "Deleted successfully" });
 }
 
-// ✅ PUT by slug (Supabase only)
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { slug: string } }
-) {
+// ---------------- PUT ----------------
+export async function PUT(req: NextRequest, { params }: { params: { slug: string } }) {
   const { slug } = params;
 
   try {
@@ -78,8 +86,40 @@ export async function PUT(
     const updates: Partial<ProductRow> = {
       name: (formData.get("name") as string) ?? undefined,
       description: (formData.get("description") as string) ?? undefined,
+      size: (formData.get("size") as string) ?? undefined,
+      material: (formData.get("material") as string) ?? undefined,
+      category: (formData.get("category") as string) ?? undefined,
+      price: formData.get("price") ? parseFloat(formData.get("price") as string) : undefined,
+      quantity: formData.get("quantity") ? parseInt(formData.get("quantity") as string) : undefined,
+      tags: formData.get("tags") ? (formData.get("tags") as string).split(",") : undefined,
+      additional_info: formData.get("additional_info")
+        ? JSON.parse(formData.get("additional_info") as string)
+        : undefined,
     };
 
+    // ---------- MAIN IMAGE ----------
+    const mainImage = formData.get("main_image") as File | null;
+    if (mainImage) {
+      const uploadedMain = await uploadImage(mainImage, slug);
+      if (uploadedMain) updates.main_image = uploadedMain;
+    }
+
+    // ---------- SECONDARY IMAGES ----------
+    const existingSecondaryImages: string[] = formData.get("existing_secondary_images")
+      ? JSON.parse(formData.get("existing_secondary_images") as string)
+      : [];
+
+    const secondaryFiles = formData.getAll("secondary_images") as File[];
+    const uploadedSecondary: string[] = [];
+
+    for (const file of secondaryFiles) {
+      const uploadedUrl = await uploadImage(file, slug);
+      if (uploadedUrl) uploadedSecondary.push(uploadedUrl);
+    }
+
+    updates.secondary_images = [...existingSecondaryImages, ...uploadedSecondary];
+
+    // ---------- UPDATE DB ----------
     const { data: updated, error } = await supabase
       .from("products")
       .update(updates)
@@ -87,21 +127,18 @@ export async function PUT(
       .select()
       .single();
 
-    if (error) {
+    if (error)
       return NextResponse.json(
         { message: "Internal server error", details: error.message },
         { status: 500 }
       );
-    }
 
+    // ---------- REVALIDATE PAGES ----------
     revalidatePath("/dashboard");
     revalidatePath("/products");
     revalidatePath(`/products/${slug}`);
 
-    return NextResponse.json({
-      message: "Updated successfully",
-      product: updated,
-    });
+    return NextResponse.json({ message: "Updated successfully", product: updated });
   } catch (err) {
     return NextResponse.json(
       { message: "Internal server error", details: (err as Error).message },

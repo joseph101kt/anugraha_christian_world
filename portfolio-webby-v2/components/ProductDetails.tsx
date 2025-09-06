@@ -74,7 +74,7 @@ export default function ProductDetails({ product, suggested = [] }: ProductDetai
       )}
 
       <div className="mb-16">
-        <ProductReviews productId={product.id} initialReviews={product.reviews} />
+        <ProductReviews productId={product.slug} initialReviews={product.reviews} />
       </div>
 
       <div className="mb-12">

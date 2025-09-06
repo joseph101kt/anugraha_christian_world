@@ -6,9 +6,29 @@ import type { Database } from "@/lib/database.types";
 type LeadRow = Database["public"]["Tables"]["leads"]["Row"];
 type LeadStatus = NonNullable<LeadRow["status"]>; // "New" | "Contacted" | "Closed"
 
+// Params shape
+type Params = { id: string };
+
+// Runtime type guard
+function isParams(params: unknown): params is Params {
+  return (
+    typeof params === "object" &&
+    params !== null &&
+    "id" in params &&
+    typeof (params as Record<string, unknown>).id === "string"
+  );
+}
+
 // DELETE /api/leads/[id]
-export async function DELETE(_req: NextRequest, { params }: any) {
-  const { id } = params;
+export async function DELETE(
+  _req: NextRequest,
+  context: { params: unknown }
+) {
+  if (!isParams(context.params)) {
+    return NextResponse.json({ message: "Invalid params" }, { status: 400 });
+  }
+
+  const { id } = context.params;
 
   try {
     const { error } = await supabase.from("leads").delete().eq("id", id);
@@ -22,8 +42,7 @@ export async function DELETE(_req: NextRequest, { params }: any) {
     }
 
     return NextResponse.json({ message: "Lead deleted successfully" });
-  } catch (err) {
-    console.error("❌ Unexpected error deleting lead:", err);
+  } catch {
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }
@@ -32,9 +51,15 @@ export async function DELETE(_req: NextRequest, { params }: any) {
 }
 
 // PATCH /api/leads/[id] - update lead status
-export async function PATCH(req: NextRequest, { params }: any) {
-  const { id } = params;
+export async function PATCH(
+  req: NextRequest,
+  context: { params: unknown }
+) {
+  if (!isParams(context.params)) {
+    return NextResponse.json({ message: "Invalid params" }, { status: 400 });
+  }
 
+  const { id } = context.params;
   const body = (await req.json()) as { status?: LeadStatus };
   const { status } = body;
 
@@ -77,12 +102,10 @@ export async function PATCH(req: NextRequest, { params }: any) {
       message: "Lead status updated successfully",
       lead: data,
     });
-  } catch (err) {
-    console.error("❌ Unexpected error updating lead:", err);
+  } catch {
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }
     );
   }
 }
-

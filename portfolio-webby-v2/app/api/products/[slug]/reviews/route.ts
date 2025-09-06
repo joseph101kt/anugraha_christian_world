@@ -4,28 +4,35 @@ import { supabase } from "@/lib/supabaseClient";
 import type { Database } from "@/lib/database.types";
 import { revalidatePath } from "next/cache";
 
-type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 type Review = {
   customer_name: string;
   rating: number;
   comment: string;
 };
 
-// Runtime type guard for params
-function assertParams(
-  params: unknown
-): asserts params is { slug: string } {
-  if (
-    !params ||
-    typeof (params as any).slug !== "string" ||
-    !(params as any).slug.trim()
-  ) {
-    throw new Error("Invalid params: slug must be a string");
-  }
+type Params = { slug: string };
+
+// Runtime type guard
+function isParams(params: unknown): params is Params {
+  return (
+    typeof params === "object" &&
+    params !== null &&
+    "slug" in params &&
+    typeof (params as Record<string, unknown>).slug === "string"
+  );
 }
 
-export async function POST(req: NextRequest, context: { params: unknown }) {
-  assertParams(context.params); // ✅ runtime check
+export async function POST(
+  req: NextRequest,
+  context: { params: unknown }
+) {
+  if (!isParams(context.params)) {
+    return NextResponse.json(
+      { error: "Invalid params: slug must be a string" },
+      { status: 400 }
+    );
+  }
+
   const { slug } = context.params;
 
   try {
@@ -79,7 +86,7 @@ export async function POST(req: NextRequest, context: { params: unknown }) {
       message: "Review added successfully",
       review: newReview,
     });
-  } catch (err) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to add review" },
       { status: 500 }

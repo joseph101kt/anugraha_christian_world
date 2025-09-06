@@ -8,9 +8,9 @@ type LeadStatus = NonNullable<LeadRow["status"]>; // "New" | "Contacted" | "Clos
 // DELETE /api/leads/[id]
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = context.params;
   try {
     const { error } = await supabase.from("leads").delete().eq("id", id);
 
@@ -29,9 +29,9 @@ export async function DELETE(
 // PATCH /api/leads/[id]
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = context.params;
   const body = (await req.json()) as { status?: LeadStatus };
   const { status } = body;
 

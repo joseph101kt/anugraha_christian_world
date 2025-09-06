@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import AddProductForm from '@/components/AddProductForm';
 import EditProductForm from '@/components/EditProductForm';
 import DeleteProductList from '@/components/DeleteProductList';
@@ -9,6 +10,9 @@ import LeadsList from '@/components/LeadsList';
 type DashboardView = 'add' | 'edit' | 'delete' | 'leads';
 
 export default function DashboardPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentView, setCurrentView] = useState<DashboardView>('add');
@@ -19,7 +23,13 @@ export default function DashboardPage() {
     if (storedAuth === 'true') {
       setIsAuthenticated(true);
     }
-  }, []);
+
+    // Get view from URL if exists
+    const urlView = searchParams.get('view') as DashboardView;
+    if (urlView && ['add', 'edit', 'delete', 'leads'].includes(urlView)) {
+      setCurrentView(urlView);
+    }
+  }, [searchParams]);
 
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +43,6 @@ export default function DashboardPage() {
       if (response.ok) {
         const data = await response.json();
         if (data.authenticated) {
-          // Save to localStorage to persist login
           localStorage.setItem('admin-auth', 'true');
           setIsAuthenticated(true);
         } else {
@@ -70,6 +79,14 @@ export default function DashboardPage() {
     );
   }
 
+  const handleViewChange = (view: DashboardView) => {
+    setCurrentView(view);
+    // Update URL query parameter
+    const url = new URL(window.location.href);
+    url.searchParams.set('view', view);
+    router.replace(url.toString());
+  };
+
   const renderContent = () => {
     switch (currentView) {
       case 'add':
@@ -91,32 +108,34 @@ export default function DashboardPage() {
         <h1 className="text-3xl md:text-4xl font-bold">Admin Dashboard</h1>
         <div className="flex mt-4 md:mt-0 p-4 space-x-4">
           <button
-            onClick={() => setCurrentView('add')}
+            onClick={() => handleViewChange('add')}
             className={`btn ${currentView === 'add' ? 'btn-primary' : 'btn-ghost'}`}
           >
             Add Product
           </button>
           <button
-            onClick={() => setCurrentView('edit')}
+            onClick={() => handleViewChange('edit')}
             className={`btn ${currentView === 'edit' ? 'btn-primary' : 'btn-ghost'}`}
           >
             Edit Product
           </button>
           <button
-            onClick={() => setCurrentView('delete')}
+            onClick={() => handleViewChange('delete')}
             className={`btn ${currentView === 'delete' ? 'btn-primary' : 'btn-ghost'}`}
           >
             Delete Products
           </button>
           <button
-            onClick={() => setCurrentView('leads')}
+            onClick={() => handleViewChange('leads')}
             className={`btn ${currentView === 'leads' ? 'btn-primary' : 'btn-ghost'}`}
           >
             Manage Leads
           </button>
         </div>
       </div>
-      <div className="w-full">{renderContent()}</div>
+      <div className="w-full">
+        <Suspense fallback={<p>Loading...</p>}>{renderContent()}</Suspense>
+      </div>
     </div>
   );
 }

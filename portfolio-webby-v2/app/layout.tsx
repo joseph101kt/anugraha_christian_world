@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     icon: "/images/logo.svg",
   },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -21,18 +22,20 @@ export default function RootLayout({
 }>) {
   return (
     <Suspense>
-    <html lang="en">
-      <body className="min-h-screen bg-base-100 text-base-content">
-        <Navbar />
-        <ThemeToggle />
-        <WhatsAppFAB />
+      <html lang="en">
+        <body className="min-h-screen bg-base-100 text-base-content flex flex-col">
+          <Navbar />
+          <ThemeToggle />
+          <WhatsAppFAB />
 
-        {children}
-        
-        <Footer />
-        
-      </body>
-    </html>
+          <main className="flex-1">
+            {children}
+          </main>
+          
+          <Footer />
+          
+        </body>
+      </html>
     </Suspense>
   );
 }

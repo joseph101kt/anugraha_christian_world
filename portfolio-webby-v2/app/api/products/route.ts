@@ -103,109 +103,109 @@ export async function GET(
   }
 }
 
-// -------------------------
-// DELETE product by slug
-// -------------------------
-export async function DELETE(
-  _req: NextRequest,
-  { params }: { params: { slug: string } }
-) {
-  const { slug } = params;
-  console.log("[DELETE] Deleting product with slug:", slug);
 
+type ProductRow = Database["public"]["Tables"]["products"]["Row"];
+
+
+// ------------------ IMAGE UPLOAD ------------------
+async function uploadImage(file: File, productSlug: string): Promise<string | null> {
   try {
-    const { error } = await supabase.from("products").delete().eq("slug", slug);
+    const arrayBuffer = await file.arrayBuffer();
+    const fileBytes = new Uint8Array(arrayBuffer);
+    const bucketPath = `${productSlug}/${Date.now()}-${file.name}`;
 
-    if (error) {
-      logError("DELETE query failed", error, { slug });
-      return NextResponse.json(
-        { message: "Internal server error", details: error.message },
-        { status: 500 }
-      );
-    }
+    const { error } = await supabase.storage
+      .from("products")
+      .upload(bucketPath, fileBytes, { cacheControl: "3600", upsert: true });
 
-    revalidatePath("/products");
-    revalidatePath(`/products/${slug}`);
+    if (error) throw error;
 
-    return NextResponse.json({ message: "Deleted successfully" });
+    const publicUrl = supabase.storage.from("products").getPublicUrl(bucketPath).data.publicUrl;
+    return publicUrl || null;
   } catch (err) {
-    logError("DELETE endpoint unexpected error", err, { slug });
-    return NextResponse.json(
-      { message: "Internal server error", details: (err as Error).message },
-      { status: 500 }
-    );
+    console.error(`❌ Failed to upload image ${file.name} for product ${productSlug}:`, err);
+    return null;
   }
 }
 
-// -------------------------
-// PUT (update) product by slug
-// -------------------------
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { slug: string } }
-) {
-  const { slug } = params;
-  console.log("[PUT] Updating product with slug:", slug);
-
+// ---------------- POST ----------------
+export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
 
     const name = formData.get("name")?.toString();
+    if (!name) return NextResponse.json({ message: "Name is required" }, { status: 400 });
+
     const description = formData.get("description")?.toString() || null;
+    const size = formData.get("size")?.toString() || null;
+    const material = formData.get("material")?.toString() || null;
+    const category = formData.get("category")?.toString() || null;
+    const price = formData.get("price") ? parseFloat(formData.get("price") as string) : undefined;
+    const quantity = formData.get("quantity") ? parseInt(formData.get("quantity") as string) : undefined;
+    const tags = formData.get("tags") ? (formData.get("tags") as string).split(",") : [];
+    const additional_info = formData.get("additional_info")
+      ? (JSON.parse(formData.get("additional_info") as string) as Json)
+      : null;
 
-    if (!name) {
-      console.warn("[PUT] Missing required 'name' field");
-      return NextResponse.json({ message: "Name is required" }, { status: 400 });
+    // Generate slug if not provided
+    const slug = formData.get("slug")?.toString() || name.toLowerCase().replace(/\s+/g, "-");
+
+    // ---------- MAIN IMAGE ----------
+    let main_image: string | null = null;
+    const mainImage = formData.get("main_image") as File | null;
+    if (mainImage) {
+      main_image = await uploadImage(mainImage, slug);
     }
 
-    const updates: Partial<Database["public"]["Tables"]["products"]["Row"]> = {
-      name,
-      description,
-    };
+    // ---------- SECONDARY IMAGES ----------
+    const secondaryFiles = formData.getAll("secondary_images") as File[];
+    const secondary_images: string[] = [];
+    for (const file of secondaryFiles) {
+      const uploaded = await uploadImage(file, slug);
+      if (uploaded) secondary_images.push(uploaded);
+    }
 
-    console.log("[PUT] Updates object:", updates);
+    // ---------- INSERT PRODUCT ----------
+    // ---------- INSERT PRODUCT ----------
+  const { data: inserted, error } = await supabase
+    .from("products")
+    .insert([{
+      name: name, // required
+      description: description ?? null,
+      size: size ?? null,
+      material: material ?? null,
+      category: category ?? null,
+      price: price ?? 0, // required, default to 0 if not provided
+      quantity: quantity ?? 1,
+      tags: tags.length > 0 ? tags : null,
+      additional_info: additional_info ?? null,
+      slug,
+      main_image: main_image ?? null,
+      secondary_images: secondary_images.length > 0 ? secondary_images : null,
+    }])
+    .select()
+    .single();
 
-    const { data: updated, error } = await supabase
-      .from("products")
-      .update(updates)
-      .eq("slug", slug)
-      .select("*")
-      .single();
 
-    if (error) {
-      logError("PUT update query failed", error, { slug, updates });
+    if (error)
       return NextResponse.json(
-        { message: "Update failed", details: error.message },
-        { status: 400 }
+        { message: "Insert failed", details: error.message },
+        { status: 500 }
       );
-    }
 
-    if (!updated) {
-      console.warn("[PUT] Update returned no data", { slug, updates });
-      return NextResponse.json(
-        { message: "Update failed, no data returned" },
-        { status: 400 }
-      );
-    }
-
+    // ---------- REVALIDATE PAGES ----------
     revalidatePath("/dashboard");
     revalidatePath("/products");
-    revalidatePath(`/products/${slug}`);
 
-    console.log("[PUT] Updated successfully", updated);
-
-    return NextResponse.json({
-      message: "Updated successfully",
-      product: updated,
-    });
+    return NextResponse.json({ message: "Product added successfully", product: inserted });
   } catch (err) {
-    logError("PUT endpoint unexpected error", err, { slug });
     return NextResponse.json(
       { message: "Internal server error", details: (err as Error).message },
       { status: 500 }
     );
   }
 }
+
 
 // -------------------------
 // Disable body parser for FormData

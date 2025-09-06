@@ -5,14 +5,34 @@ import type { Database } from "@/lib/database.types";
 type LeadRow = Database["public"]["Tables"]["leads"]["Row"];
 type LeadStatus = NonNullable<LeadRow["status"]>; // "New" | "Contacted" | "Closed"
 
+// DELETE /api/leads/[id]
+export async function DELETE(
+  _req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  try {
+    const { error } = await supabase.from("leads").delete().eq("id", id);
+
+    if (error) {
+      console.error("❌ Error deleting lead:", error);
+      return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    }
+
+    return NextResponse.json({ message: "Lead deleted successfully" });
+  } catch (err) {
+    console.error("❌ Unexpected error deleting lead:", err);
+    return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+  }
+}
+
 // PATCH /api/leads/[id]
 export async function PATCH(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = context.params;
-
-  const body: { status?: LeadStatus } = await req.json();
+  const { id } = await params;
+  const body = (await req.json()) as { status?: LeadStatus };
   const { status } = body;
 
   if (!status) {

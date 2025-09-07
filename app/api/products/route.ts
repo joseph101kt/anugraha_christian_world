@@ -2,106 +2,129 @@ import { NextResponse, NextRequest } from "next/server";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@supabase/supabase-js";
 import { Database, Json } from "@/lib/database.types";
+import { uploadImage } from "@/lib/uploadImage";
 
+// -------------------------
+// Supabase client
+// -------------------------
 const supabase = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-// ✅ GET by slug
-// ✅ GET by slug
-export async function GET(
-  _req: NextRequest,
-  { params }: { params: { slug: string } }
+// -------------------------
+// Type-safe error logging
+// -------------------------
+function logError(
+  context: string,
+  error: unknown,
+  extra?: Record<string, unknown>
 ) {
-  const { slug } = params;
-
-  // fetch product
-  const { data: product, error } = await supabase
-    .from("products")
-    .select("*")
-    .eq("slug", slug)
-    .single();
-
-  if (error || !product) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  if (error instanceof Error) {
+    console.error(`[API ERROR] ${context}:`, error.message, error.stack);
+  } else {
+    console.error(`[API ERROR] ${context}:`, error);
   }
-
-  let suggested: { additional_info: Json | null; category: string | null; created_at: string | null; description: string | null; id: string; main_image: string | null; material: string | null; name: string; price: number; quantity: number | null; reviews: Json | null; secondary_images: string[] | null; size: string | null; slug: string | null; tags: string[] | null; uuid: string; }[] = [];
-  if (product.tags && product.tags.length > 0) {
-    const { data } = await supabase
-      .from("products")
-      .select("*")
-      .contains("tags", product.tags as string[]) // ✅ cast, guaranteed not null here
-      .neq("slug", slug)
-      .limit(4);
-
-    suggested = data ?? [];
+  if (extra) {
+    console.error(`[API ERROR] Extra info:`, extra);
   }
-
-  return NextResponse.json({ product, suggested });
 }
 
+type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 
-// ✅ DELETE by slug
-export async function DELETE(
-  _req: NextRequest,
-  { params }: { params: { slug: string } }
-) {
-  const { slug } = params;
+// -------------------------
+// GET all products
+// -------------------------
+export async function GET(_req: NextRequest) {
+  console.log("[GET] Fetching all products");
 
-  const { error } = await supabase.from("products").delete().eq("slug", slug);
+  try {
+    // Fetch all products
+    const { data: products, error } = await supabase.from("products").select("*");
+    
+    if (error) {
+      logError("GET all products query failed", error);
+      return NextResponse.json({ error: "Database error" }, { status: 500 });
+    }
 
-  if (error) {
+    return NextResponse.json({ products });
+  } catch (err) {
+    logError("GET endpoint unexpected error", err);
     return NextResponse.json(
-      { message: "Internal server error", details: error.message },
+      { error: "Internal server error", details: (err as Error).message },
       { status: 500 }
     );
   }
-
-  revalidatePath("/products");
-  revalidatePath(`/products/${slug}`);
-
-  return NextResponse.json({ message: "Deleted successfully" });
 }
 
-// ✅ PUT by slug
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { slug: string } }
-) {
-  const { slug } = params;
-
+// ---------------- POST ----------------
+export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
 
-    const updates: Partial<Database["public"]["Tables"]["products"]["Row"]> = {
-      name: formData.get("name") as string,
-      description: formData.get("description") as string,
-    };
+    const name = formData.get("name")?.toString();
+    if (!name) return NextResponse.json({ message: "Name is required" }, { status: 400 });
 
-    const { data: updated, error } = await supabase
-      .from("products")
-      .update(updates)
-      .eq("slug", slug)
-      .select("*")
-      .single();
+    const description = formData.get("description")?.toString() || null;
+    const size = formData.get("size")?.toString() || null;
+    const material = formData.get("material")?.toString() || null;
+    const category = formData.get("category")?.toString() || null;
+    const price = formData.get("price") ? parseFloat(formData.get("price") as string) : undefined;
+    const quantity = formData.get("quantity") ? parseInt(formData.get("quantity") as string) : undefined;
+    const tags = formData.get("tags") ? (formData.get("tags") as string).split(",") : [];
+    const additional_info = formData.get("additional_info")
+      ? (JSON.parse(formData.get("additional_info") as string) as Json)
+      : null;
 
-    if (error || !updated) {
-      return NextResponse.json(
-        { message: "Update failed", details: error?.message },
-        { status: 400 }
-      );
+    // Generate slug if not provided
+    const slug = formData.get("slug")?.toString() || name.toLowerCase().replace(/\s+/g, "-");
+
+    // ---------- MAIN IMAGE ----------
+    let main_image: string | null = null;
+    const mainImage = formData.get("main_image") as File | null;
+    if (mainImage) {
+      main_image = await uploadImage(mainImage, slug);
     }
 
+    // ---------- SECONDARY IMAGES ----------
+    const secondaryFiles = formData.getAll("secondary_images") as File[];
+    const secondary_images: string[] = [];
+    for (const file of secondaryFiles) {
+      const uploaded = await uploadImage(file, slug);
+      if (uploaded) secondary_images.push(uploaded);
+    }
+
+    // ---------- INSERT PRODUCT ----------
+    const { data: inserted, error } = await supabase
+      .from("products")
+      .insert([{
+        name: name, // required
+        description: description ?? null,
+        size: size ?? null,
+        material: material ?? null,
+        category: category ?? null,
+        price: price ?? 0, // required, default to 0 if not provided
+        quantity: quantity ?? 1,
+        tags: tags.length > 0 ? tags : null,
+        additional_info: additional_info ?? null,
+        slug,
+        main_image: main_image ?? null,
+        secondary_images: secondary_images.length > 0 ? secondary_images : null,
+      }])
+      .select()
+      .single();
+
+    if (error)
+      return NextResponse.json(
+        { message: "Insert failed", details: error.message },
+        { status: 500 }
+      );
+
+    // ---------- REVALIDATE PAGES ----------
     revalidatePath("/dashboard");
     revalidatePath("/products");
-    revalidatePath(`/products/${slug}`);
 
-    return NextResponse.json({
-      message: "Updated successfully",
-      product: updated,
-    });
+    return NextResponse.json({ message: "Product added successfully", product: inserted });
   } catch (err) {
     return NextResponse.json(
       { message: "Internal server error", details: (err as Error).message },
@@ -110,4 +133,7 @@ export async function PUT(
   }
 }
 
+// -------------------------
+// Disable body parser for FormData
+// -------------------------
 export const config = { api: { bodyParser: false } };

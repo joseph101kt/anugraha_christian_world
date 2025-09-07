@@ -1,5 +1,4 @@
-// lib/imageProcessor
-
+// lib/imageProcessor.ts
 import { supabase } from "./supabaseClient";
 import { ImageUploadResult, ImageVariant } from "./types";
 
@@ -13,6 +12,11 @@ export async function processAndUploadImage(
   file: File,
   options: ProcessOptions
 ): Promise<ImageUploadResult> {
+  // Check if we're in a browser environment
+  if (typeof window === 'undefined') {
+    throw new Error('Image processing can only be done in the browser');
+  }
+
   const { productUuid, variant } = options;
 
   const bitmap = await createImageBitmap(file);
@@ -41,13 +45,19 @@ export async function processAndUploadImage(
 
   ctx.drawImage(bitmap, 0, 0, newWidth, newHeight);
 
-  const blob = await new Promise<Blob>((resolve) =>
+  const blob = await new Promise<Blob>((resolve, reject) => {
     canvas.toBlob(
-      (b) => resolve(b as Blob),
+      (b) => {
+        if (b) {
+          resolve(b);
+        } else {
+          reject(new Error("Failed to create blob from canvas"));
+        }
+      },
       "image/webp",
       variant === "main" ? 0.8 : 0.75
-    )
-  );
+    );
+  });
 
   const arrayBuffer = await blob.arrayBuffer();
   const fileBytes = new Uint8Array(arrayBuffer);
@@ -64,6 +74,10 @@ export async function processAndUploadImage(
       upsert: false,
     });
 
+  if (error) {
+    throw new Error(`Upload failed: ${error.message}`);
+  }
+
   const publicUrl = supabase.storage.from("products").getPublicUrl(bucketPath)
     .data.publicUrl;
 
@@ -77,6 +91,6 @@ export async function processAndUploadImage(
     variant,
     originalFilename: file.name,
     uploadResult: data,
-    error: error?.message,
+    error: undefined, // Since we throw on error above, this will always be undefined
   };
 }

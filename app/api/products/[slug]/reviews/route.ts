@@ -1,19 +1,20 @@
+// app/api/products/[slug]/reviews/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabaseClient";
 import type { Database } from "@/lib/database.types";
 import { revalidatePath } from "next/cache";
 
-type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 type Review = {
   customer_name: string;
   rating: number;
   comment: string;
 };
 
-type Params = { params: { slug: string } };
-
-export async function POST(req: NextRequest, { params }: Params) {
-  const { slug } = params;
+export async function POST(
+  req: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  const { slug } = await params;
 
   try {
     const body = (await req.json()) as Partial<Review>;
@@ -66,7 +67,7 @@ export async function POST(req: NextRequest, { params }: Params) {
       message: "Review added successfully",
       review: newReview,
     });
-  } catch (err) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to add review" },
       { status: 500 }

@@ -72,7 +72,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Anugraha Christian World. All rights reserved.
       </div>
       <div className="text-center">
-        Developed by <a>Joseph Kakkassery</a>
+        Developed by <a href="https://josephkakkassery.netlify.app/">Joseph Kakkassery</a>
       </div>
 
     </footer>

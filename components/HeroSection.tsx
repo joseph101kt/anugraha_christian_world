@@ -7,7 +7,7 @@ export default function Home() {
       {/* Image column */}
       <div className="relative w-full h-[50vh] md:h-full">
         <Image
-          src="/images/jesus.webp"
+          src="/jesus.webp"
           alt="Jesus"
           fill
           priority

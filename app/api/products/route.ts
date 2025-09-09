@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { Database, Json } from "@/lib/database.types";
 import { uploadImage } from "@/lib/uploadImage";
 import { supabase } from "@/lib/supabaseClient";
-import { getCachedProducts, syncInBackground } from "@/lib/syncProducts";
+import { getCachedProducts, syncAllProducts } from "@/lib/syncProducts";
 
 // -------------------------
 // Type-safe error logging
@@ -31,13 +31,24 @@ type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 // -------------------------
 export async function GET(_req: NextRequest) {
   try {
-    // Return cached JSON immediately
-    const cached = getCachedProducts();
+    // baseline snapshot from monthly build
+    const baseline = getCachedProducts();
 
-    // Trigger background sync
-    syncInBackground();
+    // fetch fresh products from Supabase (stateless)
+    const fresh = await syncAllProducts();
 
-    return NextResponse.json({ products: cached });
+    // merge: override baseline if slug exists in fresh
+    const merged = [...baseline];
+    for (const product of fresh) {
+      const index = merged.findIndex((p) => p.slug === product.slug);
+      if (index >= 0) {
+        merged[index] = product; // replace stale baseline
+      } else {
+        merged.push(product); // add new product
+      }
+    }
+
+    return NextResponse.json({ products: merged });
   } catch (err) {
     logError("GET all products failed", err);
     return NextResponse.json(
@@ -124,9 +135,6 @@ export async function POST(req: NextRequest) {
 
     revalidatePath("/dashboard");
     revalidatePath("/products");
-
-    // Trigger background sync to update JSON + local images
-    syncInBackground();
 
     return NextResponse.json({
       message: "Product added successfully",

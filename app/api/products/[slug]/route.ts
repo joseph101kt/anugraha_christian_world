@@ -7,10 +7,6 @@ import { supabase } from "@/lib/supabaseClient";
 import { syncProductBySlug } from "@/lib/syncProducts";
 import { Product } from "@/lib/types";
 
-import fs from "fs";
-import path from "path";
-
-
 type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 
 // ---------------- GET ----------------
@@ -76,23 +72,7 @@ export async function DELETE(
     if (bucketError) console.warn("Failed to remove files from bucket:", bucketError);
   }
 
-  // 3. Delete local images
-  const imagesDir = path.join(process.cwd(), "public", "images");
-
-  for (const file of filesToDelete) {
-    const localPath = path.join(imagesDir, path.basename(file));
-    if (fs.existsSync(localPath)) fs.unlinkSync(localPath);
-  }
-
-  // 4. Remove from local JSON
-  const jsonPath = path.join(process.cwd(), "data", "products.json");
-  if (fs.existsSync(jsonPath)) {
-    const localProducts = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
-    const filtered = localProducts.filter((p: Product) => p.slug !== slug);
-    fs.writeFileSync(jsonPath, JSON.stringify(filtered, null, 2));
-  }
-
-  // 5. Delete from Supabase table
+  // 3. Delete from Supabase table
   const { error } = await supabase.from("products").delete().eq("slug", slug);
   if (error) {
     return NextResponse.json(
@@ -106,7 +86,6 @@ export async function DELETE(
 
   return NextResponse.json({ message: "Deleted successfully" });
 }
-
 
 // ---------------- PUT ----------------
 export async function PUT(

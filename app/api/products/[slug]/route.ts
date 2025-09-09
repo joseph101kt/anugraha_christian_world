@@ -7,6 +7,10 @@ import { supabase } from "@/lib/supabaseClient";
 import { syncProductBySlug } from "@/lib/syncProducts";
 import { Product } from "@/lib/types";
 
+import fs from "fs";
+import path from "path";
+
+
 type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 
 // ---------------- GET ----------------
@@ -50,8 +54,46 @@ export async function DELETE(
 ) {
   const { slug } = await params;
 
-  const { error } = await supabase.from("products").delete().eq("slug", slug);
+  // 1. Fetch product first
+  const { data: product, error: fetchError } = await supabase
+    .from("products")
+    .select("*")
+    .eq("slug", slug)
+    .single();
 
+  if (fetchError || !product) {
+    return NextResponse.json({ error: "Product not found" }, { status: 404 });
+  }
+
+  // 2. Delete images from Supabase bucket
+  const filesToDelete = [product.main_image, ...(product.secondary_images ?? [])]
+    .filter(Boolean)
+    .map((f: string) => f.replace(/^\//, "")); // remove leading slash
+  if (filesToDelete.length > 0) {
+    const { error: bucketError } = await supabase
+      .storage.from("products")
+      .remove(filesToDelete);
+    if (bucketError) console.warn("Failed to remove files from bucket:", bucketError);
+  }
+
+  // 3. Delete local images
+  const imagesDir = path.join(process.cwd(), "public", "images");
+
+  for (const file of filesToDelete) {
+    const localPath = path.join(imagesDir, path.basename(file));
+    if (fs.existsSync(localPath)) fs.unlinkSync(localPath);
+  }
+
+  // 4. Remove from local JSON
+  const jsonPath = path.join(process.cwd(), "data", "products.json");
+  if (fs.existsSync(jsonPath)) {
+    const localProducts = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+    const filtered = localProducts.filter((p: Product) => p.slug !== slug);
+    fs.writeFileSync(jsonPath, JSON.stringify(filtered, null, 2));
+  }
+
+  // 5. Delete from Supabase table
+  const { error } = await supabase.from("products").delete().eq("slug", slug);
   if (error) {
     return NextResponse.json(
       { message: "Internal server error", details: error.message },
@@ -64,6 +106,7 @@ export async function DELETE(
 
   return NextResponse.json({ message: "Deleted successfully" });
 }
+
 
 // ---------------- PUT ----------------
 export async function PUT(

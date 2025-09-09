@@ -12,7 +12,7 @@ export default function HomePage() {
         <HeroSection />
         <AboutSection />
         <FeaturedCategories />
-        <Testimonials />
+        <Testimonials /> 
       
           <div className='w-full text-center'><h1 className='mx-auto'>Our Products</h1></div>
           <ProductList ActionButton={EnquireButton} ITEMS_PER_PAGE={12} />

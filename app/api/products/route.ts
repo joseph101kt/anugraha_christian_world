@@ -1,16 +1,9 @@
 import { NextResponse, NextRequest } from "next/server";
 import { revalidatePath } from "next/cache";
-import { createClient } from "@supabase/supabase-js";
 import { Database, Json } from "@/lib/database.types";
 import { uploadImage } from "@/lib/uploadImage";
+import { supabase } from "@/lib/supabaseClient";
 
-// -------------------------
-// Supabase client
-// -------------------------
-const supabase = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 
 // -------------------------
 // Type-safe error logging

@@ -4,7 +4,6 @@ import fs from "fs";
 import path from "path";
 import { supabase } from "@/lib/supabaseClient";
 
-// Type for rows in Supabase `products` table
 type ProductRow = {
   uuid: string;
   slug: string | null;
@@ -18,11 +17,10 @@ type ProductRow = {
   price: number;
   material: string | null;
   category: string | null;
-  reviews: unknown[] | null; // JSONB from Supabase
-  additional_info: unknown[] | null; // JSONB from Supabase
+  reviews: unknown[] | null;
+  additional_info: unknown[] | null;
 };
 
-// Type for JSON format
 type TransformedProduct = {
   id: string;
   name: string;
@@ -39,48 +37,61 @@ type TransformedProduct = {
   category: string | null;
 };
 
+function normalizePath(urlOrPath: string): string {
+  const publicPrefix = "/storage/v1/object/public/products/";
+  const idx = urlOrPath.indexOf(publicPrefix);
+  if (idx !== -1) {
+    return urlOrPath.slice(idx + publicPrefix.length);
+  }
+  return urlOrPath; // already relative
+}
+
 export async function GET() {
   try {
-    // 1. Fetch all products from Supabase
+    console.log("[SYNC] Starting product sync...");
+
     const { data: products, error } = await supabase
       .from("products")
       .select("*");
 
     if (error) throw error;
     if (!products) {
-      return NextResponse.json(
-        { message: "No products found." },
-        { status: 200 }
-      );
+      console.log("[SYNC] No products found in Supabase.");
+      return NextResponse.json({ message: "No products found." }, { status: 200 });
     }
 
-    // Directory paths
+    console.log(`[SYNC] Found ${products.length} products in Supabase.`);
+
     const jsonPath = path.join(process.cwd(), "data", "products.json");
     const imagesDir = path.join(process.cwd(), "public", "images");
-
-    // Ensure images folder exists
     fs.mkdirSync(imagesDir, { recursive: true });
 
-    // Transformed products for JSON
     const transformed: TransformedProduct[] = [];
 
     for (const product of products as ProductRow[]) {
-      const id = product.slug || product.uuid; // prefer slug, fallback to uuid
+      const id = product.slug || product.uuid;
+      console.log(`[SYNC] Processing product: ${id} (${product.name})`);
 
       // --- Main image ---
       let mainImagePath: string | null = null;
       if (product.main_image) {
+        const normalized = normalizePath(product.main_image);
+        console.log(`[SYNC] Downloading main image: ${normalized}`);
+
         const { data: imgData, error: imgErr } = await supabase.storage
           .from("products")
-          .download(product.main_image);
+          .download(normalized);
 
-        if (!imgErr && imgData) {
-          const ext = path.extname(product.main_image) || ".webp";
+        if (imgErr) {
+          console.error(`[SYNC][ERROR] Failed to download main image (${normalized}):`, imgErr.message);
+        } else if (imgData) {
+          const ext = path.extname(normalized) || ".webp";
           const fileName = `${id}-${product.uuid}${ext}`;
           mainImagePath = `/images/${fileName}`;
           const fullPath = path.join(imagesDir, fileName);
 
           fs.writeFileSync(fullPath, Buffer.from(await imgData.arrayBuffer()));
+          console.log(`[SYNC] Saved main image to ${fullPath}`);
         }
       }
 
@@ -88,17 +99,23 @@ export async function GET() {
       const secondaryLocal: string[] = [];
       if (Array.isArray(product.secondary_images)) {
         for (const [idx, img] of product.secondary_images.entries()) {
+          const normalized = normalizePath(img);
+          console.log(`[SYNC] Downloading secondary image ${idx}: ${normalized}`);
+
           const { data: imgData, error: imgErr } = await supabase.storage
             .from("products")
-            .download(img);
+            .download(normalized);
 
-          if (!imgErr && imgData) {
-            const ext = path.extname(img) || ".webp";
+          if (imgErr) {
+            console.error(`[SYNC][ERROR] Failed to download secondary image (${normalized}):`, imgErr.message);
+          } else if (imgData) {
+            const ext = path.extname(normalized) || ".webp";
             const fileName = `${id}-secondary-${idx}${ext}`;
             const fullPath = path.join(imagesDir, fileName);
             secondaryLocal.push(`/images/${fileName}`);
 
             fs.writeFileSync(fullPath, Buffer.from(await imgData.arrayBuffer()));
+            console.log(`[SYNC] Saved secondary image to ${fullPath}`);
           }
         }
       }
@@ -121,15 +138,15 @@ export async function GET() {
       });
     }
 
-    // 2. Save JSON file
     fs.writeFileSync(jsonPath, JSON.stringify(transformed, null, 2));
+    console.log("[SYNC] Completed successfully!");
 
     return NextResponse.json(
       { message: "Sync completed", productsCount: transformed.length },
       { status: 200 }
     );
   } catch (err) {
-    console.error(err);
+    console.error("[SYNC][FATAL] Unexpected error:", err);
     const message = err instanceof Error ? err.message : "Unknown error";
     return NextResponse.json({ error: message }, { status: 500 });
   }

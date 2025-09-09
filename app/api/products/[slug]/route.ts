@@ -21,7 +21,6 @@ export async function GET(
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  // Suggested products based on tags
   let suggested: Product[] = [];
   if (product.tags && product.tags.length > 0) {
     const { data: suggestedData } = await supabase
@@ -32,7 +31,6 @@ export async function GET(
       .limit(4);
 
     if (suggestedData) {
-      // fetch with sync for local images
       const promises = suggestedData.map((row) =>
         syncProductBySlug(row.slug!)
       );
@@ -97,14 +95,12 @@ export async function PUT(
         : undefined,
     };
 
-    // ---------- MAIN IMAGE ----------
     const mainImage = formData.get("main_image") as File | null;
     if (mainImage) {
       const uploadedMain = await uploadImage(mainImage, slug);
       if (uploadedMain) updates.main_image = uploadedMain;
     }
 
-    // ---------- SECONDARY IMAGES ----------
     const existingSecondaryImages: string[] = formData.get(
       "existing_secondary_images"
     )
@@ -124,7 +120,6 @@ export async function PUT(
       ...uploadedSecondary,
     ];
 
-    // ---------- UPDATE DB ----------
     const { data: updated, error } = await supabase
       .from("products")
       .update(updates)
@@ -141,7 +136,6 @@ export async function PUT(
 
     const product = await syncProductBySlug(updated.slug!);
 
-    // ---------- REVALIDATE PAGES ----------
     revalidatePath("/dashboard");
     revalidatePath("/products");
     revalidatePath(`/products/${slug}`);

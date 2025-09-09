@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { Database, Json } from "@/lib/database.types";
 import { uploadImage } from "@/lib/uploadImage";
 import { supabase } from "@/lib/supabaseClient";
-import { syncAllProducts } from "@/lib/syncProducts";
+import { getCachedProducts, syncInBackground } from "@/lib/syncProducts";
 
 // -------------------------
 // Type-safe error logging
@@ -30,11 +30,14 @@ type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 // GET all products
 // -------------------------
 export async function GET(_req: NextRequest) {
-  console.log("[GET] Fetching all products with sync");
-
   try {
-    const products = await syncAllProducts();
-    return NextResponse.json({ products });
+    // Return cached JSON immediately
+    const cached = getCachedProducts();
+
+    // Trigger background sync
+    syncInBackground();
+
+    return NextResponse.json({ products: cached });
   } catch (err) {
     logError("GET all products failed", err);
     return NextResponse.json(
@@ -71,7 +74,6 @@ export async function POST(req: NextRequest) {
       ? (JSON.parse(formData.get("additional_info") as string) as Json)
       : null;
 
-    // Generate slug if not provided
     const slug =
       formData.get("slug")?.toString() ||
       name.toLowerCase().replace(/\s+/g, "-");
@@ -120,9 +122,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // ---------- REVALIDATE PAGES ----------
     revalidatePath("/dashboard");
     revalidatePath("/products");
+
+    // Trigger background sync to update JSON + local images
+    syncInBackground();
 
     return NextResponse.json({
       message: "Product added successfully",

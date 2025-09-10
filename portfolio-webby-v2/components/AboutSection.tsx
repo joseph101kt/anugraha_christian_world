@@ -28,7 +28,7 @@ export default function AboutSection() {
 
       <div className=" p-2 rounded-xl shadow-lg">
         <Image
-          src="/images/biju.jpg"
+          src="/biju.jpg"
           alt="Founder standing"
           width={400}
           height={600}

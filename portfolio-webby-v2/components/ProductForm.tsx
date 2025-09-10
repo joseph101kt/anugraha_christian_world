@@ -258,7 +258,9 @@ export default function ProductForm({ initialProduct, onSave }: ProductFormProps
         material: material || 'N/A',
         category: category || 'N/A',
         additional_info: additionalInfo.filter(item => item.title || item.description),
-        reviews: initialProduct?.reviews || []
+        reviews: initialProduct?.reviews || [],
+        uuid: '',
+        slug: ''
     };
 
     return (

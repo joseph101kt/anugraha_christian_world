@@ -14,7 +14,7 @@ export default function HomePage() {
     <> 
     <ChristmasModal isOpen={open} onClose={() => setOpen(false)} />
     <div className="flex  flex-col">
-        <HeroSection />
+        <HeroSection /> 
         <AboutSection />
         <FeaturedCategories />
         <Testimonials /> 

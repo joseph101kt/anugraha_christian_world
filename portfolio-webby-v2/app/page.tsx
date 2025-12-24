@@ -1,3 +1,4 @@
+"use client";
 import AboutSection from "@/components/AboutSection";
 import ChristmasModal from "@/components/ChristmasModal";
 import EnquireButton from "@/components/EnquireButton";

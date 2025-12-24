@@ -20,39 +20,76 @@ export default function ChristmasModal({ isOpen, onClose }: ChristmasModalProps)
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div className="relative w-[92%] max-w-lg overflow-hidden rounded-3xl shadow-2xl bg-[var(--color-background)] animate-slideUpAndFade">
-
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md">
+      <div
+        className="
+          relative
+          w-[95%]
+          max-w-3xl
+          overflow-hidden
+          rounded-3xl
+          shadow-2xl
+          bg-[var(--color-background)]
+          animate-slideUpAndFade
+        "
+      >
         {/* 🎄 Image Section */}
-        <div className="relative h-64 w-full">
+        <div className="relative h-80 w-full">
           <Image
-            src="https://images.unsplash.com/photo-1543589077-47d81606c1bf"
+            src="/christmas.png"
             alt="Merry Christmas"
             fill
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-black/20" />
-          <h2 className="absolute bottom-4 left-4 text-white text-3xl drop-shadow-lg">
+
+          {/* Dark overlay for text contrast */}
+          <div className="absolute inset-0 bg-black/35" />
+
+          <h2
+            className="
+              absolute
+              bottom-6
+              left-6
+              text-white
+              text-4xl
+              md:text-5xl
+              drop-shadow-xl
+            "
+          >
             Merry Christmas 🎄
           </h2>
         </div>
 
         {/* ✨ Content */}
-        <div className="p-6 text-center">
-          <p className="text-lg text-muted mb-4">
+        <div className="p-8 text-center">
+          <p className="text-xl font-medium text-[var(--color-text)] mb-6">
             Wishing you warmth, joy, and festive cheer!
           </p>
 
           {/* 🔔 Bottom Notice */}
-          <div className="mt-6 rounded-xl bg-secondary p-4">
-            <p className="font-medium text-base mb-3">
-              Shop will be closed on <strong>25th</strong> and <strong>26th</strong>
+          <div className="mt-4 rounded-2xl bg-secondary p-6">
+            <p className="font-semibold text-lg text-[var(--color-text)] mb-4">
+              Shop will be closed on{' '}
+              <span className="text-red-700 font-bold">25th</span> and{' '}
+              <span className="text-red-700 font-bold">26th</span>
             </p>
 
             <button
               onClick={onClose}
-              className="btn btn-primary w-full hover-scale"
+              className="
+                w-full
+                rounded-xl
+                py-3
+                text-lg
+                font-semibold
+                text-white
+                bg-red-600
+                hover:bg-red-700
+                active:bg-red-800
+                transition-all
+                hover-scale
+              "
             >
               Close
             </button>
